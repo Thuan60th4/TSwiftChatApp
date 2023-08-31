@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0A3B809069197B1F43FA254D /* Pods_TSwiftChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8319F407C906B3E0035B951 /* Pods_TSwiftChatApp.framework */; };
+		4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342E73D2AA0F3CA00680B91 /* Validate.swift */; };
 		4358B6D82A95271F00DB3282 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */; };
+		43679CF02A9BB39900B5CE5C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CEF2A9BB39900B5CE5C /* User.swift */; };
+		43679CF22A9BB50700B5CE5C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CF12A9BB50700B5CE5C /* Constants.swift */; };
+		43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CF42A9BB99A00B5CE5C /* FirebaseReference.swift */; };
+		43679CF72A9BBB1D00B5CE5C /* FirebaseUserListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CF62A9BBB1D00B5CE5C /* FirebaseUserListeners.swift */; };
 		43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D562A9513AC00F24944 /* AppDelegate.swift */; };
 		43C68D592A9513AC00F24944 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D582A9513AC00F24944 /* SceneDelegate.swift */; };
 		43C68D5B2A9513AC00F24944 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D5A2A9513AC00F24944 /* ViewController.swift */; };
@@ -19,7 +24,12 @@
 
 /* Begin PBXFileReference section */
 		1450C77C7F80EB2E91A25128 /* Pods-TSwiftChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSwiftChatApp.release.xcconfig"; path = "Target Support Files/Pods-TSwiftChatApp/Pods-TSwiftChatApp.release.xcconfig"; sourceTree = "<group>"; };
+		4342E73D2AA0F3CA00680B91 /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		43679CEF2A9BB39900B5CE5C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		43679CF12A9BB50700B5CE5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		43679CF42A9BB99A00B5CE5C /* FirebaseReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseReference.swift; sourceTree = "<group>"; };
+		43679CF62A9BBB1D00B5CE5C /* FirebaseUserListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListeners.swift; sourceTree = "<group>"; };
 		43C68D532A9513AC00F24944 /* TSwiftChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TSwiftChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C68D562A9513AC00F24944 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43C68D582A9513AC00F24944 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +71,48 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		430198E72A9E64F300AC0332 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4342E73D2AA0F3CA00680B91 /* Validate.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		43679CEC2A9BB31100B5CE5C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				43C68D5A2A9513AC00F24944 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		43679CED2A9BB32900B5CE5C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				43679CEF2A9BB39900B5CE5C /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		43679CEE2A9BB33400B5CE5C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43C68D612A9513AE00F24944 /* LaunchScreen.storyboard */,
+				43C68D5C2A9513AC00F24944 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		43679CF32A9BB94F00B5CE5C /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				43679CF42A9BB99A00B5CE5C /* FirebaseReference.swift */,
+				43679CF62A9BBB1D00B5CE5C /* FirebaseUserListeners.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		43C68D4A2A9513AC00F24944 = {
 			isa = PBXGroup;
 			children = (
@@ -85,10 +137,13 @@
 			children = (
 				43C68D562A9513AC00F24944 /* AppDelegate.swift */,
 				43C68D582A9513AC00F24944 /* SceneDelegate.swift */,
-				43C68D5A2A9513AC00F24944 /* ViewController.swift */,
-				43C68D5C2A9513AC00F24944 /* Main.storyboard */,
 				43C68D5F2A9513AE00F24944 /* Assets.xcassets */,
-				43C68D612A9513AE00F24944 /* LaunchScreen.storyboard */,
+				43679CED2A9BB32900B5CE5C /* Model */,
+				43679CEE2A9BB33400B5CE5C /* View */,
+				43679CEC2A9BB31100B5CE5C /* Controller */,
+				43679CF32A9BB94F00B5CE5C /* Firebase */,
+				430198E72A9E64F300AC0332 /* Utils */,
+				43679CF12A9BB50700B5CE5C /* Constants.swift */,
 				43C68D642A9513AE00F24944 /* Info.plist */,
 			);
 			path = TSwiftChatApp;
@@ -210,8 +265,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43679CF02A9BB39900B5CE5C /* User.swift in Sources */,
+				43679CF72A9BBB1D00B5CE5C /* FirebaseUserListeners.swift in Sources */,
 				43C68D5B2A9513AC00F24944 /* ViewController.swift in Sources */,
+				4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */,
 				43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */,
+				43679CF22A9BB50700B5CE5C /* Constants.swift in Sources */,
+				43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */,
 				43C68D592A9513AC00F24944 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -93,11 +93,11 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="130" translatesAutoresizingMaskIntoConstraints="NO" id="FxX-uZ-LaS" userLabel="actionBtnStackView">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacing="130" translatesAutoresizingMaskIntoConstraints="NO" id="FxX-uZ-LaS" userLabel="actionBtnStackView">
                                 <rect key="frame" x="16" y="415" width="382" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BPj-1O-Syn">
-                                        <rect key="frame" x="0.0" y="0.0" width="130" height="32"/>
+                                        <rect key="frame" x="252" y="0.0" width="130" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Forgot Password?">
@@ -105,17 +105,6 @@
                                         </state>
                                         <connections>
                                             <action selector="forgotPasswBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QRh-Jy-rgY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQd-Z3-EMt">
-                                        <rect key="frame" x="284" y="0.0" width="98" height="32"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Resend Email">
-                                            <color key="titleColor" red="0.35708022119999999" green="0.69693273310000003" blue="0.96473830940000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="resendPasswBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RHF-qU-kXF"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -172,7 +161,6 @@
                         <outlet property="loginBtnOutlet" destination="HTy-6V-ouF" id="Njl-op-Vgh"/>
                         <outlet property="passwordLabelOutlet" destination="xdQ-nd-AHu" id="2TL-PQ-24g"/>
                         <outlet property="passwordTextFieldOutlet" destination="QG2-Ch-23b" id="f5n-6A-Or2"/>
-                        <outlet property="resendPasswBtnOutlet" destination="gQd-Z3-EMt" id="jVo-UD-4IO"/>
                         <outlet property="signUpBtnOutlet" destination="8oY-td-yhO" id="JbY-7I-DxW"/>
                     </connections>
                 </viewController>
