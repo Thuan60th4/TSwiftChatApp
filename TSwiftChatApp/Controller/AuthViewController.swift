@@ -8,7 +8,7 @@
 import UIKit
 import ProgressHUD
 
-class ViewController: UIViewController {
+class AuthViewController: UIViewController {
     
     var isLogin = true {
         didSet{
@@ -125,7 +125,7 @@ class ViewController: UIViewController {
         FirebaseUserListeners.shared.LoginUserWith(email: emailTextFieldOutlet.text!, password: passwordLabelOutlet.text!) { error, verified in
             if error == nil{
                 if verified {
-                    ProgressHUD.showSucceed("Login succesfully", interaction: false, delay: 1)
+                    self.goToApp()
                 }
                 else {
                     ProgressHUD.showFailed("Please verify your email")
@@ -152,8 +152,14 @@ class ViewController: UIViewController {
         }
     }
     
+    private func goToApp(){
+        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! UITabBarController
+        mainView.modalPresentationStyle = .fullScreen
+        self.present(mainView, animated: true, completion: nil)
+    }
+    
     //MARK: - Validate input
-    func isValidationData(type : String) -> Bool{
+   private func isValidationData(type : String) -> Bool{
         switch type {
             case "Registaion","Login":
                 if !isValidEmail(emailTextFieldOutlet.text ?? "")

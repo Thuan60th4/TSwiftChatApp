@@ -23,7 +23,7 @@ class FirebaseUserListeners {
                     }
                 }
                 let userInfo = authRes.user
-                let user = User(id: userInfo.uid, username: email , email: email, pushToken: "", avatar: "", status: "")
+                let user = User(id: userInfo.uid, username: email , email: email, pushToken: "", avatar: "", status: "Online")
                 saveUserToLocalStorage(user)
                 self.SaveUserToFirestore(user)
             }
@@ -34,12 +34,25 @@ class FirebaseUserListeners {
     func LoginUserWith(email : String,password : String,completion : @escaping (_ error : Error?,_ verified : Bool)-> Void ){
         Auth.auth().signIn(withEmail: email, password: password) {  authResult, error in
             completion(error,authResult?.user.isEmailVerified ?? false)
-        
+            
             if let authResult = authResult, authResult.user.isEmailVerified{
                 self.FetchUserFromFirebase(userId: authResult.user.uid)
             }
         }
     }
+    
+    //MARK: - Logout listener
+    func LogoutUserListener (completion : @escaping (_ error : Error?) -> Void){
+        do {
+            try Auth.auth().signOut()
+            UserDefaults.standard.removeObject(forKey: KCURRENTUSER)
+            completion(nil)
+        } catch {
+            completion(error)
+        }
+        
+    }
+    
     
     //MARK: - Reset password
     func ResetPasswordWith(email : String,completion : @escaping (_ error : Error?) -> Void){
@@ -47,7 +60,7 @@ class FirebaseUserListeners {
             completion(error)
         }
     }
-
+    
     
     //MARK: - Save user info to firestore
     func SaveUserToFirestore(_ user : User){
@@ -64,12 +77,12 @@ class FirebaseUserListeners {
         FirebaseRefFor(collection: .User).document(userId).getDocument { document, error in
             if let document = document, document.exists {
                 do{
-                let user = try document.data(as: User.self)
+                    let user = try document.data(as: User.self)
                     saveUserToLocalStorage(user)
                 }
                 catch{
                     print("get data to firestore error \(error.localizedDescription)")
-
+                    
                 }
             }
         }
