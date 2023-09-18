@@ -21,6 +21,8 @@
 		43C68D5E2A9513AC00F24944 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43C68D5C2A9513AC00F24944 /* Main.storyboard */; };
 		43C68D602A9513AE00F24944 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43C68D5F2A9513AE00F24944 /* Assets.xcassets */; };
 		43C68D632A9513AE00F24944 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43C68D612A9513AE00F24944 /* LaunchScreen.storyboard */; };
+		43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CB0B8B2AB70ED100C78420 /* FireStorage.swift */; };
+		43CB0B8E2AB72FA600C78420 /* GlobalFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */; };
 		43CBC9512AAB7D7B00F0829E /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CBC9502AAB7D7B00F0829E /* SettingTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 		43C68D5F2A9513AE00F24944 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43C68D622A9513AE00F24944 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43C68D642A9513AE00F24944 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43CB0B8B2AB70ED100C78420 /* FireStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStorage.swift; sourceTree = "<group>"; };
+		43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunc.swift; sourceTree = "<group>"; };
 		43CBC9502AAB7D7B00F0829E /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		A8319F407C906B3E0035B951 /* Pods_TSwiftChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSwiftChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5FAB888CC707A0B2681B5B0 /* Pods-TSwiftChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSwiftChatApp.debug.xcconfig"; path = "Target Support Files/Pods-TSwiftChatApp/Pods-TSwiftChatApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				4342E73D2AA0F3CA00680B91 /* Validate.swift */,
+				43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -115,6 +120,7 @@
 			children = (
 				43679CF42A9BB99A00B5CE5C /* FirebaseReference.swift */,
 				43679CF62A9BBB1D00B5CE5C /* FirebaseUserListeners.swift */,
+				43CB0B8B2AB70ED100C78420 /* FireStorage.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -275,12 +281,14 @@
 				43679CF72A9BBB1D00B5CE5C /* FirebaseUserListeners.swift in Sources */,
 				43C68D5B2A9513AC00F24944 /* AuthViewController.swift in Sources */,
 				437C996D2AAE201E00A5D4A1 /* EditProfileTableViewController.swift in Sources */,
+				43CB0B8E2AB72FA600C78420 /* GlobalFunc.swift in Sources */,
 				4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */,
 				43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */,
 				43679CF22A9BB50700B5CE5C /* Constants.swift in Sources */,
 				43CBC9512AAB7D7B00F0829E /* SettingTableViewController.swift in Sources */,
 				43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */,
 				43C68D592A9513AC00F24944 /* SceneDelegate.swift in Sources */,
+				43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

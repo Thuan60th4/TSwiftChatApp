@@ -35,7 +35,6 @@ struct User : Codable,Equatable{
                     print("Error decoder UserDefault data \(error)")
                 }
             }
-            
         }
         return nil
     }

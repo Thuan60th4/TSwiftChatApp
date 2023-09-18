@@ -10,6 +10,7 @@ import UIKit
 class EditProfileTableViewController: UITableViewController,UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
+    var avatarUrl : String? = ""
     
     //MARK: - IBOutlet
     @IBOutlet weak var avatarImageOutlet: UIImageView!
@@ -52,6 +53,8 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     //MARK: - View lifcycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        avatarImageOutlet.layer.cornerRadius = avatarImageOutlet.frame.width / 2
+        avatarImageOutlet.contentMode = .scaleToFill
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         
@@ -83,7 +86,9 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     private func showUserInfo(){
         let currentUser = User.currentUser!
         if currentUser.avatar != "" {
-            //set image
+            FireStorage.downloadImageFrom(imageUrl: currentUser.avatar) { image in
+                self.avatarImageOutlet.image = image
+            }
         }
         userNameTextFieldOutlet.text = currentUser.username
         statusOutlet.text = currentUser.status
@@ -91,20 +96,38 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     //MARK: - Save change data
     private func saveUserInfo(){
         var currentUser = User.currentUser!
+        
+        if avatarUrl != ""{
+            currentUser.avatar = avatarUrl!
+        }
         if userNameTextFieldOutlet.hasText,userNameTextFieldOutlet.text != currentUser.username {
             currentUser.username = userNameTextFieldOutlet.text!
-            FirebaseUserListeners.shared.SaveUserToFirestore(currentUser)
-            saveUserToLocalStorage(currentUser)
         }
+        
+        FirebaseUserListeners.shared.SaveUserToFirestore(currentUser)
+        saveUserToLocalStorage(currentUser)
         navigationController?.popViewController(animated: true)
     }
     
 }
 
+//MARK: - UIImagePickerControllerDelegate
 extension EditProfileTableViewController : UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let userPickerImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        avatarImageOutlet.image = userPickerImage
-        imagePicker.dismiss(animated: true, completion: nil)
+        
+        if  let userPickerImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            
+            FireStorage.uploadImageFor(directory: "Avatars/_\(User.currentId).jpg", userPickerImage) { imageUrl in
+                self.avatarUrl = imageUrl
+                
+                //save image to local base on userId
+                FireStorage.saveFileLocally(fileData: userPickerImage.jpegData(compressionQuality: 1)! as NSData, fileName: User.currentId)
+            }
+            
+            avatarImageOutlet.image = userPickerImage
+            imagePicker.dismiss(animated: true, completion: nil)
+
+        }
+        
     }
 }

@@ -53,7 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func autoLogin(){
         authListener = Auth.auth().addStateDidChangeListener { auth, user in
             Auth.auth().removeStateDidChangeListener(self.authListener!)
-            if user != nil && UserDefaults.standard.data(forKey: KCURRENTUSER) != nil{
+            if user != nil && User.currentUser != nil {
                 DispatchQueue.main.async {
                     let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView")
                     self.window?.rootViewController = mainView

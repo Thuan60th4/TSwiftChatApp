@@ -18,6 +18,9 @@ class SettingTableViewController: UITableViewController {
     //MARK: - view lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        avatarImg.layer.cornerRadius = avatarImg.frame.width / 2
+        avatarImg.contentMode = .scaleToFill
+
         tableView.tableFooterView = UIView()
         //remove separator trên dưới
         tableView.separatorColor = tableView.backgroundColor
@@ -65,7 +68,9 @@ class SettingTableViewController: UITableViewController {
     private func showUserInfo(){
         let currentUser = User.currentUser!
         if currentUser.avatar != "" {
-            //set image
+            FireStorage.downloadImageFrom(imageUrl: currentUser.avatar) { image in
+                self.avatarImg.image = image
+            }
         }
         usernameLabel.text = currentUser.username
         statusLabel.text = currentUser.status
