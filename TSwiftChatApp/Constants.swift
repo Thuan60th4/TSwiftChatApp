@@ -8,3 +8,6 @@
 import Foundation
 
 public let KCURRENTUSER = "currentUser"
+public let KSTATUSLIST = "statusList"
+
+public let KFIRSTRUN = "firstRun"

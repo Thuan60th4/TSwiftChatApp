@@ -67,7 +67,8 @@ class AuthViewController: UIViewController {
         
         setupTextFieldDelegate()
         updateUIFor(login: isLogin)
-        setupBackgroundTap()
+        //extention inherit UIViewController
+        self.hideKeyboardWhenTapArround()
     }
     
     //MARK: - Set up
@@ -80,15 +81,6 @@ class AuthViewController: UIViewController {
     
     @objc func textFieldDidChange(textField : UITextField ){
         updatePlaceholderLabels(textField)
-    }
-    //dissmis keyboard
-    private func setupBackgroundTap(){
-        let tapGetsure = UITapGestureRecognizer(target: self, action:#selector(backgroundTap))
-        view.addGestureRecognizer(tapGetsure)
-    }
-    @objc func backgroundTap(){
-        //kết thúc chỉnh sửa ở view hiện tại là nó sẽ tự tắt bàn phím
-        view.endEditing(false)
     }
     
     //MARK: - Animation

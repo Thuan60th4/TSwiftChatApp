@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SettingTableViewController: UITableViewController {
     
@@ -17,9 +18,10 @@ class SettingTableViewController: UITableViewController {
     
     //MARK: - view lifecycle
     override func viewDidLoad() {
-        super.viewDidLoad()
-        avatarImg.layer.cornerRadius = avatarImg.frame.width / 2
-        avatarImg.contentMode = .scaleToFill
+        super.viewDidLoad()        
+        //circle image
+//        avatarImg.layer.cornerRadius = avatarImg.frame.width / 2
+//        avatarImg.contentMode = .scaleToFill
 
         tableView.tableFooterView = UIView()
         //remove separator trên dưới
@@ -68,9 +70,10 @@ class SettingTableViewController: UITableViewController {
     private func showUserInfo(){
         let currentUser = User.currentUser!
         if currentUser.avatar != "" {
-            FireStorage.downloadImageFrom(imageUrl: currentUser.avatar) { image in
-                self.avatarImg.image = image
-            }
+            avatarImg.roundedImage(fromURL: URL(string: currentUser.avatar))
+//            FireStorage.downloadImageFrom(imageUrl: currentUser.avatar) { image in
+//                self.avatarImg.image = image?.circleImage
+//            }
         }
         usernameLabel.text = currentUser.username
         statusLabel.text = currentUser.status

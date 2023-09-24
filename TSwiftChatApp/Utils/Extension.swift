@@ -1,0 +1,52 @@
+//
+//  Extension.swift
+//  TSwiftChatApp
+//
+//  Created by Pham Minh Thuan on 20/09/2023.
+//
+import UIKit
+import SDWebImage
+
+
+//MARK: - UIImage Extension
+extension UIImage {
+    //circle image
+    var circleImage: UIImage? {
+        let minSize = min(size.width, size.height)
+        let cornerRadius = minSize / 2.0
+        let imageSize = CGSize(width: minSize, height: minSize)
+        
+        UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
+        let imageRect = CGRect(origin: .zero, size: imageSize)
+        UIBezierPath(roundedRect: imageRect, cornerRadius: cornerRadius).addClip()
+        //self trong extention là cái đố tượng mà gọi property này
+        self.draw(in: imageRect)
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return roundedImage
+    }
+}
+
+extension UIImageView {
+    func roundedImage(fromURL url: URL?) {
+        self.sd_setImage(with: url) { [weak self] (image, _, _, _) in
+            if let roundedImage = image?.circleImage {
+                self?.image = roundedImage
+            }
+        }
+    }
+}
+
+
+//MARK: - UIViewController Extension
+extension UIViewController {
+    //Keyboard hiden when tap background
+    func hideKeyboardWhenTapArround (){
+        let tapGetsure = UITapGestureRecognizer(target: self, action:#selector(backgroundTap))
+        tapGetsure.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGetsure)
+    }
+    @objc func backgroundTap(){
+        view.endEditing(true)
+    }
+}

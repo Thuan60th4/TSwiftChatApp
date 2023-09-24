@@ -9,12 +9,5 @@ import Foundation
 
 
 func fileNameFrom(_ fileUrl: String) -> String? {
-    let regex = #"_([^_]+)\.jpg"#
-    
-    if let range = fileUrl.range(of: regex, options: .regularExpression) {
-        let result = fileUrl[range].dropFirst()
-        return String(result)
-    }
-    
-    return nil
+    return fileUrl.components(separatedBy: "_").last?.components(separatedBy: ".jpg").first
 }

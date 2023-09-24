@@ -42,9 +42,8 @@ class FireStorage{
         //get userId from avatar url
         let imageByUserId = fileNameFrom(imageUrl)
         guard let imageByUserId = imageByUserId else{
-            fatalError("cant find your image")
+            fatalError("cant get userID from your image")
         }
-        
         //check if avatar was downloaded in localstorage or not
         if fileExistAt(Path: imageByUserId) {
             if let contentOfFile = UIImage(contentsOfFile: fileInDocumentDirectory(filename: imageByUserId)){
@@ -78,9 +77,6 @@ class FireStorage{
         let docUrl = getDocumentUrl().appendingPathComponent(fileName, isDirectory: false)
         fileData.write(to: docUrl,atomically: true)
     }
-    
-    
-    
 }
 
 //Helper

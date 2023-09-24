@@ -86,10 +86,53 @@ class FirebaseUserListeners {
                 }
             }
         }
+    }
+    
+    
+    //MARK: - Fetch list online user from firebase
+    func FetchListOnlineUserFromFirebase( completion : @escaping (_ listUser : [User])-> Void){
+        var userArray : [User] = []
         
+        FirebaseRefFor(collection: .User)
+            .limit(to: 500)
+//            .whereField("status", isEqualTo: "Online")
+            .whereField("id", isNotEqualTo: User.currentId)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        if let user = try? document.data(as: User.self) {
+                            userArray.append(user)
+                        }
+                    }
+                    completion(userArray)
+                }
+                
+            }
+    }
+    
+    //MARK: - Fetch list specific user from firebase
+    func FetchListUserIDFromFirebase(userIds : [String], completion : @escaping (_ listUser : [User])-> Void){
+        var userArray : [User] = []
+        for (index,userId) in userIds.enumerated() {
+            FirebaseRefFor(collection: .User).document(userId).getDocument(as: User.self) {  result in
+                switch result {
+                    case .success(let user):
+                        userArray.append(user)
+                    case .failure(let error):
+                        print("Get user failure: \(error)")
+                }
+                if index == userIds.count{
+                    completion(userArray)
+                }
+            }
+        }
     }
     
 }
+
+
 
 
 

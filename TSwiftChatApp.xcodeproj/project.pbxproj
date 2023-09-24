@@ -14,7 +14,12 @@
 		43679CF22A9BB50700B5CE5C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CF12A9BB50700B5CE5C /* Constants.swift */; };
 		43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CF42A9BB99A00B5CE5C /* FirebaseReference.swift */; };
 		43679CF72A9BBB1D00B5CE5C /* FirebaseUserListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CF62A9BBB1D00B5CE5C /* FirebaseUserListeners.swift */; };
+		43772B322ABF74DB00EEEB79 /* PeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43772B312ABF74DB00EEEB79 /* PeopleTableViewCell.swift */; };
+		437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A408E2AC04F2D002C762C /* PeopleViewController.swift */; };
 		437C996D2AAE201E00A5D4A1 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C996C2AAE201E00A5D4A1 /* EditProfileTableViewController.swift */; };
+		4385AFD22ABB4E3600F9BAC5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385AFD12ABB4E3600F9BAC5 /* Extension.swift */; };
+		43AA1D542ABCAA1900195F22 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D532ABCAA1900195F22 /* Status.swift */; };
+		43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */; };
 		43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D562A9513AC00F24944 /* AppDelegate.swift */; };
 		43C68D592A9513AC00F24944 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D582A9513AC00F24944 /* SceneDelegate.swift */; };
 		43C68D5B2A9513AC00F24944 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D5A2A9513AC00F24944 /* AuthViewController.swift */; };
@@ -34,7 +39,12 @@
 		43679CF12A9BB50700B5CE5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		43679CF42A9BB99A00B5CE5C /* FirebaseReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseReference.swift; sourceTree = "<group>"; };
 		43679CF62A9BBB1D00B5CE5C /* FirebaseUserListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListeners.swift; sourceTree = "<group>"; };
+		43772B312ABF74DB00EEEB79 /* PeopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewCell.swift; sourceTree = "<group>"; };
+		437A408E2AC04F2D002C762C /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		437C996C2AAE201E00A5D4A1 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		4385AFD12ABB4E3600F9BAC5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		43AA1D532ABCAA1900195F22 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
 		43C68D532A9513AC00F24944 /* TSwiftChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TSwiftChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C68D562A9513AC00F24944 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43C68D582A9513AC00F24944 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +94,7 @@
 			children = (
 				4342E73D2AA0F3CA00680B91 /* Validate.swift */,
 				43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */,
+				4385AFD12ABB4E3600F9BAC5 /* Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -92,8 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				43C68D5A2A9513AC00F24944 /* AuthViewController.swift */,
-				43CBC9502AAB7D7B00F0829E /* SettingTableViewController.swift */,
-				437C996C2AAE201E00A5D4A1 /* EditProfileTableViewController.swift */,
+				437A40902AC057BE002C762C /* Profile */,
+				43772B302ABF743A00EEEB79 /* People */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -102,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				43679CEF2A9BB39900B5CE5C /* User.swift */,
+				43AA1D532ABCAA1900195F22 /* Status.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,6 +135,25 @@
 				43CB0B8B2AB70ED100C78420 /* FireStorage.swift */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		43772B302ABF743A00EEEB79 /* People */ = {
+			isa = PBXGroup;
+			children = (
+				437A408E2AC04F2D002C762C /* PeopleViewController.swift */,
+				43772B312ABF74DB00EEEB79 /* PeopleTableViewCell.swift */,
+			);
+			path = People;
+			sourceTree = "<group>";
+		};
+		437A40902AC057BE002C762C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				43CBC9502AAB7D7B00F0829E /* SettingTableViewController.swift */,
+				437C996C2AAE201E00A5D4A1 /* EditProfileTableViewController.swift */,
+				43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		43C68D4A2A9513AC00F24944 = {
@@ -286,8 +317,13 @@
 				43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */,
 				43679CF22A9BB50700B5CE5C /* Constants.swift in Sources */,
 				43CBC9512AAB7D7B00F0829E /* SettingTableViewController.swift in Sources */,
+				43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */,
+				437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */,
+				43AA1D542ABCAA1900195F22 /* Status.swift in Sources */,
+				4385AFD22ABB4E3600F9BAC5 /* Extension.swift in Sources */,
 				43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */,
 				43C68D592A9513AC00F24944 /* SceneDelegate.swift in Sources */,
+				43772B322ABF74DB00EEEB79 /* PeopleTableViewCell.swift in Sources */,
 				43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

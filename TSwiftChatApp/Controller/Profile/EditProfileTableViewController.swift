@@ -26,7 +26,6 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
         saveUserInfo()
     }
     @IBAction func setNewPhotoPressed(_ sender: UIButton) {
-        
         //Action Sheet
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let option1Action = UIAlertAction(title: "Take a picture", style: .default) { (action) in
@@ -50,24 +49,17 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
         }
         present(alertController, animated: true, completion: nil)
     }
+    
     //MARK: - View lifcycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        avatarImageOutlet.layer.cornerRadius = avatarImageOutlet.frame.width / 2
-        avatarImageOutlet.contentMode = .scaleToFill
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        
+        //extention inherit UIViewController
+        self.hideKeyboardWhenTapArround()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         showUserInfo()
-        setupBackgroundTap()
-    }
-    //dissmis keyboard
-    private func setupBackgroundTap(){
-        let tapGetsure = UITapGestureRecognizer(target: self, action:#selector(backgroundTap))
-        view.addGestureRecognizer(tapGetsure)
-    }
-    @objc func backgroundTap(){
-        view.endEditing(false)
     }
     
     //MARK: - TableView delegate
@@ -78,7 +70,9 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
         return CGFloat.leastNormalMagnitude
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO : show status
+        if indexPath.section == 2 && indexPath.row == 0{
+            performSegue(withIdentifier: "goToStatusList", sender: self)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -86,19 +80,22 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     private func showUserInfo(){
         let currentUser = User.currentUser!
         if currentUser.avatar != "" {
-            FireStorage.downloadImageFrom(imageUrl: currentUser.avatar) { image in
-                self.avatarImageOutlet.image = image
-            }
+            avatarImageOutlet.roundedImage(fromURL: URL(string: currentUser.avatar))
         }
         userNameTextFieldOutlet.text = currentUser.username
         statusOutlet.text = currentUser.status
     }
+    
     //MARK: - Save change data
     private func saveUserInfo(){
         var currentUser = User.currentUser!
         
         if avatarUrl != ""{
             currentUser.avatar = avatarUrl!
+           //save image to local base on userId
+//            if let imageData = avatarImageOutlet.image?.jpegData(compressionQuality: 1) as NSData? {
+//                FireStorage.saveFileLocally(fileData: imageData, fileName: User.currentId)
+//            }
         }
         if userNameTextFieldOutlet.hasText,userNameTextFieldOutlet.text != currentUser.username {
             currentUser.username = userNameTextFieldOutlet.text!
@@ -116,15 +113,10 @@ extension EditProfileTableViewController : UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if  let userPickerImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            
             FireStorage.uploadImageFor(directory: "Avatars/_\(User.currentId).jpg", userPickerImage) { imageUrl in
                 self.avatarUrl = imageUrl
-                
-                //save image to local base on userId
-                FireStorage.saveFileLocally(fileData: userPickerImage.jpegData(compressionQuality: 1)! as NSData, fileName: User.currentId)
             }
-            
-            avatarImageOutlet.image = userPickerImage
+            avatarImageOutlet.image = userPickerImage.circleImage
             imagePicker.dismiss(animated: true, completion: nil)
 
         }

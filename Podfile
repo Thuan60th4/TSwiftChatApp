@@ -15,9 +15,9 @@ pod 'FirebaseAnalytics', '~>9.6.0'
 pod 'FirebaseMessaging', '~>9.6.0'
 pod 'FirebaseFirestoreSwift'
 
-pod 'Gallery'
 pod 'RealmSwift', '~>10.33.0'
 
+pod 'SDWebImage'
 pod 'ProgressHUD'
 pod 'SKPhotoBrowser'
 
