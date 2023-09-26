@@ -40,6 +40,15 @@ class PeopleViewController: UIViewController {
         }
     }
 
+    //Load list user
+    func loadListUser(){
+        FirebaseUserListeners.shared.FetchListOnlineUserFromFirebase { userArray in
+            self.listUser = userArray
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 
 }
 
@@ -50,18 +59,11 @@ extension PeopleViewController : UITableViewDataSource {
     }
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "guestUserCell", for: indexPath) as! PeopleTableViewCell
-         cell.loadGuestInfo(user: User.currentUser!)
+         cell.loadGuestInfo(user: listUser[indexPath.row])
         return cell
     }
     
-    func loadListUser(){
-        FirebaseUserListeners.shared.FetchListOnlineUserFromFirebase { userArray in
-            self.listUser = userArray
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+
 }
 
 //MARK: - Table view delegate

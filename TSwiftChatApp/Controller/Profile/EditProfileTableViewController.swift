@@ -7,6 +7,8 @@
 
 import UIKit
 
+let borderRadius = 10.0
+
 class EditProfileTableViewController: UITableViewController,UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
@@ -15,8 +17,9 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     //MARK: - IBOutlet
     @IBOutlet weak var avatarImageOutlet: UIImageView!
     @IBOutlet weak var userNameTextFieldOutlet: UITextField!
+    @IBOutlet weak var bioTextViewOutlet: UITextView!
+    @IBOutlet weak var statusViewOutlet: UIStackView!
     @IBOutlet weak var statusOutlet: UILabel!
-    @IBOutlet weak var doneBtnOutlet: UIBarButtonItem!
     
     //MARK: - IBAction
     @IBAction func cancelBtnPressed(_ sender: UIBarButtonItem) {
@@ -53,10 +56,19 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     //MARK: - View lifcycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bioTextViewOutlet.delegate = self
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
+        
         //extention inherit UIViewController
         self.hideKeyboardWhenTapArround()
+        
+        //style textInput
+        style()
+        //Auto resizing cell
+        tableView.rowHeight = UITableView.automaticDimension
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         showUserInfo()
@@ -64,25 +76,25 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     
     //MARK: - TableView delegate
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return  section == 0 ? CGFloat.leastNormalMagnitude : 5
     }
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 && indexPath.row == 0{
+        if indexPath.section == 3 {
             performSegue(withIdentifier: "goToStatusList", sender: self)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //MARK: - Update UI
+    //MARK: - load user info
     private func showUserInfo(){
         let currentUser = User.currentUser!
         if currentUser.avatar != "" {
             avatarImageOutlet.roundedImage(fromURL: URL(string: currentUser.avatar))
         }
         userNameTextFieldOutlet.text = currentUser.username
+        bioTextViewOutlet.text = currentUser.description
         statusOutlet.text = currentUser.status
     }
     
@@ -92,13 +104,17 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
         
         if avatarUrl != ""{
             currentUser.avatar = avatarUrl!
-           //save image to local base on userId
-//            if let imageData = avatarImageOutlet.image?.jpegData(compressionQuality: 1) as NSData? {
-//                FireStorage.saveFileLocally(fileData: imageData, fileName: User.currentId)
-//            }
+            //save image to local base on userId
+            //            if let imageData = avatarImageOutlet.image?.jpegData(compressionQuality: 1) as NSData? {
+            //                FireStorage.saveFileLocally(fileData: imageData, fileName: User.currentId)
+            //            }
         }
         if userNameTextFieldOutlet.hasText,userNameTextFieldOutlet.text != currentUser.username {
             currentUser.username = userNameTextFieldOutlet.text!
+        }
+        
+        if bioTextViewOutlet.hasText,bioTextViewOutlet.text != currentUser.username {
+            currentUser.description = bioTextViewOutlet.text!
         }
         
         FirebaseUserListeners.shared.SaveUserToFirestore(currentUser)
@@ -118,8 +134,30 @@ extension EditProfileTableViewController : UIImagePickerControllerDelegate{
             }
             avatarImageOutlet.image = userPickerImage.circleImage
             imagePicker.dismiss(animated: true, completion: nil)
-
+            
         }
+        
+    }
+}
+
+//MARK: - UITextViewDelegate auto resize height when type bio( disable scroll property in interface builder)
+extension EditProfileTableViewController : UITextViewDelegate{
+    func textViewDidChange(_ textView: UITextView) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+}
+
+//MARK: - Style
+extension EditProfileTableViewController{
+    func style(){
+        //padding
+        bioTextViewOutlet.contentInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10);
+        userNameTextFieldOutlet.paddingForTextField(horizontal: 10, vertical: 5)
+        //border
+        statusViewOutlet.layer.cornerRadius = borderRadius
+        bioTextViewOutlet.layer.cornerRadius = borderRadius
+        userNameTextFieldOutlet.layer.cornerRadius = borderRadius
         
     }
 }

@@ -23,7 +23,7 @@ class FirebaseUserListeners {
                     }
                 }
                 let userInfo = authRes.user
-                let user = User(id: userInfo.uid, username: email , email: email, pushToken: "", avatar: "", status: "Online")
+                let user = User(id: userInfo.uid, username: email , email: email, pushToken: "", avatar: "", status: "Online", description: "")
                 saveUserToLocalStorage(user)
                 self.SaveUserToFirestore(user)
             }

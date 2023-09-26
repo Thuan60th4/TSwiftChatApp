@@ -84,6 +84,17 @@ class AuthViewController: UIViewController {
     }
     
     //MARK: - Animation
+    private func updatePlaceholderLabels(_ textField : UITextField){
+        switch textField {
+            case emailTextFieldOutlet:
+                emailLabelOutlet.text = emailTextFieldOutlet.hasText ? "Email" : ""
+            case passwordTextFieldOutlet:
+                passwordLabelOutlet.text = passwordTextFieldOutlet.hasText ? "Password" : ""
+            default:
+                confirmPasswordLabelOutlet.text = confirmPasswordTextFieldOutlet.hasText ? "Confirm password" : ""
+        }
+    }
+    
     private func updateUIFor(login : Bool){
         loginBtnOutlet.setImage(UIImage(named: login ? "loginBtn" : "registerBtn"), for: .normal)
         
@@ -96,16 +107,6 @@ class AuthViewController: UIViewController {
             
         }
         
-    }
-    private func updatePlaceholderLabels(_ textField : UITextField){
-        switch textField {
-            case emailTextFieldOutlet:
-                emailLabelOutlet.text = emailTextFieldOutlet.hasText ? "Email" : ""
-            case passwordTextFieldOutlet:
-                passwordLabelOutlet.text = passwordTextFieldOutlet.hasText ? "Password" : ""
-            default:
-                confirmPasswordLabelOutlet.text = confirmPasswordTextFieldOutlet.hasText ? "Confirm password" : ""
-        }
     }
     
     //MARK: - Action handle

@@ -18,6 +18,7 @@ struct User : Codable,Equatable{
     var pushToken : String
     var avatar : String
     var status : String
+    var description : String
     
     static var currentId :String {
         return Auth.auth().currentUser!.uid

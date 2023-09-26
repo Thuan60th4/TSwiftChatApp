@@ -19,7 +19,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
         let imageRect = CGRect(origin: .zero, size: imageSize)
         UIBezierPath(roundedRect: imageRect, cornerRadius: cornerRadius).addClip()
-        //self trong extention là cái đố tượng mà gọi property này
+        //self trong extention là cái đối tượng mà gọi property này
         self.draw(in: imageRect)
         let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -27,6 +27,7 @@ extension UIImage {
     }
 }
 
+//MARK: - UIImageView Extension
 extension UIImageView {
     func roundedImage(fromURL url: URL?) {
         self.sd_setImage(with: url) { [weak self] (image, _, _, _) in
@@ -37,6 +38,16 @@ extension UIImageView {
     }
 }
 
+//MARK: - UITextField Extension
+extension UITextField {
+    func paddingForTextField(horizontal : Int, vertical: Int){
+        let paddingView = UIView.init(frame: CGRect(x: 0, y: 0, width: horizontal, height: vertical))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+        self.rightView = paddingView
+        self.rightViewMode = .always
+    }
+}
 
 //MARK: - UIViewController Extension
 extension UIViewController {

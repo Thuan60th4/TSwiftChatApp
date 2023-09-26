@@ -36,7 +36,7 @@ class FireStorage{
         }
     }
     
-    //MARK: - Download image from url
+    //MARK: - Download image from url (instead of SDWebImage)
     class func downloadImageFrom(imageUrl : String,completion : @escaping (_ image : UIImage?) -> Void){
         
         //get userId from avatar url
