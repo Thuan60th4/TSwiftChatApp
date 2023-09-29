@@ -11,3 +11,8 @@ public let KCURRENTUSER = "currentUser"
 public let KSTATUSLIST = "statusList"
 
 public let KFIRSTRUN = "firstRun"
+
+
+//MARK: - cell name
+public let peopleCell = "guestUserCell"
+public let chatCell = "chatCell"

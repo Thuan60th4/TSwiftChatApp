@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A3B809069197B1F43FA254D /* Pods_TSwiftChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8319F407C906B3E0035B951 /* Pods_TSwiftChatApp.framework */; };
+		4317848B2AC5864800C80EBA /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4317848A2AC5864800C80EBA /* ChatTableViewCell.swift */; };
+		4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4317848C2AC586C000C80EBA /* ChatTableViewController.swift */; };
 		4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342E73D2AA0F3CA00680B91 /* Validate.swift */; };
 		4358B6D82A95271F00DB3282 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */; };
 		43679CF02A9BB39900B5CE5C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43679CEF2A9BB39900B5CE5C /* User.swift */; };
@@ -18,6 +20,8 @@
 		437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437A408E2AC04F2D002C762C /* PeopleViewController.swift */; };
 		437C996D2AAE201E00A5D4A1 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C996C2AAE201E00A5D4A1 /* EditProfileTableViewController.swift */; };
 		4385AFD22ABB4E3600F9BAC5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385AFD12ABB4E3600F9BAC5 /* Extension.swift */; };
+		439BDAF72AC59AD900672F5F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BDAF62AC59AD900672F5F /* Chat.swift */; };
+		43A8DD9C2AC5DDB600284EA0 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8DD9B2AC5DDB600284EA0 /* Converter.swift */; };
 		43AA1D542ABCAA1900195F22 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D532ABCAA1900195F22 /* Status.swift */; };
 		43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */; };
 		43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D562A9513AC00F24944 /* AppDelegate.swift */; };
@@ -33,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		1450C77C7F80EB2E91A25128 /* Pods-TSwiftChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSwiftChatApp.release.xcconfig"; path = "Target Support Files/Pods-TSwiftChatApp/Pods-TSwiftChatApp.release.xcconfig"; sourceTree = "<group>"; };
+		4317848A2AC5864800C80EBA /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		4317848C2AC586C000C80EBA /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
 		4342E73D2AA0F3CA00680B91 /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		43679CEF2A9BB39900B5CE5C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -43,6 +49,8 @@
 		437A408E2AC04F2D002C762C /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		437C996C2AAE201E00A5D4A1 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		4385AFD12ABB4E3600F9BAC5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		439BDAF62AC59AD900672F5F /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		43A8DD9B2AC5DDB600284EA0 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		43AA1D532ABCAA1900195F22 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
 		43C68D532A9513AC00F24944 /* TSwiftChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TSwiftChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,14 +103,25 @@
 				4342E73D2AA0F3CA00680B91 /* Validate.swift */,
 				43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */,
 				4385AFD12ABB4E3600F9BAC5 /* Extension.swift */,
+				43A8DD9B2AC5DDB600284EA0 /* Converter.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		431784892AC5861400C80EBA /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4317848C2AC586C000C80EBA /* ChatTableViewController.swift */,
+				4317848A2AC5864800C80EBA /* ChatTableViewCell.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		43679CEC2A9BB31100B5CE5C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				43C68D5A2A9513AC00F24944 /* AuthViewController.swift */,
+				431784892AC5861400C80EBA /* Chat */,
 				437A40902AC057BE002C762C /* Profile */,
 				43772B302ABF743A00EEEB79 /* People */,
 			);
@@ -114,6 +133,7 @@
 			children = (
 				43679CEF2A9BB39900B5CE5C /* User.swift */,
 				43AA1D532ABCAA1900195F22 /* Status.swift */,
+				439BDAF62AC59AD900672F5F /* Chat.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,14 +331,18 @@
 				43679CF02A9BB39900B5CE5C /* User.swift in Sources */,
 				43679CF72A9BBB1D00B5CE5C /* FirebaseUserListeners.swift in Sources */,
 				43C68D5B2A9513AC00F24944 /* AuthViewController.swift in Sources */,
+				4317848B2AC5864800C80EBA /* ChatTableViewCell.swift in Sources */,
 				437C996D2AAE201E00A5D4A1 /* EditProfileTableViewController.swift in Sources */,
 				43CB0B8E2AB72FA600C78420 /* GlobalFunc.swift in Sources */,
 				4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */,
 				43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */,
 				43679CF22A9BB50700B5CE5C /* Constants.swift in Sources */,
 				43CBC9512AAB7D7B00F0829E /* SettingTableViewController.swift in Sources */,
+				43A8DD9C2AC5DDB600284EA0 /* Converter.swift in Sources */,
 				43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */,
 				437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */,
+				4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */,
+				439BDAF72AC59AD900672F5F /* Chat.swift in Sources */,
 				43AA1D542ABCAA1900195F22 /* Status.swift in Sources */,
 				4385AFD22ABB4E3600F9BAC5 /* Extension.swift in Sources */,
 				43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */,

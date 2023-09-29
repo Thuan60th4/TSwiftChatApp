@@ -58,7 +58,7 @@ extension PeopleViewController : UITableViewDataSource {
          return listUser.count
     }
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "guestUserCell", for: indexPath) as! PeopleTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: peopleCell, for: indexPath) as! PeopleTableViewCell
          cell.loadGuestInfo(user: listUser[indexPath.row])
         return cell
     }

@@ -18,8 +18,8 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
     @IBOutlet weak var avatarImageOutlet: UIImageView!
     @IBOutlet weak var userNameTextFieldOutlet: UITextField!
     @IBOutlet weak var bioTextViewOutlet: UITextView!
-    @IBOutlet weak var statusViewOutlet: UIStackView!
     @IBOutlet weak var statusOutlet: UILabel!
+    @IBOutlet weak var statusViewOutlet: UIView!
     
     //MARK: - IBAction
     @IBAction func cancelBtnPressed(_ sender: UIBarButtonItem) {
@@ -152,7 +152,7 @@ extension EditProfileTableViewController : UITextViewDelegate{
 extension EditProfileTableViewController{
     func style(){
         //padding
-        bioTextViewOutlet.contentInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10);
+        bioTextViewOutlet.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5);
         userNameTextFieldOutlet.paddingForTextField(horizontal: 10, vertical: 5)
         //border
         statusViewOutlet.layer.cornerRadius = borderRadius
