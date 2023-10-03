@@ -10,7 +10,9 @@ import FirebaseFirestore
 
 enum FCollectionRef : String{
     case User
-    case Recent
+    case Chat
+    case UserChats
+    case Message
 }
 //get tham chiếu của đường dẫn vào database
 func FirebaseRefFor(collection : FCollectionRef ) -> CollectionReference {

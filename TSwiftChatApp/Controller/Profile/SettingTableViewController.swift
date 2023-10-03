@@ -55,8 +55,8 @@ class SettingTableViewController: UITableViewController {
     @IBAction func logoutPressed(_ sender: UIButton) {
         FirebaseUserListeners.shared.LogoutUserListener { error in
             if error == nil{
+                FirebaseChatListeners.shared.resetChat()
                 let authView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthView")
-                
                 DispatchQueue.main.async {
                     authView.modalPresentationStyle = .fullScreen
                     self.present(authView, animated: false, completion: nil

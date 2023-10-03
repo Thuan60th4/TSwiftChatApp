@@ -29,8 +29,9 @@ extension UIImage {
 
 //MARK: - UIImageView Extension
 extension UIImageView {
-    func roundedImage(fromURL url: URL?) {
-        self.sd_setImage(with: url) { [weak self] (image, _, _, _) in
+    func roundedImage(fromURL url: URL?,placeholderImage : UIImage? = nil) {
+        self.sd_setImage(with: url,placeholderImage: placeholderImage
+        ) { [weak self] (image, _, _, _) in
             if let roundedImage = image?.circleImage {
                 self?.image = roundedImage
             }
@@ -62,11 +63,29 @@ extension UIViewController {
     }
 }
 
+//MARK: - Date Extension
 extension Date {
     func longDate() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy"
         return dateFormatter.string(from: self)
 
+    }
+}
+
+//MARK: - UIActivityIndicatorView Extension
+extension UIActivityIndicatorView {
+    static func create() -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+//        activityIndicator.frame = CGRect(x:UIScreen.main.bounds.size.width / 2, y:UIScreen.main.bounds.size.height / 2)
+        return activityIndicator
+    }
+    func start() {
+        self.startAnimating()
+        self.isHidden = false
+    }
+    func stop() {
+        self.stopAnimating()
+        self.isHidden = true
     }
 }

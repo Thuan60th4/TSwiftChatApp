@@ -217,13 +217,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xwV-at-WR9">
                                                             <rect key="frame" x="59" y="6" width="294.33333333333331" height="42.333333333333336"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9J-9R-Z32">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9J-9R-Z32">
                                                                     <rect key="frame" x="0.0" y="0.0" width="294.33333333333331" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNF-Mj-vI5">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNF-Mj-vI5">
                                                                     <rect key="frame" x="0.0" y="25.333333333333336" width="294.33333333333331" height="17"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -713,10 +713,10 @@
             </objects>
             <point key="canvasLocation" x="3239" y="1537"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Chat-->
         <scene sceneID="r1D-4X-4Yx">
             <objects>
-                <tableViewController id="HId-E1-CW1" sceneMemberID="viewController">
+                <tableViewController id="HId-E1-CW1" customClass="ChatTableViewController" customModule="TSwiftChatApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="l6G-CR-BlQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -803,7 +803,7 @@
                             <outlet property="delegate" destination="HId-E1-CW1" id="fNc-Jz-DTq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="zcO-a1-Zv6"/>
+                    <navigationItem key="navigationItem" title="Chat" id="zcO-a1-Zv6"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6yk-Nl-AWQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

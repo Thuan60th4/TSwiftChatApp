@@ -25,11 +25,14 @@ class ChatTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     func loadChatInfoFor(chat : Chat){
-        chatImageOutlet.roundedImage(fromURL: URL(string: chat.avatarLink))
-        chatNameOutlet.text = chat.senderName
-        lastMessageOutlet.text = chat.lastMessage
-        timeSentOutlet.text = convertDate(chat.date ?? Date())
-        isReadViewOutlet.isHidden = chat.isReaded
+        if let guestId = chat.memberIds.first(where: { $0 != User.currentId}), let guestData = FirebaseChatListeners.shared.listUser[guestId]
+        {
+            chatImageOutlet.roundedImage(fromURL: URL(string: guestData.avatar), placeholderImage: UIImage(named: "avatar"))
+            chatNameOutlet.text = guestData.username
+            lastMessageOutlet.text = chat.lastMessage
+            timeSentOutlet.text = convertDate(chat.date ?? Date())
+//            isReadViewOutlet.isHidden = chat.isReaded
+        }
     }
     
 }

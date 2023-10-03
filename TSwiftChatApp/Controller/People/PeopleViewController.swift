@@ -24,6 +24,7 @@ class PeopleViewController: UIViewController {
         super.viewDidLoad()
         setupResfreshControl()
         tableView.dataSource = self
+        tableView.delegate = self
         loadListUser()
     }
     
@@ -35,6 +36,7 @@ class PeopleViewController: UIViewController {
     }
     @objc private func refreshData(_ sender: UIRefreshControl) {
         //refresh user list
+        loadListUser()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             sender.endRefreshing()
         }
@@ -62,14 +64,13 @@ extension PeopleViewController : UITableViewDataSource {
          cell.loadGuestInfo(user: listUser[indexPath.row])
         return cell
     }
-    
-
 }
 
 //MARK: - Table view delegate
 extension PeopleViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Go to chat
+        startChat(memberIds: [User.currentId,listUser[indexPath.row].id])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
