@@ -12,6 +12,8 @@ class ChatTableViewCell: UITableViewCell {
     //MARK: - IBOutlet
     @IBOutlet weak var chatImageOutlet: UIImageView!
     @IBOutlet weak var chatNameOutlet: UILabel!
+    
+    @IBOutlet weak var messageContainOutlet: UIStackView!
     @IBOutlet weak var lastMessageOutlet: UILabel!
     @IBOutlet weak var timeSentOutlet: UILabel!
     @IBOutlet weak var isReadViewOutlet: UIView!
@@ -31,8 +33,12 @@ class ChatTableViewCell: UITableViewCell {
             chatNameOutlet.text = guestData.username
             lastMessageOutlet.text = chat.lastMessage
             timeSentOutlet.text = convertDate(chat.date ?? Date())
-//            isReadViewOutlet.isHidden = chat.isReaded
+            //            isReadViewOutlet.isHidden = chat.isReaded
         }
+    }
+    func loadSearchUserFor(user : User){
+        chatImageOutlet.roundedImage(fromURL: URL(string: user.avatar), placeholderImage: UIImage(named: "avatar"))
+        chatNameOutlet.text = user.username
     }
     
 }

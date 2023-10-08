@@ -124,6 +124,23 @@ class FirebaseUserListeners {
         }
     }
     
+    //MARK: - Search user
+    func FindUserFromFirebaseWith(name : String, completion : @escaping (_ listUser : [User])-> Void){
+        FirebaseRefFor(collection: .User)
+            .order(by: "username")
+            .start(at: [name])
+            .end(at: ["\(name)\u{f8ff}"])
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    completion( querySnapshot!.documents.compactMap({ document in
+                        try? document.data(as: User.self)
+                    }))
+                }
+            }
+    }
+    
 }
 
 

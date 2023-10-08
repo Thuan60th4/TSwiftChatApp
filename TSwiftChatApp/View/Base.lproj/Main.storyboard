@@ -219,7 +219,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9J-9R-Z32">
                                                                     <rect key="frame" x="0.0" y="0.0" width="294.33333333333331" height="20.333333333333332"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -722,7 +722,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatCell" id="DQ5-hG-Kye" customClass="ChatTableViewCell" customModule="TSwiftChatApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatCell" rowHeight="70" id="DQ5-hG-Kye" customClass="ChatTableViewCell" customModule="TSwiftChatApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DQ5-hG-Kye" id="bA3-xq-X0H">
@@ -739,27 +739,27 @@
                                                         <constraint firstAttribute="height" constant="55" id="JJa-3O-0e4"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="faH-qY-Thk">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="faH-qY-Thk">
                                                     <rect key="frame" x="65" y="8" width="298" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gx4-H5-2Jq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="298" height="24"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="298" height="20.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="j9w-yL-ejl">
-                                                            <rect key="frame" x="0.0" y="24" width="298" height="20"/>
+                                                            <rect key="frame" x="0.0" y="25.333333333333336" width="298" height="18.666666666666664"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdf-r3-emu">
-                                                                    <rect key="frame" x="0.0" y="1.3333333333333357" width="236.66666666666666" height="17"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <rect key="frame" x="0.0" y="0.3333333333333286" width="233" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="timetime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTp-QC-27M">
-                                                                    <rect key="frame" x="241.66666666666671" y="1.3333333333333357" width="56.333333333333343" height="17"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <rect key="frame" x="238" y="0.3333333333333286" width="60" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -777,8 +777,7 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="faH-qY-Thk" secondAttribute="bottom" constant="8" id="eqi-9l-QVM"/>
-                                                <constraint firstItem="faH-qY-Thk" firstAttribute="top" secondItem="ySi-CS-PK1" secondAttribute="top" constant="8" id="gVz-3e-Bxw"/>
+                                                <constraint firstItem="faH-qY-Thk" firstAttribute="top" secondItem="ySi-CS-PK1" secondAttribute="top" constant="8" id="cRB-Wb-cGa"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
@@ -794,6 +793,7 @@
                                     <outlet property="chatNameOutlet" destination="Gx4-H5-2Jq" id="0xh-BD-9VZ"/>
                                     <outlet property="isReadViewOutlet" destination="xfu-4g-CYt" id="hgu-Wn-2FD"/>
                                     <outlet property="lastMessageOutlet" destination="qdf-r3-emu" id="bfq-aV-Pou"/>
+                                    <outlet property="messageContainOutlet" destination="j9w-yL-ejl" id="tGJ-L4-LVF"/>
                                     <outlet property="timeSentOutlet" destination="qTp-QC-27M" id="BAy-gZ-8Wj"/>
                                 </connections>
                             </tableViewCell>

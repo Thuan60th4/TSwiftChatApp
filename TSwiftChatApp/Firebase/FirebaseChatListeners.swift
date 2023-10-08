@@ -36,18 +36,28 @@ class FirebaseChatListeners {
         }
     }
     
-    //MARK: - Save user chats
+    //MARK: - Add user to chats
     func addChatForUser(userId: String ,chatRoomId: String){
-        FirebaseRefFor(collection: .UserChats).document(userId).setData([UUID().uuidString : chatRoomId],merge: true)
+        FirebaseRefFor(collection: .UserChats).document(userId).setData([chatRoomId : chatRoomId],merge: true)
     }
+    
+    //MARK: - Remove user from chat
+    func removeUserFromchat(userId: String ,chatRoomId: String, newMemberIds : [String]){
+//        chatListenerId[chatRoomId]?.remove()
+        FirebaseRefFor(collection: .UserChats).document(userId).updateData([chatRoomId : FieldValue.delete()])
+        FirebaseRefFor(collection: .Chat).document(chatRoomId).updateData(["memberIds" : newMemberIds])
+    }
+
     
     //MARK: - Listener when have chat
     func fetchNewChat(completion : @escaping (_ allchat : [String : Chat]) -> Void){
-        var chatsFoundCount = 0
-        var chatsData =  [String : Chat]()
+        let dispatchGroup = DispatchGroup()
         FirebaseRefFor(collection: .UserChats).document(User.currentId).addSnapshotListener { document, error in
+            var chatsFoundCount = 0
+            var chatsData =  [String : Chat]()
             guard let listChatId = document?.data() as? [String: String],!listChatId.isEmpty else {
                 print("Error fetching list chat")
+                completion([:])
                 return
             }
             for chatId in listChatId.values {
@@ -57,33 +67,41 @@ class FirebaseChatListeners {
                             print("Error fetching \(chatId) data")
                             return
                         }
-                        chatsFoundCount+=1
                         if !chatInfo.memberIds.contains(User.currentId){
                             self.chatListenerId[chatId]?.remove()
                             return
                         }
+                        
                         for userId in chatInfo.memberIds {
                             if self.listUser[userId] != nil {
                                 continue
                             }
+                            dispatchGroup.enter()
                             FirebaseRefFor(collection: .User).document(userId).getDocument { userDocument, error in
                                 if let userDocument = userDocument, userDocument.exists {
                                     if let userInfo = try? userDocument.data(as: User.self) {
                                         self.listUser[userId] = userInfo
                                     }
                                 }
-                                chatsData[chatId] = chatInfo
-                                if (chatsFoundCount >= listChatId.values.count) {
-                                    completion(chatsData)
-                                }
+                                dispatchGroup.leave()
+                            }
+                        }
+                        
+                        dispatchGroup.notify(queue: .main) {
+                            chatsFoundCount+=1
+                            chatsData[chatId] = chatInfo
+                            if (chatsFoundCount >= listChatId.values.count) {
+                                completion(chatsData)
                             }
                         }
                     }
                 }
             }
-        }
-        if (chatsFoundCount == 0) {
-            completion([:])
+            dispatchGroup.notify(queue: .main) {
+                if (chatsFoundCount == 0) {
+                    completion([:])
+                }
+            }
         }
     }
 }

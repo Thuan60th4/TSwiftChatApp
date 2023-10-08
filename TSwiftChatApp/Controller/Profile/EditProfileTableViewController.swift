@@ -113,7 +113,7 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
             currentUser.username = userNameTextFieldOutlet.text!
         }
         
-        if bioTextViewOutlet.hasText,bioTextViewOutlet.text != currentUser.username {
+        if bioTextViewOutlet.hasText,bioTextViewOutlet.text != currentUser.description {
             currentUser.description = bioTextViewOutlet.text!
         }
         
