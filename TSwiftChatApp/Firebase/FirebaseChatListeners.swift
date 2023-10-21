@@ -36,18 +36,30 @@ class FirebaseChatListeners {
         }
     }
     
-    //MARK: - Add user to chats
+    //MARK: - Add one chat for user
     func addChatForUser(userId: String ,chatRoomId: String){
         FirebaseRefFor(collection: .UserChats).document(userId).setData([chatRoomId : chatRoomId],merge: true)
     }
     
     //MARK: - Remove user from chat
     func removeUserFromchat(userId: String ,chatRoomId: String, newMemberIds : [String]){
-//        chatListenerId[chatRoomId]?.remove()
+        //chatListenerId[chatRoomId]?.remove()
         FirebaseRefFor(collection: .UserChats).document(userId).updateData([chatRoomId : FieldValue.delete()])
         FirebaseRefFor(collection: .Chat).document(chatRoomId).updateData(["memberIds" : newMemberIds])
     }
 
+    //MARK: - Send a message
+    func addAMessage(message: LocalMessage){
+        do {
+            let encoder = Firestore.Encoder()
+            let data = try encoder.encode(message)
+            FirebaseRefFor(collection: .Message).document(message.chatRoomId).setData([UUID().uuidString : data],merge: true)
+
+        } catch {
+            print("send a message to firebase error \(error.localizedDescription)")
+        }
+    }
+    
     
     //MARK: - Listener when have chat
     func fetchNewChat(completion : @escaping (_ allchat : [String : Chat]) -> Void){
@@ -62,8 +74,7 @@ class FirebaseChatListeners {
             }
             for chatId in listChatId.values {
                 self.chatListenerId[chatId] = FirebaseRefFor(collection: .Chat).document(chatId ).addSnapshotListener { chatSnapshot, error in
-                    if let chatSnapshot = chatSnapshot {
-                        guard let chatInfo = try? chatSnapshot.data(as: Chat.self) else {
+                        guard let chatInfo = try? chatSnapshot?.data(as: Chat.self) else {
                             print("Error fetching \(chatId) data")
                             return
                         }
@@ -96,7 +107,6 @@ class FirebaseChatListeners {
                         }
                     }
                 }
-            }
             dispatchGroup.notify(queue: .main) {
                 if (chatsFoundCount == 0) {
                     completion([:])

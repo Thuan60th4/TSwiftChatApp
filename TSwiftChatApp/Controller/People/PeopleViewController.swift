@@ -15,7 +15,7 @@ class PeopleViewController: UIViewController {
             offlineView.isHidden = !listUser.isEmpty
         }
     }
-
+    
     //MARK: - IBOutelets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var offlineView: UIStackView!
@@ -41,7 +41,7 @@ class PeopleViewController: UIViewController {
             sender.endRefreshing()
         }
     }
-
+    
     //Load list user
     func loadListUser(){
         FirebaseUserListeners.shared.FetchListOnlineUserFromFirebase { userArray in
@@ -51,17 +51,17 @@ class PeopleViewController: UIViewController {
             }
         }
     }
-
+    
 }
 
 // MARK: - Table view data source
 extension PeopleViewController : UITableViewDataSource {
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return listUser.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return listUser.count
     }
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: peopleCell, for: indexPath) as! PeopleTableViewCell
-         cell.loadGuestInfo(user: listUser[indexPath.row])
+        cell.loadGuestInfo(user: listUser[indexPath.row])
         return cell
     }
 }
@@ -69,8 +69,12 @@ extension PeopleViewController : UITableViewDataSource {
 //MARK: - Table view delegate
 extension PeopleViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let userInfo = listUser[indexPath.row]
+        let memberIds = [userInfo.id,User.currentId]
         //Go to chat
-        startChat(memberIds: [User.currentId,listUser[indexPath.row].id])
+        let chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds, chatName: userInfo.username, chatAvatar: userInfo.avatar)
+        chatDetailController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(chatDetailController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

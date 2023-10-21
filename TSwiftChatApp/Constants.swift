@@ -16,3 +16,12 @@ public let KFIRSTRUN = "firstRun"
 //MARK: - cell name
 public let peopleCell = "guestUserCell"
 public let chatCell = "chatCell"
+
+public let KSENT = "sent"
+
+public let KTEXT = "text"
+public let KPHOTO = "photo"
+public let KVIEDEO = "video"
+public let KAUDIO = "audio"
+public let KLOCATION = "location"
+

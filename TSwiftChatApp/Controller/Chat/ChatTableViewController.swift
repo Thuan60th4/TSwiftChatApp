@@ -47,14 +47,22 @@ class ChatTableViewController: UITableViewController {
     }
     
     //MARK: - Table view delegate
+    //Go to chat detail
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Go to chat detail
+        let chatData = listChatData[indexPath.row]
+        guard let guestId = chatData.memberIds.first(where: { $0 != User.currentId}), let guestData = FirebaseChatListeners.shared.listUser[guestId] else{
+            return
+        }
+        let chatDetailController = ChatDetailViewController(chatRoomId: chatData.chatRoomId, memberChatIds: chatData.memberIds, chatName: guestData.username, chatAvatar: guestData.avatar)
+        chatDetailController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(chatDetailController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+    //can remove chat or nor
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return !isSearchBarActive
     }
-    
+    //remove chat
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let removeItem = listChatData[indexPath.row]
@@ -66,12 +74,7 @@ class ChatTableViewController: UITableViewController {
         }
     }
     
-    
-    
-    
-    
-    //MARK: - Load list caht
-
+    //MARK: - Load list chat
     func loadListRecentChat(){
         FirebaseChatListeners.shared.fetchNewChat { allchat in
             if !allchat.isEmpty {

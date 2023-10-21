@@ -40,5 +40,4 @@ class ChatTableViewCell: UITableViewCell {
         chatImageOutlet.roundedImage(fromURL: URL(string: user.avatar), placeholderImage: UIImage(named: "avatar"))
         chatNameOutlet.text = user.username
     }
-    
 }

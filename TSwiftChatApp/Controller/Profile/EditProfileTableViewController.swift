@@ -134,7 +134,6 @@ extension EditProfileTableViewController : UIImagePickerControllerDelegate{
             }
             avatarImageOutlet.image = userPickerImage.circleImage
             imagePicker.dismiss(animated: true, completion: nil)
-            
         }
         
     }
