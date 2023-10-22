@@ -10,6 +10,7 @@
 		0A3B809069197B1F43FA254D /* Pods_TSwiftChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8319F407C906B3E0035B951 /* Pods_TSwiftChatApp.framework */; };
 		4317848B2AC5864800C80EBA /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4317848A2AC5864800C80EBA /* ChatTableViewCell.swift */; };
 		4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4317848C2AC586C000C80EBA /* ChatTableViewController.swift */; };
+		4330DBCC2AE5364B00F403CD /* InComingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4330DBCB2AE5364B00F403CD /* InComingMessage.swift */; };
 		4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342E73D2AA0F3CA00680B91 /* Validate.swift */; };
 		4358B6D82A95271F00DB3282 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */; };
 		435DBF672ACAAA16001D01AC /* FirebaseChatListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435DBF662ACAAA16001D01AC /* FirebaseChatListeners.swift */; };
@@ -31,7 +32,7 @@
 		438EC7622AD4698400BF6413 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438EC7612AD4698400BF6413 /* ChatDetailViewController.swift */; };
 		439BDAF72AC59AD900672F5F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BDAF62AC59AD900672F5F /* Chat.swift */; };
 		43A041C32AE3F0B800E9B37D /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C22AE3F0B800E9B37D /* RealmManager.swift */; };
-		43A041C72AE3F91600E9B37D /* OutgoingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C62AE3F91600E9B37D /* OutgoingMessage.swift */; };
+		43A041C72AE3F91600E9B37D /* OutComingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C62AE3F91600E9B37D /* OutComingMessage.swift */; };
 		43A8DD9C2AC5DDB600284EA0 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8DD9B2AC5DDB600284EA0 /* Converter.swift */; };
 		43AA1D542ABCAA1900195F22 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D532ABCAA1900195F22 /* Status.swift */; };
 		43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */; };
@@ -51,6 +52,7 @@
 		1450C77C7F80EB2E91A25128 /* Pods-TSwiftChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSwiftChatApp.release.xcconfig"; path = "Target Support Files/Pods-TSwiftChatApp/Pods-TSwiftChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		4317848A2AC5864800C80EBA /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		4317848C2AC586C000C80EBA /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
+		4330DBCB2AE5364B00F403CD /* InComingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InComingMessage.swift; sourceTree = "<group>"; };
 		4342E73D2AA0F3CA00680B91 /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		435DBF662ACAAA16001D01AC /* FirebaseChatListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatListeners.swift; sourceTree = "<group>"; };
@@ -72,7 +74,7 @@
 		438EC7612AD4698400BF6413 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		439BDAF62AC59AD900672F5F /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		43A041C22AE3F0B800E9B37D /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
-		43A041C62AE3F91600E9B37D /* OutgoingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessage.swift; sourceTree = "<group>"; };
+		43A041C62AE3F91600E9B37D /* OutComingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutComingMessage.swift; sourceTree = "<group>"; };
 		43A8DD9B2AC5DDB600284EA0 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		43AA1D532ABCAA1900195F22 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,17 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		4330DBCA2AE5361800F403CD /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				43B67F2A2ADEFF2200F66E93 /* RealmMessage */,
+				4384419B2ADE6FCE00A30A4E /* MKMessage.swift */,
+				43A041C62AE3F91600E9B37D /* OutComingMessage.swift */,
+				4330DBCB2AE5364B00F403CD /* InComingMessage.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		43679CEC2A9BB31100B5CE5C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,9 +173,7 @@
 				43679CEF2A9BB39900B5CE5C /* User.swift */,
 				43AA1D532ABCAA1900195F22 /* Status.swift */,
 				439BDAF62AC59AD900672F5F /* Chat.swift */,
-				43B67F2A2ADEFF2200F66E93 /* RealmMessage */,
-				4384419B2ADE6FCE00A30A4E /* MKMessage.swift */,
-				43A041C62AE3F91600E9B37D /* OutgoingMessage.swift */,
+				4330DBCA2AE5361800F403CD /* Message */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -403,7 +414,7 @@
 				437C996D2AAE201E00A5D4A1 /* EditProfileTableViewController.swift in Sources */,
 				43CB0B8E2AB72FA600C78420 /* GlobalFunc.swift in Sources */,
 				4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */,
-				43A041C72AE3F91600E9B37D /* OutgoingMessage.swift in Sources */,
+				43A041C72AE3F91600E9B37D /* OutComingMessage.swift in Sources */,
 				43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */,
 				43679CF22A9BB50700B5CE5C /* Constants.swift in Sources */,
 				43CBC9512AAB7D7B00F0829E /* SettingTableViewController.swift in Sources */,
@@ -411,6 +422,7 @@
 				43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */,
 				437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */,
 				4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */,
+				4330DBCC2AE5364B00F403CD /* InComingMessage.swift in Sources */,
 				439BDAF72AC59AD900672F5F /* Chat.swift in Sources */,
 				43AA1D542ABCAA1900195F22 /* Status.swift in Sources */,
 				4385AFD22ABB4E3600F9BAC5 /* Extension.swift in Sources */,

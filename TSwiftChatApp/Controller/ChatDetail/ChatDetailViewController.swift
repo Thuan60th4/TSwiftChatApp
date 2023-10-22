@@ -8,8 +8,11 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import RealmSwift
 
 class ChatDetailViewController: MessagesViewController {
+    
+    let realm = try! Realm()
     
     private var chatRoomId: String
     private var memberChatIds : [String]
@@ -17,7 +20,9 @@ class ChatDetailViewController: MessagesViewController {
     private var chatAvatar : String
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
     
-    let mkMessages : [MKMessage] = []
+    var mkMessages : [MKMessage] = []
+    var allLocalMessages : Results<LocalMessage>!
+    var notificationToken : NotificationToken?
     
     //MARK: - Init
     init(chatRoomId: String,memberChatIds : [String],chatName : String,chatAvatar : String){
@@ -41,6 +46,7 @@ class ChatDetailViewController: MessagesViewController {
         setupNavigationbar()
         configurationMessageCollectionView()
         configurationInputBar()
+        loadMessages()
     }
     
     //MARK: - Set up navigation bar
@@ -85,10 +91,43 @@ class ChatDetailViewController: MessagesViewController {
         //        messageInputBar.setStackViewItems([micButton], forStack: .right, animated: false)
     }
     
+    //MARK: - Load chat messages
+   private func loadMessages(){
+        let query = NSPredicate(format: "chatRoomId = %@", chatRoomId)
+       allLocalMessages = realm.objects(LocalMessage.self).filter(query).sorted(byKeyPath: "sentDate", ascending: true)
+       notificationToken = allLocalMessages.observe({ (changes : RealmCollectionChange) in
+           switch changes {
+               case .initial(_):
+                   self.insertMessages()
+                   self.messagesCollectionView.reloadData()
+                   self.messagesCollectionView.scrollToLastItem()
+               case .update(_, _, let insertions, _):
+                   for index in insertions{
+                       self.insertMessage(message: self.allLocalMessages[index])
+                       self.messagesCollectionView.reloadData()
+                       self.messagesCollectionView.scrollToLastItem()
+                   }
+               case .error(let error):
+                   print("Error when changing chat message \(error.localizedDescription)")
+           }
+       })
+    }
+
+    
     //MARK: - Action
     func sendMessage(text: String?, photo: UIImage?, video: String?, location: String?, audio: String?, audioDuration: Float = 0.0){
-        OutgoingMessage.sendMessageTo(chatRoomId: chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration)
+        OutComingMessage.sendMessageTo(chatRoomId: chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration)
     }
     
+    private func insertMessages(){
+        for message in allLocalMessages{
+            insertMessage(message: message)
+        }
+    }
     
+    private func insertMessage(message : LocalMessage){
+        let incoming = InComingMessage(messageViewController: self)
+        mkMessages.append(incoming.convertMessage(message: message)!)
+    }
+
 }

@@ -54,7 +54,6 @@ class FirebaseChatListeners {
             let encoder = Firestore.Encoder()
             let data = try encoder.encode(message)
             FirebaseRefFor(collection: .Message).document(message.chatRoomId).setData([UUID().uuidString : data],merge: true)
-
         } catch {
             print("send a message to firebase error \(error.localizedDescription)")
         }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import FirebaseFirestoreSwift
 
-class OutgoingMessage {
+class OutComingMessage {
     class func sendMessageTo(chatRoomId: String,text: String?, photo: UIImage?, video: String? , location: String?, audio: String?, audioDuration: Float = 0.0){
         let currentUser = User.currentUser!
         let message = LocalMessage()
@@ -26,8 +26,8 @@ class OutgoingMessage {
     }
     
     class func saveMessage(message : LocalMessage){
-//        RealmManager.shared.saveToRealm(message)/
         FirebaseChatListeners.shared.addAMessage(message: message)
+        RealmManager.shared.saveToRealm(message)
         print("Save to realm success")
     }
 }
@@ -35,6 +35,5 @@ class OutgoingMessage {
 func sendTextMessage(message : LocalMessage,text : String){
     message.message = text
     message.type = KTEXT
-    OutgoingMessage.saveMessage(message: message)
-    
+    OutComingMessage.saveMessage(message: message)
 }
