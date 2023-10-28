@@ -13,6 +13,7 @@ extension ChatDetailViewController : InputBarAccessoryViewDelegate{
         if text != ""{
 //            print(text)
         }
+        updateMicButtonStatus(isShow: text == "")
     }
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {

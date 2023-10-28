@@ -201,11 +201,11 @@
 		436C0E632AD94A7700208549 /* ChatDetailExtension */ = {
 			isa = PBXGroup;
 			children = (
-				436C0E642AD94ADA00208549 /* MessagesDataSource.swift */,
-				436C0E662AD94B1E00208549 /* MessageCellDelegate.swift */,
-				436C0E682AD94B6200208549 /* MessagesDisplayDelegate.swift */,
-				436C0E6A2AD94B9500208549 /* MessagesLayoutDelegate.swift */,
 				436C0E6C2AD94BBD00208549 /* InputBarAccessoryViewDelegate.swift */,
+				436C0E662AD94B1E00208549 /* MessageCellDelegate.swift */,
+				436C0E642AD94ADA00208549 /* MessagesDataSource.swift */,
+				436C0E6A2AD94B9500208549 /* MessagesLayoutDelegate.swift */,
+				436C0E682AD94B6200208549 /* MessagesDisplayDelegate.swift */,
 			);
 			path = ChatDetailExtension;
 			sourceTree = "<group>";

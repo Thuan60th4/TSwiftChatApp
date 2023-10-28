@@ -13,6 +13,7 @@ import RealmSwift
 class ChatDetailViewController: MessagesViewController {
     
     let realm = try! Realm()
+    let micButton = InputBarButtonItem()
     
     private var chatRoomId: String
     private var memberChatIds : [String]
@@ -39,13 +40,14 @@ class ChatDetailViewController: MessagesViewController {
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationbar()
         navigationItem.largeTitleDisplayMode = .never
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationbar()
         configurationMessageCollectionView()
         configurationInputBar()
+        updateMicButtonStatus(isShow: true)
         loadMessages()
     }
     
@@ -75,10 +77,11 @@ class ChatDetailViewController: MessagesViewController {
     private func configurationInputBar(){
         messageInputBar.delegate = self
         messageInputBar.inputTextView.isImagePasteEnabled = false
-        let attachButton = InputBarButtonItem()
-        let micButton = InputBarButtonItem()
+        messageInputBar.padding = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 0)
         
-        attachButton.image = UIImage(systemName: "plus")
+        let attachButton = InputBarButtonItem()
+        attachButton.image = UIImage(systemName: "plus",withConfiguration: UIImage.SymbolConfiguration(pointSize: 23))
+        attachButton.setSize(CGSize(width: 23, height:23), animated: false)
         attachButton.onTouchUpInside { item in
             print("attach button pressed")
         }
@@ -86,33 +89,45 @@ class ChatDetailViewController: MessagesViewController {
         messageInputBar.leftStackView.alignment = .center
         messageInputBar.setStackViewItems([attachButton], forStack: .left, animated: false)
         
-        micButton.image = UIImage(systemName: "mic.fill")
-        //        messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false, animations: nil)
-        //        messageInputBar.setStackViewItems([micButton], forStack: .right, animated: false)
+        micButton.image = UIImage(systemName: "mic.fill",withConfiguration: UIImage.SymbolConfiguration(pointSize: 26))
+        micButton.setSize(CGSize(width: 26, height: 26), animated: false)
+        messageInputBar.rightStackView.alignment = .center
+        messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false, animations: nil)
+        
+    }
+    
+    func updateMicButtonStatus(isShow : Bool){
+        if isShow {
+            messageInputBar.setStackViewItems([micButton], forStack: .right, animated: false)
+        }
+        else {
+            messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
+            
+        }
     }
     
     //MARK: - Load chat messages
-   private func loadMessages(){
+    private func loadMessages(){
         let query = NSPredicate(format: "chatRoomId = %@", chatRoomId)
-       allLocalMessages = realm.objects(LocalMessage.self).filter(query).sorted(byKeyPath: "sentDate", ascending: true)
-       notificationToken = allLocalMessages.observe({ (changes : RealmCollectionChange) in
-           switch changes {
-               case .initial(_):
-                   self.insertMessages()
-                   self.messagesCollectionView.reloadData()
-                   self.messagesCollectionView.scrollToLastItem()
-               case .update(_, _, let insertions, _):
-                   for index in insertions{
-                       self.insertMessage(message: self.allLocalMessages[index])
-                       self.messagesCollectionView.reloadData()
-                       self.messagesCollectionView.scrollToLastItem()
-                   }
-               case .error(let error):
-                   print("Error when changing chat message \(error.localizedDescription)")
-           }
-       })
+        allLocalMessages = realm.objects(LocalMessage.self).filter(query).sorted(byKeyPath: "sentDate", ascending: true)
+        notificationToken = allLocalMessages.observe({ (changes : RealmCollectionChange) in
+            switch changes {
+                case .initial(_):
+                    self.insertMessages()
+                    self.messagesCollectionView.reloadData()
+                    self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: false)
+                case .update(_, _, let insertions, _):
+                    for index in insertions{
+                        self.insertMessage(message: self.allLocalMessages[index])
+                        self.messagesCollectionView.reloadData()
+                        self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: false)
+                    }
+                case .error(let error):
+                    print("Error when changing chat message \(error.localizedDescription)")
+            }
+        })
     }
-
+    
     
     //MARK: - Action
     func sendMessage(text: String?, photo: UIImage?, video: String?, location: String?, audio: String?, audioDuration: Float = 0.0){
@@ -129,5 +144,4 @@ class ChatDetailViewController: MessagesViewController {
         let incoming = InComingMessage(messageViewController: self)
         mkMessages.append(incoming.convertMessage(message: message)!)
     }
-
 }

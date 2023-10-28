@@ -15,7 +15,7 @@ func convertDate(_ date: Date) -> String {
     // Tính khoảng cách thời gian giữa date và ngày hiện tại
     let timeDifference = calendar.dateComponents([.day, .weekOfYear], from: date, to: now)
     let dateFormatter = DateFormatter()
-
+    
     if timeDifference.day == 0 {
         // Nếu date là trong ngày, hiển thị giờ
         dateFormatter.dateFormat = "HH:mm"
@@ -28,4 +28,9 @@ func convertDate(_ date: Date) -> String {
         // Nếu date > 1 tuần, hiển thị ngày tháng
         return date.longDate()
     }
+}
+
+func isNotTheSameDate(date1 : Date, date2:  Date) ->Bool{
+    let distance = Calendar.current.dateComponents([.day], from: date1, to: date2).day
+    return abs(distance ?? 2) > 1
 }

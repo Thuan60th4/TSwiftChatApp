@@ -20,6 +20,4 @@ extension ChatDetailViewController : MessagesDataSource {
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return mkMessages.count
     }
-    
-    
 }
