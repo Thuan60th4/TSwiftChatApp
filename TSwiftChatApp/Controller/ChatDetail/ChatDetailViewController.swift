@@ -40,20 +40,22 @@ class ChatDetailViewController: MessagesViewController {
     //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationbar()
-        navigationItem.largeTitleDisplayMode = .never
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         configurationMessageCollectionView()
         configurationInputBar()
         updateMicButtonStatus(isShow: true)
         loadMessages()
+        FirebaseChatListeners.shared.listenForNewMessage(chatRoomId: chatRoomId, lastMessageDate: lastMessageDate())
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationbar()
     }
     
     //MARK: - Set up navigation bar
     private func setupNavigationbar(){
         title = chatName
+        navigationItem.largeTitleDisplayMode = .never
         
         let imageView = UIImageView()
         imageView.roundedImage(fromURL: URL(string : chatAvatar), placeholderImage: UIImage(named: "avatar"))
@@ -93,23 +95,19 @@ class ChatDetailViewController: MessagesViewController {
         micButton.setSize(CGSize(width: 26, height: 26), animated: false)
         messageInputBar.rightStackView.alignment = .center
         messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false, animations: nil)
-        
     }
     
     func updateMicButtonStatus(isShow : Bool){
-        if isShow {
-            messageInputBar.setStackViewItems([micButton], forStack: .right, animated: false)
-        }
-        else {
-            messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
-            
-        }
+        messageInputBar.setStackViewItems([ isShow ? micButton : messageInputBar.sendButton], forStack: .right, animated: false)
     }
     
     //MARK: - Load chat messages
     private func loadMessages(){
         let query = NSPredicate(format: "chatRoomId = %@", chatRoomId)
         allLocalMessages = realm.objects(LocalMessage.self).filter(query).sorted(byKeyPath: "sentDate", ascending: true)
+        if allLocalMessages.isEmpty{
+            FirebaseChatListeners.shared.loadOldChat(chatRoomId: chatRoomId)
+        }
         notificationToken = allLocalMessages.observe({ (changes : RealmCollectionChange) in
             switch changes {
                 case .initial(_):
@@ -144,4 +142,11 @@ class ChatDetailViewController: MessagesViewController {
         let incoming = InComingMessage(messageViewController: self)
         mkMessages.append(incoming.convertMessage(message: message)!)
     }
+    
+    //MARK: - Utils
+    private func lastMessageDate() -> TimeInterval{
+        let lastMessageDate = allLocalMessages.last?.sentDate ?? Date().timeIntervalSince1970
+        return lastMessageDate + 1
+    }
+
 }

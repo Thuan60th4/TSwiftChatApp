@@ -31,7 +31,7 @@ class MKMessage: NSObject, MessageType{
 //                <#code#>
 //        }
         mkSender = MKSender(senderId: messages.senderId, displayName: messages.senderName)
-        sentDate = messages.sentDate
+        sentDate = Date(timeIntervalSince1970 :messages.sentDate)
 //        readDate = messages.readDate
         status = messages.status
         incoming = User.currentId != messages.senderId

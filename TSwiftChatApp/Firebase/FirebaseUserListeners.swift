@@ -136,7 +136,7 @@ class FirebaseUserListeners {
                 } else {
                     completion( querySnapshot!.documents.compactMap({ document in
                         try? document.data(as: User.self)
-                    }))
+                    }).filter{$0.id != User.currentId})
                 }
             }
     }

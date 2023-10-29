@@ -11,7 +11,7 @@ import RealmSwift
 class LocalMessage : Object,Codable {
     @Persisted var id = ""
     @Persisted var chatRoomId = ""
-    @Persisted var sentDate = Date()
+    @Persisted var sentDate = Date().timeIntervalSince1970
     @Persisted var senderName = ""
     @Persisted var senderId = ""
 //    @Persisted var readDate = Date()
