@@ -37,6 +37,7 @@ class ChatTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: chatCell, for: indexPath) as! ChatTableViewCell
         if !isSearchBarActive {
             cell.messageContainOutlet.isHidden = false
+            cell.isReadViewOutlet.isHidden = listChatData[indexPath.row].isRead[User.currentId] ?? true
             cell.loadChatInfoFor(chat: listChatData[indexPath.row])
         }
         else{

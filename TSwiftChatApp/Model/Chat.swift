@@ -13,9 +13,12 @@ struct Chat : Codable {
     var chatRoomId = ""
     @ServerTimestamp var date = Date()
     var memberIds = [""]
+    var memberIdsLeft = [""]
     var lastMessage = ""
     var createtedById = ""
     var updatedById = ""
+    var timeLeave :[String: TimeInterval]?
+    var isRead :[String: Bool] = [:]
     
     //    var senderId = ""
     //    var senderName = ""
@@ -32,9 +35,13 @@ func getChatRoomIdFrom(memberIds: [String]) -> String{
     return ids.joined()
 }
 
-func startChat(message : String = "test",memberIds : [String]){
+func startChat(message : String,memberIds : [String]){
     let chatRoomId = getChatRoomIdFrom(memberIds: memberIds)
-    
-    let recentChat = Chat(id: UUID().uuidString, chatRoomId: chatRoomId, date: Date(), memberIds: memberIds, lastMessage: message, createtedById: User.currentId, updatedById: User.currentId)
+    let guestId = memberIds.first( where: { $0 != User.currentId})
+    var isReadDict : [String:Bool] = [:]
+    if guestId != nil {
+        isReadDict[guestId!] = false
+    }
+    let recentChat = Chat(id: UUID().uuidString, chatRoomId: chatRoomId, date: Date(), memberIds: memberIds,memberIdsLeft: memberIds, lastMessage: message, createtedById: User.currentId, updatedById: User.currentId,isRead: isReadDict)
     FirebaseChatListeners.shared.createNewChat(recentChat)
 }

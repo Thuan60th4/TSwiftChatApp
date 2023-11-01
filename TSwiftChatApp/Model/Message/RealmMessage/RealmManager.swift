@@ -16,6 +16,10 @@ class RealmManager {
 
     func saveToRealm<T: Object>(_ object : T){
         do {
+            //phân biệt giữa các user khi logout
+            object.setValue(User.currentId, forKey: "memberLocalId")
+            let oldKey = object["id"]! as! String
+            object.setValue(User.currentId + oldKey , forKey: "id")
             try realm.write({
                 realm.add(object,update: .all)
             })

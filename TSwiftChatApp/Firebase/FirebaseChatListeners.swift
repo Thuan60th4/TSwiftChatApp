@@ -12,11 +12,14 @@ import FirebaseFirestoreSwift
 class FirebaseChatListeners {
     static let shared = FirebaseChatListeners()
     var listUser = [String : User]()
+    var newMessageListenter: ListenerRegistration?
+    private var userChatLisnter : ListenerRegistration?
     private var chatListenerId = [String : ListenerRegistration]()
     
     //MARK: - Reset when logout
     func resetChat() {
         listUser = [String : User]()
+        userChatLisnter?.remove()
         for chatListner in chatListenerId.values {
             chatListner.remove()
         }
@@ -26,7 +29,7 @@ class FirebaseChatListeners {
     //MARK: - Save a new chat
     func createNewChat(_ data : Chat){
         do{
-            try FirebaseRefFor(collection: .Chat).document(data.chatRoomId).setData(from: data)
+            try FirebaseRefFor(collection: .Chat).document(data.chatRoomId).setData(from: data,merge: true)
             for userId in data.memberIds {
                 addChatForUser(userId: userId, chatRoomId: data.chatRoomId)
             }
@@ -45,7 +48,7 @@ class FirebaseChatListeners {
     func removeUserFromchat(userId: String ,chatRoomId: String, newMemberIds : [String]){
         //chatListenerId[chatRoomId]?.remove()
         FirebaseRefFor(collection: .UserChats).document(userId).updateData([chatRoomId : FieldValue.delete()])
-        FirebaseRefFor(collection: .Chat).document(chatRoomId).updateData(["memberIds" : newMemberIds])
+        FirebaseRefFor(collection: .Chat).document(chatRoomId).updateData(["memberIdsLeft" : newMemberIds,"timeLeave" : [userId : Date().timeIntervalSince1970]])
     }
     
     //MARK: - Send a message
@@ -56,28 +59,65 @@ class FirebaseChatListeners {
             //FirebaseRefFor(collection: .Message).document(message.chatRoomId).setData([UUID().uuidString : data],merge: true)
             //Buộc phải như này thì mới lưu đc nhiều data(chỉ có collection ms lưu đc nhiều document)
             try FirebaseRefFor(collection: .Message).document(message.chatRoomId).collection(message.chatRoomId).document(message.id).setData(from: message)
-            
         } catch {
             print("send a message to firebase error \(error.localizedDescription)")
         }
     }
     
-    func loadOldChat(chatRoomId: String){
-        FirebaseRefFor(collection: .Message).document(chatRoomId).collection(chatRoomId).getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    if let message = try? document.data(as: LocalMessage.self){
-                        RealmManager.shared.saveToRealm(message)
-                    }
+    
+    //MARK: - Load when chat is empty
+//there is no guarantee that async functions will run on the same thread so must add @MainActor
+    @MainActor func loadOldChat(chatRoomId: String) async{
+//        var timeQuery : TimeInterval?
+//
+//        FirebaseRefFor(collection: .Chat).document(chatRoomId).getDocument { document, error in
+//            if let chatDocument = document, chatDocument.exists{
+//                if let chatInfo = try? chatDocument.data(as: Chat.self){
+//                    timeQuery = chatInfo.timeLeave?[User.currentId]
+//                }
+//            }
+//            var query : Query = FirebaseRefFor(collection: .Message).document(chatRoomId).collection(chatRoomId)
+//            if timeQuery != nil {
+//                query = query.whereField("sentDate", isGreaterThan: timeQuery!)
+//            }
+//            query.getDocuments { (querySnapshot, err) in
+//                if let err = err {
+//                    print("Error getting documents: \(err)")
+//                } else {
+//                    for document in querySnapshot!.documents {
+//                        if let message = try? document.data(as: LocalMessage.self){
+//                            RealmManager.shared.saveToRealm(message)
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+        do {
+            let chatInfo = try await FirebaseRefFor(collection: .Chat).document(chatRoomId).getDocument(as: Chat.self)
+            var query: Query = FirebaseRefFor(collection: .Message).document(chatRoomId).collection(chatRoomId)
+            let timeQuery = chatInfo.timeLeave?[User.currentId]
+            if (timeQuery != nil)  {
+                query = query.whereField("sentDate", isGreaterThan: timeQuery!)
+            }
+            let listMmessage = try await query.getDocuments()
+            for document in listMmessage.documents {
+                if let message = try? document.data(as: LocalMessage.self){
+                    RealmManager.shared.saveToRealm(message)
                 }
             }
-        }
+        } catch  {
+            print("async await error \(error.localizedDescription)")
+        } 
     }
     
+    //MARK: - Listener when have new message
     func listenForNewMessage(chatRoomId: String,lastMessageDate : TimeInterval){
-        FirebaseRefFor(collection: .Message).document(chatRoomId).collection(chatRoomId).whereField("sentDate", isGreaterThan: lastMessageDate).addSnapshotListener { querySnapshot, error in
+        newMessageListenter = FirebaseRefFor(collection: .Message)
+            .document(chatRoomId)
+            .collection(chatRoomId)
+            .whereField("sentDate", isGreaterThan: lastMessageDate)
+            .addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else { return }
             snapshot.documentChanges.forEach { change in
                 if change.type == .added{
@@ -92,7 +132,9 @@ class FirebaseChatListeners {
     //MARK: - Listener when have chat
     func fetchNewChat(completion : @escaping (_ allchat : [String : Chat]) -> Void){
         let dispatchGroup = DispatchGroup()
-        FirebaseRefFor(collection: .UserChats).document(User.currentId).addSnapshotListener { document, error in
+        userChatLisnter = FirebaseRefFor(collection: .UserChats)
+            .document(User.currentId)
+            .addSnapshotListener { document, error in
             var chatsFoundCount = 0
             var chatsData =  [String : Chat]()
             guard let listChatId = document?.data() as? [String: String],!listChatId.isEmpty else {
@@ -101,12 +143,14 @@ class FirebaseChatListeners {
                 return
             }
             for chatId in listChatId.values {
-                self.chatListenerId[chatId] = FirebaseRefFor(collection: .Chat).document(chatId ).addSnapshotListener { chatSnapshot, error in
+                self.chatListenerId[chatId] = FirebaseRefFor(collection: .Chat)
+                    .document(chatId )
+                    .addSnapshotListener { chatSnapshot, error in
                     guard let chatInfo = try? chatSnapshot?.data(as: Chat.self) else {
                         print("Error fetching \(chatId) data")
                         return
                     }
-                    if !chatInfo.memberIds.contains(User.currentId){
+                    if !chatInfo.memberIdsLeft.contains(User.currentId){
                         self.chatListenerId[chatId]?.remove()
                         return
                     }

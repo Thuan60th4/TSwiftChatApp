@@ -13,6 +13,7 @@ enum FCollectionRef : String{
     case Chat
     case UserChats
     case Message
+    case Typing
 }
 //get tham chiếu của đường dẫn vào database
 func FirebaseRefFor(collection : FCollectionRef ) -> CollectionReference {

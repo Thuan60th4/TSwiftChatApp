@@ -14,7 +14,7 @@ class LocalMessage : Object,Codable {
     @Persisted var sentDate = Date().timeIntervalSince1970
     @Persisted var senderName = ""
     @Persisted var senderId = ""
-//    @Persisted var readDate = Date()
+    @Persisted var memberLocalId = "" // thêm vào đây chủ yếu để phân biệt các máy ở local dùg setValue bên RealmManager
     @Persisted var type = ""
     @Persisted var status = ""
     
