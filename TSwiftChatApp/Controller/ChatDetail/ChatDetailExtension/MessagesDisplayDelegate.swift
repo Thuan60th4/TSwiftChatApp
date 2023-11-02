@@ -25,9 +25,9 @@ extension ChatDetailViewController : MessagesDisplayDelegate {
     }
     
     //MARK: - avatar
-    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        avatarView.roundedImage(fromURL: URL(string : ""), placeholderImage: UIImage(named: "avatar"))
-    }
+//    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+//        avatarView.roundedImage(fromURL: URL(string : isFromCurrentSender(message: message) ? User.currentUser?.avatar as! String : chatAvatar), placeholderImage: UIImage(named: "avatar"))
+//    }
     
     //MARK: - color message
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {

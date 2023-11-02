@@ -70,7 +70,8 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
         tableView.rowHeight = UITableView.automaticDimension
         
     }
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         showUserInfo()
     }
     

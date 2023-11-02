@@ -27,7 +27,7 @@ class OutComingMessage {
     
     class func saveMessage(message : LocalMessage){
         FirebaseChatListeners.shared.addAMessage(message: message)
-        RealmManager.shared.saveToRealm(message)
+//        RealmManager.shared.saveToRealm(message)
         print("Save to realm success")
     }
 }

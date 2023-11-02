@@ -13,13 +13,13 @@ class FirebaseChatListeners {
     static let shared = FirebaseChatListeners()
     var listUser = [String : User]()
     var newMessageListenter: ListenerRegistration?
-    private var userChatLisnter : ListenerRegistration?
+    private var userChatListenter : ListenerRegistration?
     private var chatListenerId = [String : ListenerRegistration]()
     
     //MARK: - Reset when logout
     func resetChat() {
         listUser = [String : User]()
-        userChatLisnter?.remove()
+        userChatListenter?.remove()
         for chatListner in chatListenerId.values {
             chatListner.remove()
         }
@@ -48,7 +48,7 @@ class FirebaseChatListeners {
     func removeUserFromchat(userId: String ,chatRoomId: String, newMemberIds : [String]){
         //chatListenerId[chatRoomId]?.remove()
         FirebaseRefFor(collection: .UserChats).document(userId).updateData([chatRoomId : FieldValue.delete()])
-        FirebaseRefFor(collection: .Chat).document(chatRoomId).updateData(["memberIdsLeft" : newMemberIds,"timeLeave" : [userId : Date().timeIntervalSince1970]])
+        FirebaseRefFor(collection: .Chat).document(chatRoomId).setData(["memberIdsLeft" : newMemberIds,"timeLeave" : [userId : Date().timeIntervalSince1970]], merge: true)
     }
     
     //MARK: - Send a message
@@ -66,7 +66,7 @@ class FirebaseChatListeners {
     
     
     //MARK: - Load when chat is empty
-//there is no guarantee that async functions will run on the same thread so must add @MainActor
+    //there is no guarantee that async functions will run on the same thread so must add @MainActor
     @MainActor func loadOldChat(chatRoomId: String) async{
 //        var timeQuery : TimeInterval?
 //
@@ -132,7 +132,7 @@ class FirebaseChatListeners {
     //MARK: - Listener when have chat
     func fetchNewChat(completion : @escaping (_ allchat : [String : Chat]) -> Void){
         let dispatchGroup = DispatchGroup()
-        userChatLisnter = FirebaseRefFor(collection: .UserChats)
+        userChatListenter = FirebaseRefFor(collection: .UserChats)
             .document(User.currentId)
             .addSnapshotListener { document, error in
             var chatsFoundCount = 0

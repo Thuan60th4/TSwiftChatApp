@@ -31,6 +31,5 @@ func convertDate(_ date: Date) -> String {
 }
 
 func isNotTheSameDate(date1 : Date, date2:  Date) ->Bool{
-    let distance = Calendar.current.dateComponents([.day], from: date1, to: date2).day
-    return abs(distance ?? 2) > 1
+    return !Calendar.current.isDate(date1, inSameDayAs: date2)
 }

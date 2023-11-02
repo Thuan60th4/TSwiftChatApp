@@ -17,9 +17,7 @@ class MKMessage: NSObject, MessageType{
         return mkSender
     }
     var sentDate: Date
-//    var readDate: Date
     var status : String
-    var incoming : Bool
     
     init(messages : LocalMessage){
         messageId = messages.id
@@ -32,8 +30,6 @@ class MKMessage: NSObject, MessageType{
 //        }
         mkSender = MKSender(senderId: messages.senderId, displayName: messages.senderName)
         sentDate = Date(timeIntervalSince1970 :messages.sentDate)
-//        readDate = messages.readDate
         status = messages.status
-        incoming = User.currentId != messages.senderId
     }
 }

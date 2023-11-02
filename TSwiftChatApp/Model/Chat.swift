@@ -20,12 +20,6 @@ struct Chat : Codable {
     var timeLeave :[String: TimeInterval]?
     var isRead :[String: Bool] = [:]
     
-    //    var senderId = ""
-    //    var senderName = ""
-    //    var recieverId = ""
-    //    var recieverName = ""
-    
-    //    var isReaded = false
     //    var avatarLink = ""
 }
 

@@ -33,11 +33,11 @@ class ChatTableViewCell: UITableViewCell {
             chatNameOutlet.text = guestData.username
             lastMessageOutlet.text = chat.lastMessage
             timeSentOutlet.text = convertDate(chat.date ?? Date())
-            //            isReadViewOutlet.isHidden = chat.isReaded
         }
     }
     func loadSearchUserFor(user : User){
         chatImageOutlet.roundedImage(fromURL: URL(string: user.avatar), placeholderImage: UIImage(named: "avatar"))
         chatNameOutlet.text = user.username
+        isReadViewOutlet.isHidden = true
     }
 }

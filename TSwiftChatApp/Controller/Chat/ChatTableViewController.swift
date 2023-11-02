@@ -80,7 +80,7 @@ class ChatTableViewController: UITableViewController {
             self.listChatData.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             DispatchQueue.global().async {
-                FirebaseChatListeners.shared.removeUserFromchat(userId: User.currentId, chatRoomId: removeItem.chatRoomId, newMemberIds: removeItem.memberIds.filter{$0 != User.currentId})
+                FirebaseChatListeners.shared.removeUserFromchat(userId: User.currentId, chatRoomId: removeItem.chatRoomId, newMemberIds: removeItem.memberIdsLeft.filter{$0 != User.currentId})
             }
         }
     }

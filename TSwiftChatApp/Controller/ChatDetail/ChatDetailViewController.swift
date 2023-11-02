@@ -17,12 +17,6 @@ class ChatDetailViewController: MessagesViewController {
     let micButton = InputBarButtonItem()
     let typingLabel = UILabel()
     
-    private var chatRoomId: String
-    private var memberChatIds : [String]
-    private var chatName : String
-    private var chatAvatar : String
-    let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
-    
     var mkMessages : [MKMessage] = []
     var allLocalMessages : Results<LocalMessage>!
     var notificationToken : NotificationToken?
@@ -31,6 +25,12 @@ class ChatDetailViewController: MessagesViewController {
     var displayingMessageCount = 0
     var maxMessageNumber = 0
     var minMessageNumber = 0
+    
+    private var chatRoomId: String
+    private var memberChatIds : [String]
+    private var chatName : String
+    var chatAvatar : String
+    let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
     
     //MARK: - Init
     init(chatRoomId: String,memberChatIds : [String],chatName : String,chatAvatar : String){
@@ -50,14 +50,17 @@ class ChatDetailViewController: MessagesViewController {
         configurationMessageCollectionView()
         configurationInputBar()
         updateMicButtonStatus(isShow: true)
-        loadMessages()
         listenerTypingStatus()
-        FirebaseChatListeners.shared.listenForNewMessage(chatRoomId: chatRoomId, lastMessageDate: lastMessageDate())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationbar()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadMessages()
+        FirebaseChatListeners.shared.listenForNewMessage(chatRoomId: chatRoomId, lastMessageDate: lastMessageDate())
     }
     
     //MARK: - Set up navigation bar
@@ -96,6 +99,16 @@ class ChatDetailViewController: MessagesViewController {
         maintainPositionOnKeyboardFrameChanged = true
         messagesCollectionView.refreshControl = refreshController
         messagesCollectionView.showsVerticalScrollIndicator = false
+        
+        messagesCollectionView.messagesCollectionViewFlowLayout.setMessageOutgoingAvatarSize(.zero)
+        messagesCollectionView.messagesCollectionViewFlowLayout.setMessageIncomingAvatarSize(.zero)
+        
+        messagesCollectionView.messagesCollectionViewFlowLayout.setMessageIncomingCellBottomLabelAlignment(LabelAlignment(
+            textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)))
+        messagesCollectionView.messagesCollectionViewFlowLayout.setMessageOutgoingCellBottomLabelAlignment(LabelAlignment(
+            textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)))
+        
+
     }
     
     private func configurationInputBar(){
@@ -175,8 +188,10 @@ class ChatDetailViewController: MessagesViewController {
     
     //Send message
     func sendMessage(text: String?, photo: UIImage?, video: String?, location: String?, audio: String?, audioDuration: Float = 0.0){
-        OutComingMessage.sendMessageTo(chatRoomId: chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration)
-        startChat(message: text ?? "test", memberIds: memberChatIds)
+        DispatchQueue.global().async {
+            OutComingMessage.sendMessageTo(chatRoomId: self.chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration)
+            startChat(message: text ?? "test", memberIds: self.memberChatIds)
+        }
     }
     
     //insert message to array
