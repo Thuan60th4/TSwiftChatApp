@@ -30,6 +30,7 @@
 		4384419A2ADE660F00A30A4E /* MessageKitDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438441992ADE660F00A30A4E /* MessageKitDefaults.swift */; };
 		4384419C2ADE6FCE00A30A4E /* MKMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4384419B2ADE6FCE00A30A4E /* MKMessage.swift */; };
 		4385AFD22ABB4E3600F9BAC5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385AFD12ABB4E3600F9BAC5 /* Extension.swift */; };
+		438E23772AF7B29400BBC2D8 /* PhotoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438E23762AF7B29400BBC2D8 /* PhotoMessage.swift */; };
 		438EC7622AD4698400BF6413 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438EC7612AD4698400BF6413 /* ChatDetailViewController.swift */; };
 		439BDAF72AC59AD900672F5F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BDAF62AC59AD900672F5F /* Chat.swift */; };
 		43A041C32AE3F0B800E9B37D /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C22AE3F0B800E9B37D /* RealmManager.swift */; };
@@ -73,6 +74,7 @@
 		438441992ADE660F00A30A4E /* MessageKitDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitDefaults.swift; sourceTree = "<group>"; };
 		4384419B2ADE6FCE00A30A4E /* MKMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMessage.swift; sourceTree = "<group>"; };
 		4385AFD12ABB4E3600F9BAC5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		438E23762AF7B29400BBC2D8 /* PhotoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMessage.swift; sourceTree = "<group>"; };
 		438EC7612AD4698400BF6413 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		439BDAF62AC59AD900672F5F /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		43A041C22AE3F0B800E9B37D /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				4384419B2ADE6FCE00A30A4E /* MKMessage.swift */,
 				43A041C62AE3F91600E9B37D /* OutComingMessage.swift */,
 				4330DBCB2AE5364B00F403CD /* InComingMessage.swift */,
+				438E23762AF7B29400BBC2D8 /* PhotoMessage.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				436C0E692AD94B6200208549 /* MessagesDisplayDelegate.swift in Sources */,
 				43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */,
 				43C68D592A9513AC00F24944 /* SceneDelegate.swift in Sources */,
+				438E23772AF7B29400BBC2D8 /* PhotoMessage.swift in Sources */,
 				43772B322ABF74DB00EEEB79 /* PeopleTableViewCell.swift in Sources */,
 				43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */,
 				4384419C2ADE6FCE00A30A4E /* MKMessage.swift in Sources */,

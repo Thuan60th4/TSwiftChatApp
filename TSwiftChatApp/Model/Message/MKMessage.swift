@@ -19,15 +19,20 @@ class MKMessage: NSObject, MessageType{
     var sentDate: Date
     var status : String
     
+    var photoItem: PhotoMessage?
+    
     init(messages : LocalMessage){
         messageId = messages.id
-        kind = MessageKind.text(messages.message)
-//        switch messages.type {
-//            case <#pattern#>:
-//                <#code#>
-//            default:
-//                <#code#>
-//        }
+        switch messages.type {
+            case KTEXT:
+                kind = MessageKind.text(messages.message)
+            case KPHOTO:
+               let photo = PhotoMessage(path: messages.pictureUrl)
+                kind = MessageKind.photo(photo)
+                photoItem = photo
+            default:
+                kind = MessageKind.text(messages.message)
+        }
         mkSender = MKSender(senderId: messages.senderId, displayName: messages.senderName)
         sentDate = Date(timeIntervalSince1970 :messages.sentDate)
         status = messages.status

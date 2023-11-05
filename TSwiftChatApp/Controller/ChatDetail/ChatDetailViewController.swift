@@ -9,13 +9,16 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import RealmSwift
+import UniformTypeIdentifiers
 
 class ChatDetailViewController: MessagesViewController {
     
+    var viewHasAppeared = false
     let realm = try! Realm()
     var timer = Timer()
     let micButton = InputBarButtonItem()
     let typingLabel = UILabel()
+    let imagePicker = UIImagePickerController()
     
     var mkMessages : [MKMessage] = []
     var allLocalMessages : Results<LocalMessage>!
@@ -51,16 +54,25 @@ class ChatDetailViewController: MessagesViewController {
         configurationInputBar()
         updateMicButtonStatus(isShow: true)
         listenerTypingStatus()
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.mediaTypes = [UTType.image.identifier,UTType.movie.identifier]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationbar()
+        if !viewHasAppeared {
+            setupNavigationbar()
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadMessages()
-        FirebaseChatListeners.shared.listenForNewMessage(chatRoomId: chatRoomId, lastMessageDate: lastMessageDate())
+        if !viewHasAppeared {
+            viewHasAppeared = true
+            loadMessages()
+            FirebaseChatListeners.shared.listenForNewMessage(chatRoomId: chatRoomId, lastMessageDate: lastMessageDate())
+        }
     }
     
     //MARK: - Set up navigation bar
@@ -107,8 +119,6 @@ class ChatDetailViewController: MessagesViewController {
             textAlignment: .left, textInsets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)))
         messagesCollectionView.messagesCollectionViewFlowLayout.setMessageOutgoingCellBottomLabelAlignment(LabelAlignment(
             textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)))
-        
-
     }
     
     private func configurationInputBar(){
@@ -120,7 +130,7 @@ class ChatDetailViewController: MessagesViewController {
         attachButton.image = UIImage(systemName: "plus",withConfiguration: UIImage.SymbolConfiguration(pointSize: 23))
         attachButton.setSize(CGSize(width: 23, height:23), animated: false)
         attachButton.onTouchUpInside { item in
-            print("attach button pressed")
+            self.actionAttachMessage()
         }
         messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false, animations: nil)
         messageInputBar.leftStackView.alignment = .center
@@ -189,8 +199,7 @@ class ChatDetailViewController: MessagesViewController {
     //Send message
     func sendMessage(text: String?, photo: UIImage?, video: String?, location: String?, audio: String?, audioDuration: Float = 0.0){
         DispatchQueue.global().async {
-            OutComingMessage.sendMessageTo(chatRoomId: self.chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration)
-            startChat(message: text ?? "test", memberIds: self.memberChatIds)
+            OutComingMessage.sendMessageTo(chatRoomId: self.chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration, memberIds: self.memberChatIds)
         }
     }
     
@@ -241,6 +250,36 @@ class ChatDetailViewController: MessagesViewController {
         }
     }
     
+    //action attach message
+    private func actionAttachMessage(){
+        messageInputBar.inputTextView.resignFirstResponder()
+        //Action Sheet
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let takeAPics = UIAlertAction(title: "Take from camera", style: .default) { (action) in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        let chooseAPics = UIAlertAction(title: "Choose from libary", style: .default) { (action) in
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        let shareLocation = UIAlertAction(title: "Share location", style: .default) { (action) in
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            print("Bạn đã chọn Hủy")
+        }
+        takeAPics.setValue(UIImage(systemName: "camera"), forKey: "image")
+        chooseAPics.setValue(UIImage(systemName: "photo.fill"), forKey: "image")
+        shareLocation.setValue(UIImage(systemName: "mappin.and.ellipse"), forKey: "image")
+        
+        alertController.addAction(takeAPics)
+        alertController.addAction(chooseAPics)
+        alertController.addAction(shareLocation)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
     //MARK: - UIScrollView Delegate
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if refreshController.isRefreshing {
@@ -256,5 +295,24 @@ class ChatDetailViewController: MessagesViewController {
     private func lastMessageDate() -> TimeInterval{
         let lastMessageDate = allLocalMessages.last?.sentDate ?? Date().timeIntervalSince1970
         return lastMessageDate + 1
+    }
+}
+
+
+extension ChatDetailViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let mediaType = info[.mediaType] as? String else {return}
+        switch mediaType {
+            case UTType.image.identifier:
+                if  let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+                    sendMessage(text: nil, photo: image, video: nil, location: nil, audio: nil)
+                }
+            case UTType.movie.identifier:
+                print("You have video")
+            default:
+                print("You have nothing")
+        }
+        
+        imagePicker.dismiss(animated: true, completion: nil)
     }
 }

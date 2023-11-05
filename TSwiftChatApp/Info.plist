@@ -21,6 +21,8 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>${PRODUCT_NAME} need to access micro to do this action</string>
 	<key>NSCameraUsageDescription</key>
 	<string>${PRODUCT_NAME} need to access camera to do this action</string>
 	<key>NSPhotoLibraryUsageDescription</key>

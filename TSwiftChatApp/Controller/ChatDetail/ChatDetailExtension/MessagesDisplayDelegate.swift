@@ -7,6 +7,7 @@
 
 import Foundation
 import MessageKit
+import SDWebImage
 
 extension ChatDetailViewController : MessagesDisplayDelegate {
     //MARK: - Cell label
@@ -28,6 +29,14 @@ extension ChatDetailViewController : MessagesDisplayDelegate {
 //    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
 //        avatarView.roundedImage(fromURL: URL(string : isFromCurrentSender(message: message) ? User.currentUser?.avatar as! String : chatAvatar), placeholderImage: UIImage(named: "avatar"))
 //    }
+    
+    //MARK: - Load photo message
+
+    func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        if let msg = message as? MKMessage ,let photoImage = msg.photoItem{
+            imageView.sd_setImage(with: photoImage.url, placeholderImage: photoImage.placeholderImage)
+        }
+    }
     
     //MARK: - color message
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
