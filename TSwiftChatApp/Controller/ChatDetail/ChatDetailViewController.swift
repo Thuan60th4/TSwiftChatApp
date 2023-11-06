@@ -10,6 +10,7 @@ import MessageKit
 import InputBarAccessoryView
 import RealmSwift
 import UniformTypeIdentifiers
+import CoreLocation
 
 class ChatDetailViewController: MessagesViewController {
     
@@ -197,7 +198,7 @@ class ChatDetailViewController: MessagesViewController {
     }
     
     //Send message
-    func sendMessage(text: String?, photo: UIImage?, video: String?, location: String?, audio: String?, audioDuration: Float = 0.0){
+    func sendMessage(text: String?, photo: UIImage?, video: URL?, location: CLLocationCoordinate2D?, audio: String?, audioDuration: Float = 0.0){
         DispatchQueue.global().async {
             OutComingMessage.sendMessageTo(chatRoomId: self.chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration, memberIds: self.memberChatIds)
         }
@@ -260,9 +261,14 @@ class ChatDetailViewController: MessagesViewController {
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         let chooseAPics = UIAlertAction(title: "Choose from libary", style: .default) { (action) in
+            self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         let shareLocation = UIAlertAction(title: "Share location", style: .default) { (action) in
+            LocationManager.shared.requestNewLocation()
+            LocationManager.shared.locationUpdateHandler = { location in
+                self.sendMessage(text: nil, photo: nil, video: nil, location: location, audio: nil)
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             print("Bạn đã chọn Hủy")
@@ -308,7 +314,9 @@ extension ChatDetailViewController : UIImagePickerControllerDelegate,UINavigatio
                     sendMessage(text: nil, photo: image, video: nil, location: nil, audio: nil)
                 }
             case UTType.movie.identifier:
-                print("You have video")
+                if let videoURL = info[.mediaURL] as? URL {
+                    sendMessage(text: nil, photo: nil, video: videoURL, location: nil, audio: nil)
+                }
             default:
                 print("You have nothing")
         }

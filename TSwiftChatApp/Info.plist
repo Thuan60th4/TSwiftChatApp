@@ -21,6 +21,10 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>${PRODUCT_NAME} need to access your location</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>${PRODUCT_NAME} need to access media to do this action</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>${PRODUCT_NAME} need to access micro to do this action</string>
 	<key>NSCameraUsageDescription</key>

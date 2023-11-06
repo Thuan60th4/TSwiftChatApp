@@ -20,6 +20,7 @@ class MKMessage: NSObject, MessageType{
     var status : String
     
     var photoItem: PhotoMessage?
+    var videoItem: VideoMessage?
     
     init(messages : LocalMessage){
         messageId = messages.id
@@ -30,6 +31,10 @@ class MKMessage: NSObject, MessageType{
                let photo = PhotoMessage(path: messages.pictureUrl)
                 kind = MessageKind.photo(photo)
                 photoItem = photo
+            case KVIEDEO:
+                let video = VideoMessage(videoLink: messages.videoUrl, thumbnailLink: messages.pictureUrl)
+                kind = MessageKind.video(video)
+                videoItem = video
             default:
                 kind = MessageKind.text(messages.message)
         }

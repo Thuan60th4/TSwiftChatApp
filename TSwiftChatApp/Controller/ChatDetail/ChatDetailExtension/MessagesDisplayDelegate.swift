@@ -31,10 +31,12 @@ extension ChatDetailViewController : MessagesDisplayDelegate {
 //    }
     
     //MARK: - Load photo message
-
     func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        if let msg = message as? MKMessage ,let photoImage = msg.photoItem{
-            imageView.sd_setImage(with: photoImage.url, placeholderImage: photoImage.placeholderImage)
+        if let msg = message as? MKMessage , (msg.photoItem != nil || msg.videoItem != nil){
+            let photoUrl = msg.photoItem?.url ?? msg.videoItem?.thumbnailUrl
+            let placeholderImage = msg.photoItem?.placeholderImage ?? msg.videoItem?.placeholderImage
+            
+            imageView.sd_setImage(with: photoUrl, placeholderImage: placeholderImage)
         }
     }
     

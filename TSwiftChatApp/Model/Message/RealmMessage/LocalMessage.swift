@@ -23,7 +23,7 @@ class LocalMessage : Object,Codable {
     @Persisted var audioDuration = 0.0
     @Persisted var videoUrl = ""
     @Persisted var pictureUrl = ""
-    @Persisted var latitude = ""
+    @Persisted var latitude = 0.0
     @Persisted var longitude = 0.0
     override class func primaryKey() -> String? {
         return "id"

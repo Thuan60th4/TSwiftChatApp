@@ -12,6 +12,8 @@
 		4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4317848C2AC586C000C80EBA /* ChatTableViewController.swift */; };
 		43261F512AF1594B00E7B897 /* FirebaseTypingListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43261F502AF1594B00E7B897 /* FirebaseTypingListeners.swift */; };
 		4330DBCC2AE5364B00F403CD /* InComingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4330DBCB2AE5364B00F403CD /* InComingMessage.swift */; };
+		4338BAE72AF94763009C94A0 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4338BAE62AF94763009C94A0 /* VideoMessage.swift */; };
+		4338BAE92AF964CE009C94A0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4338BAE82AF964CE009C94A0 /* LocationManager.swift */; };
 		4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342E73D2AA0F3CA00680B91 /* Validate.swift */; };
 		4358B6D82A95271F00DB3282 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */; };
 		435DBF672ACAAA16001D01AC /* FirebaseChatListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435DBF662ACAAA16001D01AC /* FirebaseChatListeners.swift */; };
@@ -56,6 +58,8 @@
 		4317848C2AC586C000C80EBA /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
 		43261F502AF1594B00E7B897 /* FirebaseTypingListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTypingListeners.swift; sourceTree = "<group>"; };
 		4330DBCB2AE5364B00F403CD /* InComingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InComingMessage.swift; sourceTree = "<group>"; };
+		4338BAE62AF94763009C94A0 /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		4338BAE82AF964CE009C94A0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4342E73D2AA0F3CA00680B91 /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		435DBF662ACAAA16001D01AC /* FirebaseChatListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatListeners.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 				43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */,
 				4385AFD12ABB4E3600F9BAC5 /* Extension.swift */,
 				43A8DD9B2AC5DDB600284EA0 /* Converter.swift */,
+				4338BAE82AF964CE009C94A0 /* LocationManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -155,9 +160,18 @@
 				4384419B2ADE6FCE00A30A4E /* MKMessage.swift */,
 				43A041C62AE3F91600E9B37D /* OutComingMessage.swift */,
 				4330DBCB2AE5364B00F403CD /* InComingMessage.swift */,
-				438E23762AF7B29400BBC2D8 /* PhotoMessage.swift */,
+				4338BAE52AF94745009C94A0 /* MediaMessage */,
 			);
 			path = Message;
+			sourceTree = "<group>";
+		};
+		4338BAE52AF94745009C94A0 /* MediaMessage */ = {
+			isa = PBXGroup;
+			children = (
+				438E23762AF7B29400BBC2D8 /* PhotoMessage.swift */,
+				4338BAE62AF94763009C94A0 /* VideoMessage.swift */,
+			);
+			path = MediaMessage;
 			sourceTree = "<group>";
 		};
 		43679CEC2A9BB31100B5CE5C /* Controller */ = {
@@ -429,6 +443,7 @@
 				43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */,
 				437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */,
 				4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */,
+				4338BAE72AF94763009C94A0 /* VideoMessage.swift in Sources */,
 				4330DBCC2AE5364B00F403CD /* InComingMessage.swift in Sources */,
 				439BDAF72AC59AD900672F5F /* Chat.swift in Sources */,
 				43AA1D542ABCAA1900195F22 /* Status.swift in Sources */,
@@ -440,6 +455,7 @@
 				438E23772AF7B29400BBC2D8 /* PhotoMessage.swift in Sources */,
 				43772B322ABF74DB00EEEB79 /* PeopleTableViewCell.swift in Sources */,
 				43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */,
+				4338BAE92AF964CE009C94A0 /* LocationManager.swift in Sources */,
 				4384419C2ADE6FCE00A30A4E /* MKMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,6 +519,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -564,6 +581,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -591,6 +609,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QXDGKK8ACR;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TSwiftChatApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -621,6 +641,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QXDGKK8ACR;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TSwiftChatApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

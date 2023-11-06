@@ -36,6 +36,44 @@ class FireStorage{
         }
     }
     
+    class func uploadVideoTo(chatRoomId: String, videoURL: URL, thumbnail: UIImage, completion : @escaping (_ thumbnailLink :String, _ videoLink : String) -> Void) {
+
+        let dispatchGroup = DispatchGroup()
+        let videoRef = storage.reference().child("MediaMessage/video/\(chatRoomId)/_\(UUID().uuidString).mov")
+        let imageRef = storage.reference().child("MediaMessage/photo/\(chatRoomId)/_\(UUID().uuidString).jpg")
+        
+        var videoUploadedLink: String?
+        var imageUploadedLink: String?
+        
+        dispatchGroup.enter()
+        DispatchQueue.global().async {
+            let videoData = NSData(contentsOf: videoURL)
+            videoRef.putData(videoData! as Data, metadata: nil) { (metadata, error) in
+                videoRef.downloadURL { url, error in
+                    videoUploadedLink = url?.absoluteString
+                    dispatchGroup.leave()
+
+                }
+            }
+        }
+        dispatchGroup.enter()
+        DispatchQueue.global().async {
+            let imageData = thumbnail.jpegData(compressionQuality: 0.6)
+            imageRef.putData(imageData!, metadata: nil){ (metadata, error) in
+                imageRef.downloadURL { url, error in
+                    imageUploadedLink = url?.absoluteString
+                    dispatchGroup.leave()
+
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .global()) {
+            completion(imageUploadedLink ?? "", videoUploadedLink ?? "")
+        }
+    }
+    
+    
     //MARK: - Download image from url (instead of SDWebImage)
     class func downloadImageFrom(imageUrl : String,completion : @escaping (_ image : UIImage?) -> Void){
         

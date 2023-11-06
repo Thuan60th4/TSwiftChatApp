@@ -160,13 +160,15 @@ class FirebaseChatListeners {
                             continue
                         }
                         dispatchGroup.enter()
-                        FirebaseRefFor(collection: .User).document(userId).getDocument { userDocument, error in
-                            if let userDocument = userDocument, userDocument.exists {
-                                if let userInfo = try? userDocument.data(as: User.self) {
-                                    self.listUser[userId] = userInfo
+                        DispatchQueue.global().async {
+                            FirebaseRefFor(collection: .User).document(userId).getDocument { userDocument, error in
+                                if let userDocument = userDocument, userDocument.exists {
+                                    if let userInfo = try? userDocument.data(as: User.self) {
+                                        self.listUser[userId] = userInfo
+                                    }
                                 }
+                                dispatchGroup.leave()
                             }
-                            dispatchGroup.leave()
                         }
                     }
                     

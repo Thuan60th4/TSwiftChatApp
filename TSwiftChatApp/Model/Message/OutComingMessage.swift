@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 import FirebaseFirestoreSwift
+import CoreLocation
 
 class OutComingMessage {
-    class func sendMessageTo(chatRoomId: String,text: String?, photo: UIImage?, video: String? , location: String?, audio: String?, audioDuration: Float = 0.0,memberIds : [String]){
+    class func sendMessageTo(chatRoomId: String,text: String?, photo: UIImage?, video: URL? , location: CLLocationCoordinate2D?, audio: String?, audioDuration: Float = 0.0,memberIds : [String]){
         var lastMessage = ""
         let currentUser = User.currentUser!
         let message = LocalMessage()
@@ -22,6 +23,14 @@ class OutComingMessage {
         if photo != nil{
             sendPhotoMessage(message: message, photo: photo!)
             lastMessage = "Sent a picture"
+        }
+        else if video != nil{
+            sendVideoMessage(message: message, videoUrl: video!)
+            lastMessage = "Sent a video"
+        }
+        else if location != nil{
+            sendLocationMessage(message: message, location: location!)
+            lastMessage = "Sent a location"
         }
         else if text != nil{
             sendTextMessage(message: message, text: text!)
@@ -58,3 +67,24 @@ func sendPhotoMessage(message : LocalMessage,photo : UIImage){
         }
     }
 }
+
+func sendVideoMessage(message : LocalMessage,videoUrl : URL){
+    message.message = "Sent a video"
+    message.type = KVIEDEO
+    
+    let thumbnailImage = generateThumbnailVideo(for: videoUrl) ?? UIImage(named: "photoPlaceholder")!
+    FireStorage.uploadVideoTo(chatRoomId : message.chatRoomId, videoURL: videoUrl, thumbnail: thumbnailImage) { thumbnailLink, videoLink in
+        message.pictureUrl = thumbnailLink
+        message.videoUrl = videoLink
+        OutComingMessage.saveMessage(message: message)
+    }
+}
+
+func sendLocationMessage(message : LocalMessage,location : CLLocationCoordinate2D){
+    message.message = "Sent a location"
+    message.type = KLOCATION
+    message.latitude = location.latitude
+    message.longitude = location.longitude
+    OutComingMessage.saveMessage(message: message)
+}
+
