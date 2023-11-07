@@ -100,7 +100,7 @@ class FirebaseChatListeners {
             if (timeQuery != nil)  {
                 query = query.whereField("sentDate", isGreaterThan: timeQuery!)
             }
-            let listMmessage = try await query.getDocuments()
+            let listMmessage = try await query.order(by: "sentDate", descending: false).getDocuments()
             for document in listMmessage.documents {
                 if let message = try? document.data(as: LocalMessage.self){
                     RealmManager.shared.saveToRealm(message)

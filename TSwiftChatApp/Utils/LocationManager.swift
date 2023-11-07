@@ -17,11 +17,12 @@ class LocationManager : NSObject,CLLocationManagerDelegate{
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestLocation()
+        locationManager.requestWhenInUseAuthorization()
     }
     
     func requestNewLocation(){
-        locationManager.requestLocation()
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     //MARK: - Delegate
@@ -29,7 +30,6 @@ class LocationManager : NSObject,CLLocationManagerDelegate{
         print("Failed to get location \(error.localizedDescription)")
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //.last ở đây là để lấy vị trí cuối cùng chuẩn xác nhất
         if let location = locations.last?.coordinate {
             locationManager.stopUpdatingLocation()
             locationUpdateHandler?(location)

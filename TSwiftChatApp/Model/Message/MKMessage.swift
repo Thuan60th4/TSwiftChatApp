@@ -35,6 +35,9 @@ class MKMessage: NSObject, MessageType{
                 let video = VideoMessage(videoLink: messages.videoUrl, thumbnailLink: messages.pictureUrl)
                 kind = MessageKind.video(video)
                 videoItem = video
+            case KLOCATION:
+                let location = LocationMessage(location: CLLocation(latitude: messages.latitude, longitude: messages.longitude))
+                kind = MessageKind.location(location)
             default:
                 kind = MessageKind.text(messages.message)
         }
