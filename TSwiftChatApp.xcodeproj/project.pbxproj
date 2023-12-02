@@ -14,6 +14,8 @@
 		4330DBCC2AE5364B00F403CD /* InComingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4330DBCB2AE5364B00F403CD /* InComingMessage.swift */; };
 		4338BAE72AF94763009C94A0 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4338BAE62AF94763009C94A0 /* VideoMessage.swift */; };
 		4338BAE92AF964CE009C94A0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4338BAE82AF964CE009C94A0 /* LocationManager.swift */; };
+		4338C1BD2B1B269A002B6C8F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4338C1BC2B1B269A002B6C8F /* MapViewController.swift */; };
+		4338C1BF2B1B3604002B6C8F /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4338C1BE2B1B3604002B6C8F /* MapAnnotation.swift */; };
 		4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342E73D2AA0F3CA00680B91 /* Validate.swift */; };
 		4358B6D82A95271F00DB3282 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */; };
 		435DBF672ACAAA16001D01AC /* FirebaseChatListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435DBF662ACAAA16001D01AC /* FirebaseChatListeners.swift */; };
@@ -61,6 +63,8 @@
 		4330DBCB2AE5364B00F403CD /* InComingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InComingMessage.swift; sourceTree = "<group>"; };
 		4338BAE62AF94763009C94A0 /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
 		4338BAE82AF964CE009C94A0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		4338C1BC2B1B269A002B6C8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4338C1BE2B1B3604002B6C8F /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		4342E73D2AA0F3CA00680B91 /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		4358B6D72A95271F00DB3282 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		435DBF662ACAAA16001D01AC /* FirebaseChatListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChatListeners.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				43AA1D532ABCAA1900195F22 /* Status.swift */,
 				439BDAF62AC59AD900672F5F /* Chat.swift */,
 				4330DBCA2AE5361800F403CD /* Message */,
+				4338C1BE2B1B3604002B6C8F /* MapAnnotation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			children = (
 				436C0E632AD94A7700208549 /* ChatDetailExtension */,
 				438EC7612AD4698400BF6413 /* ChatDetailViewController.swift */,
+				4338C1BC2B1B269A002B6C8F /* MapViewController.swift */,
 			);
 			path = ChatDetail;
 			sourceTree = "<group>";
@@ -435,6 +441,7 @@
 				436C0E672AD94B1E00208549 /* MessageCellDelegate.swift in Sources */,
 				435DBF672ACAAA16001D01AC /* FirebaseChatListeners.swift in Sources */,
 				436C0E652AD94ADB00208549 /* MessagesDataSource.swift in Sources */,
+				4338C1BF2B1B3604002B6C8F /* MapAnnotation.swift in Sources */,
 				437C996D2AAE201E00A5D4A1 /* EditProfileTableViewController.swift in Sources */,
 				43CB0B8E2AB72FA600C78420 /* GlobalFunc.swift in Sources */,
 				4342E73E2AA0F3CA00680B91 /* Validate.swift in Sources */,
@@ -445,6 +452,7 @@
 				43A8DD9C2AC5DDB600284EA0 /* Converter.swift in Sources */,
 				43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */,
 				437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */,
+				4338C1BD2B1B269A002B6C8F /* MapViewController.swift in Sources */,
 				4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */,
 				4338BAE72AF94763009C94A0 /* VideoMessage.swift in Sources */,
 				4330DBCC2AE5364B00F403CD /* InComingMessage.swift in Sources */,

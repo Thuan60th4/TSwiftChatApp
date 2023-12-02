@@ -8,6 +8,7 @@
 import Foundation
 import MessageKit
 import AVKit
+import MapKit
 import AVFoundation
 import SKPhotoBrowser
 
@@ -31,5 +32,20 @@ extension ChatDetailViewController : MessageCellDelegate {
                 moviePlayer.player?.play()
             }
         }
+    }
+    
+    func didTapMessage(in cell: MessageCollectionViewCell) {
+        guard let indexPath = messagesCollectionView.indexPath(for: cell)  else { return }
+        let mkMesage = mkMessages[indexPath.section]
+        
+        let mapView = MapViewController()
+        mapView.location = mkMesage.locationItem?.location
+        mapView.locationName = mkMesage.sender.displayName
+        navigationController?.pushViewController(mapView, animated: true)
+        // navigate to apple map
+        //        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: locationItem.location.coordinate, addressDictionary: nil))
+        //        mapItem.name = mkMesage.sender.displayName
+        //        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+        
     }
 }

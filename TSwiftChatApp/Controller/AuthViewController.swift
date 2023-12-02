@@ -147,6 +147,11 @@ class AuthViewController: UIViewController {
     
     private func goToApp(){
         let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainView") as! UITabBarController
+        
+        //nếu ui của chúng ta đc tạo từ code và ko liên quan gì đến main.storyboard thì chúng ta có thể khởi tạo trực tiếp ví dụ chatDetailViewController() còn nếu liên quan đến main.storyboard thì phải khởi tạo như trên
+        
+        //dùng push,pop các thứ là thêm,xoá 1 viewController khỏi stack còn present là hiển thỉ 1 màn mới lên thôi ko liên quan gì đến stack
+        
         mainView.modalPresentationStyle = .fullScreen
         self.present(mainView, animated: true, completion: nil)
     }

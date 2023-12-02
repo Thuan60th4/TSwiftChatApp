@@ -21,6 +21,7 @@ class MKMessage: NSObject, MessageType{
     
     var photoItem: PhotoMessage?
     var videoItem: VideoMessage?
+    var locationItem: LocationMessage?
     
     init(messages : LocalMessage){
         messageId = messages.id
@@ -38,6 +39,7 @@ class MKMessage: NSObject, MessageType{
             case KLOCATION:
                 let location = LocationMessage(location: CLLocation(latitude: messages.latitude, longitude: messages.longitude))
                 kind = MessageKind.location(location)
+                locationItem = location
             default:
                 kind = MessageKind.text(messages.message)
         }
