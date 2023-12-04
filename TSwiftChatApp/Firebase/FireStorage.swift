@@ -36,6 +36,7 @@ class FireStorage{
         }
     }
     
+    //MARK: - upload video
     class func uploadVideoTo(chatRoomId: String, videoURL: URL, thumbnail: UIImage, completion : @escaping (_ thumbnailLink :String, _ videoLink : String) -> Void) {
 
         let dispatchGroup = DispatchGroup()
@@ -73,6 +74,26 @@ class FireStorage{
         }
     }
     
+    //MARK: - upload audio
+    class func uploadAudioTo(chatRoomId: String,audioFileName : String, completion: @escaping (_ audioUrl: String?) -> Void){
+        let fileName = audioFileName + ".m4a"
+        let fileDirectory = "MediaMessage/audio/\(chatRoomId)/_\(fileName)"
+        
+        let storageRef = storage.reference().child(fileDirectory)
+        guard let audioData = NSData(contentsOfFile: fileInDocumentDirectory(filename: fileName)) else {
+            print("No audio data was found")
+            return
+        }
+        storageRef.putData(audioData as Data, metadata: nil) { (metadata, error) in
+            storageRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    completion(nil)
+                    return
+                }
+                completion(downloadURL.absoluteString)
+            }
+        }
+    }
     
     //MARK: - Download image from url (instead of SDWebImage)
     class func downloadImageFrom(imageUrl : String,completion : @escaping (_ image : UIImage?) -> Void){

@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 import CoreLocation
 
 class OutComingMessage {
-    class func sendMessageTo(chatRoomId: String,text: String?, photo: UIImage?, video: URL? , location: CLLocationCoordinate2D?, audio: String?, audioDuration: Float = 0.0,memberIds : [String]){
+    class func sendMessageTo(chatRoomId: String,text: String?, photo: UIImage?, video: URL? , location: CLLocationCoordinate2D?, audio: String?, audioDuration: Double = 0.0,memberIds : [String]){
         var lastMessage = ""
         let currentUser = User.currentUser!
         let message = LocalMessage()
@@ -31,6 +31,11 @@ class OutComingMessage {
         else if location != nil{
             sendLocationMessage(message: message, location: location!)
             lastMessage = "Sent a location"
+        }
+        else if audio != nil{
+            message.audioDuration = audioDuration
+            sendAudioMessage(message: message, audioFileName: audio!)
+            lastMessage = "Sent a audio"
         }
         else if text != nil{
             sendTextMessage(message: message, text: text!)
@@ -88,3 +93,11 @@ func sendLocationMessage(message : LocalMessage,location : CLLocationCoordinate2
     OutComingMessage.saveMessage(message: message)
 }
 
+func sendAudioMessage(message : LocalMessage,audioFileName: String){
+    message.message = "Sent a audio"
+    message.type = KAUDIO
+    FireStorage.uploadAudioTo(chatRoomId: message.chatRoomId, audioFileName: audioFileName) { audioUrl in
+        message.audioUrl = audioUrl ?? ""
+        OutComingMessage.saveMessage(message: message)
+    }
+}

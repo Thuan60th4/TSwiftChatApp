@@ -22,6 +22,7 @@ class MKMessage: NSObject, MessageType{
     var photoItem: PhotoMessage?
     var videoItem: VideoMessage?
     var locationItem: LocationMessage?
+    var audioItem : AudioMessage?
     
     init(messages : LocalMessage){
         messageId = messages.id
@@ -40,11 +41,15 @@ class MKMessage: NSObject, MessageType{
                 let location = LocationMessage(location: CLLocation(latitude: messages.latitude, longitude: messages.longitude))
                 kind = MessageKind.location(location)
                 locationItem = location
+            case KAUDIO:
+                let audio = AudioMessage(audioLink: messages.audioUrl, duration: Float(messages.audioDuration))
+                kind = MessageKind.audio(audio)
+                audioItem = audio
             default:
                 kind = MessageKind.text(messages.message)
         }
         mkSender = MKSender(senderId: messages.senderId, displayName: messages.senderName)
-        sentDate = Date(timeIntervalSince1970 :messages.sentDate)
+        sentDate = Date(timeIntervalSince1970: messages.sentDate)
         status = messages.status
     }
 }

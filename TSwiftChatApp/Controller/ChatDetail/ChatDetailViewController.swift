@@ -25,6 +25,10 @@ class ChatDetailViewController: MessagesViewController {
     var allLocalMessages : Results<LocalMessage>!
     var notificationToken : NotificationToken?
     
+    var longPressGesture : UILongPressGestureRecognizer!
+    var audioFileName = ""
+    var audioDuration: Date!
+    
     let refreshController = UIRefreshControl()
     var displayingMessageCount = 0
     var maxMessageNumber = 0
@@ -52,6 +56,7 @@ class ChatDetailViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurationMessageCollectionView()
+        configureGestureRecognizer()
         configurationInputBar()
         updateMicButtonStatus(isShow: true)
         listenerTypingStatus()
@@ -139,12 +144,39 @@ class ChatDetailViewController: MessagesViewController {
         
         micButton.image = UIImage(systemName: "mic.fill",withConfiguration: UIImage.SymbolConfiguration(pointSize: 26))
         micButton.setSize(CGSize(width: 26, height: 26), animated: false)
+        micButton.addGestureRecognizer(longPressGesture)
         messageInputBar.rightStackView.alignment = .center
         messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false, animations: nil)
     }
-    
+
     func updateMicButtonStatus(isShow : Bool){
         messageInputBar.setStackViewItems([ isShow ? micButton : messageInputBar.sendButton], forStack: .right, animated: false)
+    }
+    
+    func configureGestureRecognizer(){
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(recordAudio))
+        longPressGesture.minimumPressDuration = 0.5
+        longPressGesture.delaysTouchesBegan = true
+    }
+    
+    @objc func recordAudio(){
+        switch longPressGesture.state {
+            case .began:
+                audioDuration = Date()
+                audioFileName = Date().stringDate()
+                AudioRecordManager.share.startRecording(fileName: audioFileName)
+                break
+            case .ended :
+                AudioRecordManager.share.finishRecording()
+                if fileExistAt(Path: audioFileName + ".m4a"){
+                    //cần audioFileName để lấy nó từ local ra khi ghi âm nó tự lưu vào local r
+                    sendMessage(text: nil, photo: nil, video: nil, location: nil, audio: audioFileName, audioDuration: Date().timeIntervalSince(audioDuration))
+                }
+                audioFileName = ""
+                break
+            default:
+                print("Unknow longPressGesture state")
+        }
     }
     
     //MARK: - Load chat messages
@@ -198,7 +230,7 @@ class ChatDetailViewController: MessagesViewController {
     }
     
     //Send message
-    func sendMessage(text: String?, photo: UIImage?, video: URL?, location: CLLocationCoordinate2D?, audio: String?, audioDuration: Float = 0.0){
+    func sendMessage(text: String?, photo: UIImage?, video: URL?, location: CLLocationCoordinate2D?, audio: String?, audioDuration: Double = 0.0){
         DispatchQueue.global().async {
             OutComingMessage.sendMessageTo(chatRoomId: self.chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration, memberIds: self.memberChatIds)
         }
@@ -286,7 +318,7 @@ class ChatDetailViewController: MessagesViewController {
         
     }
     
-    //MARK: - UIScrollView Delegate
+    //MARK: - UIScrollView Delegate to load more
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if refreshController.isRefreshing {
             if allLocalMessages.count > displayingMessageCount{
