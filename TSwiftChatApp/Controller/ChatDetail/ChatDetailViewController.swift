@@ -40,6 +40,8 @@ class ChatDetailViewController: MessagesViewController {
     var chatAvatar : String
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
     
+    lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
+    
     //MARK: - Init
     init(chatRoomId: String,memberChatIds : [String],chatName : String,chatAvatar : String){
         self.chatRoomId = chatRoomId
@@ -65,7 +67,6 @@ class ChatDetailViewController: MessagesViewController {
         imagePicker.allowsEditing = false
         imagePicker.mediaTypes = [UTType.image.identifier,UTType.movie.identifier]
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !viewHasAppeared {
@@ -79,6 +80,10 @@ class ChatDetailViewController: MessagesViewController {
             loadMessages()
             FirebaseChatListeners.shared.listenForNewMessage(chatRoomId: chatRoomId, lastMessageDate: lastMessageDate())
         }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        audioController.stopAnyOngoingPlaying()
     }
     
     //MARK: - Set up navigation bar

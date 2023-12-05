@@ -62,7 +62,7 @@ func sendTextMessage(message : LocalMessage,text : String){
 }
 
 func sendPhotoMessage(message : LocalMessage,photo : UIImage){
-    message.message = "Sent a picture"
+//    message.message = "Sent a picture"
     message.type = KPHOTO    
     let fileDirectory = "MediaMessage/photo/\(message.chatRoomId)/_\(UUID().uuidString).jpg"
     FireStorage.uploadImageFor(directory: fileDirectory, photo) { imageUrl in
@@ -74,7 +74,7 @@ func sendPhotoMessage(message : LocalMessage,photo : UIImage){
 }
 
 func sendVideoMessage(message : LocalMessage,videoUrl : URL){
-    message.message = "Sent a video"
+//    message.message = "Sent a video"
     message.type = KVIEDEO
     
     let thumbnailImage = generateThumbnailVideo(for: videoUrl) ?? UIImage(named: "photoPlaceholder")!
@@ -86,7 +86,7 @@ func sendVideoMessage(message : LocalMessage,videoUrl : URL){
 }
 
 func sendLocationMessage(message : LocalMessage,location : CLLocationCoordinate2D){
-    message.message = "Sent a location"
+//    message.message = "Sent a location"
     message.type = KLOCATION
     message.latitude = location.latitude
     message.longitude = location.longitude
@@ -94,7 +94,7 @@ func sendLocationMessage(message : LocalMessage,location : CLLocationCoordinate2
 }
 
 func sendAudioMessage(message : LocalMessage,audioFileName: String){
-    message.message = "Sent a audio"
+//    message.message = "Sent a audio"
     message.type = KAUDIO
     FireStorage.uploadAudioTo(chatRoomId: message.chatRoomId, audioFileName: audioFileName) { audioUrl in
         message.audioUrl = audioUrl ?? ""

@@ -55,6 +55,7 @@
 		43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CB0B8B2AB70ED100C78420 /* FireStorage.swift */; };
 		43CB0B8E2AB72FA600C78420 /* GlobalFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */; };
 		43CBC9512AAB7D7B00F0829E /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CBC9502AAB7D7B00F0829E /* SettingTableViewController.swift */; };
+		43EC1A792B1F442B005F3E2E /* BasicAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EC1A782B1F442B005F3E2E /* BasicAudioController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		43CB0B8B2AB70ED100C78420 /* FireStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStorage.swift; sourceTree = "<group>"; };
 		43CB0B8D2AB72FA600C78420 /* GlobalFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunc.swift; sourceTree = "<group>"; };
 		43CBC9502AAB7D7B00F0829E /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		43EC1A782B1F442B005F3E2E /* BasicAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAudioController.swift; sourceTree = "<group>"; };
 		A8319F407C906B3E0035B951 /* Pods_TSwiftChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSwiftChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5FAB888CC707A0B2681B5B0 /* Pods-TSwiftChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSwiftChatApp.debug.xcconfig"; path = "Target Support Files/Pods-TSwiftChatApp/Pods-TSwiftChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +209,7 @@
 				439BDAF62AC59AD900672F5F /* Chat.swift */,
 				4330DBCA2AE5361800F403CD /* Message */,
 				4338C1BE2B1B3604002B6C8F /* MapAnnotation.swift */,
+				43EC1A782B1F442B005F3E2E /* BasicAudioController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				43679CF02A9BB39900B5CE5C /* User.swift in Sources */,
 				438EC7622AD4698400BF6413 /* ChatDetailViewController.swift in Sources */,
 				43679CF72A9BBB1D00B5CE5C /* FirebaseUserListeners.swift in Sources */,
+				43EC1A792B1F442B005F3E2E /* BasicAudioController.swift in Sources */,
 				43C68D5B2A9513AC00F24944 /* AuthViewController.swift in Sources */,
 				436C0E6D2AD94BBD00208549 /* InputBarAccessoryViewDelegate.swift in Sources */,
 				4384419A2ADE660F00A30A4E /* MessageKitDefaults.swift in Sources */,
