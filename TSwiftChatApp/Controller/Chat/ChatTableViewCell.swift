@@ -32,7 +32,7 @@ class ChatTableViewCell: UITableViewCell {
             chatImageOutlet.roundedImage(fromURL: URL(string: guestData.avatar), placeholderImage: UIImage(named: "avatar"))
             chatNameOutlet.text = guestData.username
             lastMessageOutlet.text = chat.lastMessage
-            timeSentOutlet.text = convertDate(chat.date ?? Date())
+            timeSentOutlet.text = "• \(convertDate(chat.date ?? Date()))"
         }
     }
     func loadSearchUserFor(user : User){

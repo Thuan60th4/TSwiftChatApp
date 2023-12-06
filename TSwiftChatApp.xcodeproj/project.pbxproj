@@ -42,6 +42,7 @@
 		439BDAF72AC59AD900672F5F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BDAF62AC59AD900672F5F /* Chat.swift */; };
 		43A041C32AE3F0B800E9B37D /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C22AE3F0B800E9B37D /* RealmManager.swift */; };
 		43A041C72AE3F91600E9B37D /* OutComingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C62AE3F91600E9B37D /* OutComingMessage.swift */; };
+		43A2AD892B20DE32008D57B0 /* ChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A2AD882B20DE32008D57B0 /* ChannelTableViewController.swift */; };
 		43A8DD9C2AC5DDB600284EA0 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8DD9B2AC5DDB600284EA0 /* Converter.swift */; };
 		43AA1D542ABCAA1900195F22 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D532ABCAA1900195F22 /* Status.swift */; };
 		43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */; };
@@ -94,6 +95,7 @@
 		439BDAF62AC59AD900672F5F /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		43A041C22AE3F0B800E9B37D /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		43A041C62AE3F91600E9B37D /* OutComingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutComingMessage.swift; sourceTree = "<group>"; };
+		43A2AD882B20DE32008D57B0 /* ChannelTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewController.swift; sourceTree = "<group>"; };
 		43A8DD9B2AC5DDB600284EA0 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		43AA1D532ABCAA1900195F22 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
@@ -195,8 +197,9 @@
 				43C68D5A2A9513AC00F24944 /* AuthViewController.swift */,
 				431784892AC5861400C80EBA /* Chat */,
 				438EC7602AD468F000BF6413 /* ChatDetail */,
-				437A40902AC057BE002C762C /* Profile */,
+				43A2AD8A2B20DE40008D57B0 /* Channel */,
 				43772B302ABF743A00EEEB79 /* People */,
+				437A40902AC057BE002C762C /* Profile */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -274,6 +277,14 @@
 				4338C1BC2B1B269A002B6C8F /* MapViewController.swift */,
 			);
 			path = ChatDetail;
+			sourceTree = "<group>";
+		};
+		43A2AD8A2B20DE40008D57B0 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				43A2AD882B20DE32008D57B0 /* ChannelTableViewController.swift */,
+			);
+			path = Channel;
 			sourceTree = "<group>";
 		};
 		43B67F2A2ADEFF2200F66E93 /* RealmMessage */ = {
@@ -463,6 +474,7 @@
 				43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */,
 				437A408F2AC04F2D002C762C /* PeopleViewController.swift in Sources */,
 				4338C1BD2B1B269A002B6C8F /* MapViewController.swift in Sources */,
+				43A2AD892B20DE32008D57B0 /* ChannelTableViewController.swift in Sources */,
 				4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */,
 				4338BAE72AF94763009C94A0 /* VideoMessage.swift in Sources */,
 				4362D2132B1DF0F400624694 /* AudioRecordManager.swift in Sources */,

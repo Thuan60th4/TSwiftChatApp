@@ -42,10 +42,6 @@ extension ChatDetailViewController : MessageCellDelegate {
         mapView.location = mkMesage.locationItem?.location
         mapView.locationName = mkMesage.sender.displayName
         navigationController?.pushViewController(mapView, animated: true)
-        // navigate to apple map
-        //        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: locationItem.location.coordinate, addressDictionary: nil))
-        //        mapItem.name = mkMesage.sender.displayName
-        //        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
     func didTapPlayButton(in cell: AudioMessageCell) {

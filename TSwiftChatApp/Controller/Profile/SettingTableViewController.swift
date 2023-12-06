@@ -37,10 +37,10 @@ class SettingTableViewController: UITableViewController {
     
     //MARK: - TableView delegate
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return 10
     }
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return 10
     }
     
     //MARK: - IBAction
