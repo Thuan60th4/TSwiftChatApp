@@ -305,6 +305,7 @@ class ChatDetailViewController: MessagesViewController {
             LocationManager.shared.requestNewLocation()
             LocationManager.shared.locationUpdateHandler = { location in
                 self.sendMessage(text: nil, photo: nil, video: nil, location: location, audio: nil)
+                LocationManager.shared.locationUpdateHandler = nil
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in

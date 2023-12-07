@@ -16,6 +16,7 @@ public let KFIRSTRUN = "firstRun"
 //MARK: - cell name
 public let peopleCell = "guestUserCell"
 public let chatCell = "chatCell"
+public let channelCell = "channelCell"
 
 public let KSENT = "sent"
 

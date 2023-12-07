@@ -53,7 +53,7 @@ class MapViewController: UIViewController {
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor.clear
+//        appearance.backgroundColor = UIColor.clear
         appearance.backgroundEffect = UIBlurEffect(style: .systemMaterial) // or dark
         
         //        navigationController?.navigationBar.standardAppearance = appearance
