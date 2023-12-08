@@ -29,7 +29,7 @@ extension UIImage {
 
 //MARK: - UIImageView Extension
 extension UIImageView {
-    func roundedImage(fromURL url: URL?,placeholderImage : UIImage? = nil) {
+    func roundedImage(fromURL url: URL?,placeholderImage : UIImage? = UIImage(named: "avatar")) {
         self.sd_setImage(with: url,placeholderImage: placeholderImage
         ) { [weak self] (image, _, _, _) in
             if let roundedImage = image?.circleImage {

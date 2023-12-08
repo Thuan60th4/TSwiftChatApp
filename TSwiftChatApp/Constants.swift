@@ -12,6 +12,8 @@ public let KSTATUSLIST = "statusList"
 
 public let KFIRSTRUN = "firstRun"
 
+public let KADMINID = "adminId"
+
 
 //MARK: - cell name
 public let peopleCell = "guestUserCell"

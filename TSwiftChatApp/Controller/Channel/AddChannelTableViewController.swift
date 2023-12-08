@@ -12,7 +12,8 @@ class AddChannelTableViewController: UITableViewController {
     
     //MARK: - Vars
     var avatarUrl : String? = ""
-    let channelId = UUID().uuidString
+    var channelId = UUID().uuidString
+    var paramToEdit : Channel?
     
     //MARK: - UI component
     lazy var alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -50,7 +51,7 @@ class AddChannelTableViewController: UITableViewController {
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel,handler: nil)
         alertController.addAction(option1Action)
         alertController.addAction(option2Action)
         alertController.addAction(cancelAction)
@@ -61,7 +62,9 @@ class AddChannelTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        
+        if paramToEdit != nil{
+            configureEditChannel(channel: paramToEdit!)
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -70,9 +73,21 @@ class AddChannelTableViewController: UITableViewController {
     
     //MARK: -  Save channel
     func saveChannel(){
-        let userCurrentId = User.currentId
-        let channel = Channel(id: channelId, groupName: nameTextFieldOutlet.text!, adminId: userCurrentId, memberIds: [userCurrentId], avatarLink: avatarUrl!, descriptionChannel: descriptionTextViewOutlet.text)
         navigationController?.popViewController(animated: true)
+
+        let userCurrentId = User.currentId
+        let channel = Channel(id: channelId, groupName: nameTextFieldOutlet.text!, adminId: userCurrentId, memberIds: [userCurrentId], avatarLink: avatarUrl!, descriptionChannel: descriptionTextViewOutlet.text,createDate: paramToEdit?.createDate,lastMessageDate: paramToEdit?.lastMessageDate)
+        FirebaseChannelListeners.shared.saveChannel(channel: channel)
+    }
+    
+    //MARK: - Edit channel
+    func configureEditChannel(channel : Channel){
+        title = "Edit channel"
+        channelId = channel.id
+        avatarImageViewOutlet.roundedImage(fromURL: URL(string: channel.avatarLink))
+        avatarUrl = channel.avatarLink
+        nameTextFieldOutlet.text = channel.groupName
+        descriptionTextViewOutlet.text = channel.descriptionChannel
     }
     
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A3B809069197B1F43FA254D /* Pods_TSwiftChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8319F407C906B3E0035B951 /* Pods_TSwiftChatApp.framework */; };
+		430BA9A42B232A6200A6FC05 /* FirebaseChannelListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430BA9A32B232A6200A6FC05 /* FirebaseChannelListeners.swift */; };
 		4317848B2AC5864800C80EBA /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4317848A2AC5864800C80EBA /* ChatTableViewCell.swift */; };
 		4317848D2AC586C000C80EBA /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4317848C2AC586C000C80EBA /* ChatTableViewController.swift */; };
 		43261F512AF1594B00E7B897 /* FirebaseTypingListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43261F502AF1594B00E7B897 /* FirebaseTypingListeners.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		1450C77C7F80EB2E91A25128 /* Pods-TSwiftChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSwiftChatApp.release.xcconfig"; path = "Target Support Files/Pods-TSwiftChatApp/Pods-TSwiftChatApp.release.xcconfig"; sourceTree = "<group>"; };
+		430BA9A32B232A6200A6FC05 /* FirebaseChannelListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseChannelListeners.swift; sourceTree = "<group>"; };
 		4317848A2AC5864800C80EBA /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		4317848C2AC586C000C80EBA /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
 		43261F502AF1594B00E7B897 /* FirebaseTypingListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTypingListeners.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				43CB0B8B2AB70ED100C78420 /* FireStorage.swift */,
 				43679CF62A9BBB1D00B5CE5C /* FirebaseUserListeners.swift */,
 				435DBF662ACAAA16001D01AC /* FirebaseChatListeners.swift */,
+				430BA9A32B232A6200A6FC05 /* FirebaseChannelListeners.swift */,
 				43261F502AF1594B00E7B897 /* FirebaseTypingListeners.swift */,
 			);
 			path = Firebase;
@@ -504,6 +507,7 @@
 				43679CF52A9BB99A00B5CE5C /* FirebaseReference.swift in Sources */,
 				43C68D592A9513AC00F24944 /* SceneDelegate.swift in Sources */,
 				438E23772AF7B29400BBC2D8 /* PhotoMessage.swift in Sources */,
+				430BA9A42B232A6200A6FC05 /* FirebaseChannelListeners.swift in Sources */,
 				43772B322ABF74DB00EEEB79 /* PeopleTableViewCell.swift in Sources */,
 				43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */,
 				4338BAE92AF964CE009C94A0 /* LocationManager.swift in Sources */,

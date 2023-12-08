@@ -214,21 +214,18 @@
                                                             <rect key="frame" x="0.0" y="49.666666666666664" width="289.33333333333331" height="19.333333333333336"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="2 members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sf-TV-AB1">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="173.66666666666666" height="19.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="234" height="19.333333333333332"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5i-5p-6bu">
-                                                                    <rect key="frame" x="178.66666666666669" y="0.0" width="110.66666666666669" height="19.333333333333332"/>
+                                                                    <rect key="frame" x="239.00000000000003" y="0.0" width="50.333333333333343" height="19.333333333333332"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="0sf-TV-AB1" firstAttribute="width" relation="lessThanOrEqual" secondItem="gvy-GZ-5aV" secondAttribute="width" multiplier="0.6" id="bcA-Ts-NDG"/>
-                                                            </constraints>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
@@ -257,26 +254,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Channel" id="4ny-RG-3Kn">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="xM3-Me-sOg">
-                            <rect key="frame" x="113.66666666666669" y="5.6666666666666679" width="187" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Subcribed"/>
-                                <segment title="All channels"/>
-                            </segments>
-                            <connections>
-                                <action selector="channelSegmenAction:" destination="PQa-1G-Hhq" eventType="valueChanged" id="yQQ-eZ-oh5"/>
-                            </connections>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="person.2.square.stack" catalog="system" id="Ivb-3y-4Xz">
                             <connections>
                                 <segue destination="31Y-7q-Mca" kind="show" id="107-db-KXW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="channelSegmentOutlet" destination="xM3-Me-sOg" id="BV2-CY-YY5"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yev-OX-jfW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -311,13 +294,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="omE-XM-w2k">
                                                     <rect key="frame" x="64" y="0.3333333333333357" width="289.33333333333331" height="69"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFb-ke-fWT">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Group name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFb-ke-fWT">
                                                             <rect key="frame" x="0.0" y="0.0" width="289.33333333333331" height="20.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pj-zJ-Fik">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pj-zJ-Fik">
                                                             <rect key="frame" x="0.0" y="25.333333333333329" width="289.33333333333331" height="19.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -327,21 +310,18 @@
                                                             <rect key="frame" x="0.0" y="49.666666666666664" width="289.33333333333331" height="19.333333333333336"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="2 members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GJ-1N-dDu">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="173.66666666666666" height="19.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="234" height="19.333333333333332"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAj-5F-Xdn">
-                                                                    <rect key="frame" x="178.66666666666669" y="0.0" width="110.66666666666669" height="19.333333333333332"/>
+                                                                    <rect key="frame" x="239.00000000000003" y="0.0" width="50.333333333333343" height="19.333333333333332"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="7GJ-1N-dDu" firstAttribute="width" relation="lessThanOrEqual" secondItem="a5a-yn-F0P" secondAttribute="width" multiplier="0.6" id="CW7-a8-hb3"/>
-                                                            </constraints>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
@@ -372,10 +352,13 @@
                     <navigationItem key="navigationItem" title="My Channels" id="2gs-sI-37D">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="XiD-o2-F4f">
                             <connections>
-                                <segue destination="TVR-iT-Yru" kind="show" id="BKX-DE-MaX"/>
+                                <action selector="addNewChannelBtn:" destination="31Y-7q-Mca" id="6u5-Sm-lGA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="TVR-iT-Yru" kind="show" identifier="myChannelToAddChannel" id="2le-gJ-GlG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YyF-1e-1zT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -540,13 +523,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xwV-at-WR9">
                                                             <rect key="frame" x="59" y="6" width="294.33333333333331" height="42.333333333333336"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9J-9R-Z32">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9J-9R-Z32">
                                                                     <rect key="frame" x="0.0" y="0.0" width="294.33333333333331" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNF-Mj-vI5">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNF-Mj-vI5">
                                                                     <rect key="frame" x="0.0" y="25.333333333333336" width="294.33333333333331" height="17"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

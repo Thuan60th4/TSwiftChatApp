@@ -9,14 +9,6 @@ import UIKit
 
 class ChannelTableViewController: UITableViewController {
 
-    //MARK: - IBOutlets
-    @IBOutlet weak var channelSegmentOutlet: UISegmentedControl!
-    
-    
-    //MARK: - IBActions
-    @IBAction func channelSegmenAction(_ sender: Any) {
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()    }
 

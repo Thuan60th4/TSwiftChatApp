@@ -15,7 +15,7 @@ class ChatTableViewController: UITableViewController {
     var isSearchBarActive = false
     
     let activityIndicator = UIActivityIndicatorView.create()
-    let searchController = UISearchController(searchResultsController: nil)
+   lazy var searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,6 @@ class ChatTableViewController: UITableViewController {
         loadListRecentChat()
         
         setUpSearchController()
-        searchController.searchBar.delegate = self
         
     }
     
@@ -104,6 +103,7 @@ extension ChatTableViewController : UISearchBarDelegate {
     
     func setUpSearchController(){
         navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
         
         searchController.searchBar.placeholder = "Search User"

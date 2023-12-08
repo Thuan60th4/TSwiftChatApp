@@ -64,7 +64,6 @@ class FirebaseChatListeners {
         }
     }
     
-    
     //MARK: - Load when chat is empty
     //there is no guarantee that async functions will run on the same thread so must add @MainActor
     @MainActor func loadOldChat(chatRoomId: String) async{
