@@ -17,7 +17,7 @@ class AddChannelTableViewController: UITableViewController {
     
     //MARK: - UI component
     lazy var alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    let imagePicker: UIImagePickerController = {
+    lazy var imagePicker: UIImagePickerController = {
         let controller = UIImagePickerController()
         controller.allowsEditing = false
         return controller
@@ -39,6 +39,12 @@ class AddChannelTableViewController: UITableViewController {
         else{
             ProgressHUD.showError("Channel name is emty!")
         }
+    }
+    @IBAction func deleteChannelBtn(_ sender: Any) {
+        if paramToEdit != nil {
+            FirebaseChannelListeners.shared.deleteChannel(paramToEdit!)
+        }
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func addImageBtn(_ sender: Any) {
@@ -62,13 +68,24 @@ class AddChannelTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        //MARK: - style descriptionTextViewOutlet
+        descriptionTextViewOutlet.layer.borderWidth = 1
+        descriptionTextViewOutlet.layer.borderColor = UIColor.gray.cgColor
+        descriptionTextViewOutlet.layer.cornerRadius = 8.0
+        descriptionTextViewOutlet.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5);
+        
         if paramToEdit != nil{
             configureEditChannel(channel: paramToEdit!)
         }
     }
     
+    //MARK: -  Tableview method
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return paramToEdit != nil ? 2 : 1
     }
     
     //MARK: -  Save channel

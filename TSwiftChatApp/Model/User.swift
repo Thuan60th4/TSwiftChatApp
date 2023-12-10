@@ -43,7 +43,13 @@ struct User : Codable,Equatable{
     static func == (lhs: User, rhs: User) -> Bool {
         lhs.id == rhs.id
     }
-    
+}
+
+struct guestUser {
+    var username : String = ""
+    var email : String = ""
+    var avatar : String = ""
+    var description : String = ""
 }
 
 func saveUserToLocalStorage (_ user : User){

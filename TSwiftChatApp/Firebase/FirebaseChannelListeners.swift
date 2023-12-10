@@ -45,4 +45,27 @@ class FirebaseChannelListeners{
                 }
             })
     }
+    
+    func fetchSubcribedChannels(completion: @escaping (_ allChannels: [Channel]) ->Void) {
+        channelListener = FirebaseRefFor(collection: .Channel)
+            .whereField(KMEMBERIDS, arrayContains: User.currentId)
+            .order(by: "lastMessageDate", descending: true)
+            .addSnapshotListener({ (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else {
+                    print("no documents for subcribed channels")
+                    return
+                }
+                let allChannels = documents.compactMap { (queryDocumentSnapshot)  in
+                    try? queryDocumentSnapshot.data(as: Channel.self)
+                }
+                DispatchQueue.main.async {
+                    completion(allChannels)
+                }
+            })
+    }
+    
+    //MARK: - Delete channel
+    func deleteChannel(_ channel: Channel) {
+        FirebaseRefFor(collection: .Channel).document(channel.id).delete()
+    }
 }

@@ -113,11 +113,7 @@ class EditProfileTableViewController: UITableViewController,UINavigationControll
         if userNameTextFieldOutlet.hasText,userNameTextFieldOutlet.text != currentUser.username {
             currentUser.username = userNameTextFieldOutlet.text!
         }
-        
-        if bioTextViewOutlet.hasText,bioTextViewOutlet.text != currentUser.description {
-            currentUser.description = bioTextViewOutlet.text!
-        }
-        
+        currentUser.description = bioTextViewOutlet.text!        
         FirebaseUserListeners.shared.SaveUserToFirestore(currentUser)
         saveUserToLocalStorage(currentUser)
         navigationController?.popViewController(animated: true)

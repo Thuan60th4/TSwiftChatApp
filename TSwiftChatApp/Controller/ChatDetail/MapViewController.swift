@@ -54,7 +54,7 @@ class MapViewController: UIViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
 //        appearance.backgroundColor = UIColor.clear
-        appearance.backgroundEffect = UIBlurEffect(style: .systemMaterial) // or dark
+        appearance.backgroundEffect = UIBlurEffect(style: .systemMaterial)
         
         //        navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -107,7 +107,6 @@ class MapViewController: UIViewController {
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: location?.coordinate ?? CLLocationCoordinate2D(), addressDictionary: nil))
         mapItem.name = locationName
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-        
     }
     
 }

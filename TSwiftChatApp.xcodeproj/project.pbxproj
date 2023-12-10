@@ -43,6 +43,8 @@
 		439BDAF72AC59AD900672F5F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439BDAF62AC59AD900672F5F /* Chat.swift */; };
 		43A041C32AE3F0B800E9B37D /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C22AE3F0B800E9B37D /* RealmManager.swift */; };
 		43A041C72AE3F91600E9B37D /* OutComingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A041C62AE3F91600E9B37D /* OutComingMessage.swift */; };
+		43A21DED2B24DAC8003277F9 /* DetailInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A21DEC2B24DAC8003277F9 /* DetailInfoTableViewController.swift */; };
+		43A21DF02B24DBB8003277F9 /* HeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A21DEF2B24DBB8003277F9 /* HeaderTableView.swift */; };
 		43A2AD892B20DE32008D57B0 /* ChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A2AD882B20DE32008D57B0 /* ChannelTableViewController.swift */; };
 		43A8DD9C2AC5DDB600284EA0 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8DD9B2AC5DDB600284EA0 /* Converter.swift */; };
 		43AA1D542ABCAA1900195F22 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D532ABCAA1900195F22 /* Status.swift */; };
@@ -101,6 +103,8 @@
 		439BDAF62AC59AD900672F5F /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		43A041C22AE3F0B800E9B37D /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		43A041C62AE3F91600E9B37D /* OutComingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutComingMessage.swift; sourceTree = "<group>"; };
+		43A21DEC2B24DAC8003277F9 /* DetailInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailInfoTableViewController.swift; path = "../New Group/DetailInfoTableViewController.swift"; sourceTree = "<group>"; };
+		43A21DEF2B24DBB8003277F9 /* HeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableView.swift; sourceTree = "<group>"; };
 		43A2AD882B20DE32008D57B0 /* ChannelTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewController.swift; sourceTree = "<group>"; };
 		43A8DD9B2AC5DDB600284EA0 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		43AA1D532ABCAA1900195F22 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				43C68D5A2A9513AC00F24944 /* AuthViewController.swift */,
+				43A21DEE2B24DB8E003277F9 /* DetailInfo */,
 				431784892AC5861400C80EBA /* Chat */,
 				438EC7602AD468F000BF6413 /* ChatDetail */,
 				43A2AD8A2B20DE40008D57B0 /* Channel */,
@@ -289,6 +294,15 @@
 				4338C1BC2B1B269A002B6C8F /* MapViewController.swift */,
 			);
 			path = ChatDetail;
+			sourceTree = "<group>";
+		};
+		43A21DEE2B24DB8E003277F9 /* DetailInfo */ = {
+			isa = PBXGroup;
+			children = (
+				43A21DEC2B24DAC8003277F9 /* DetailInfoTableViewController.swift */,
+				43A21DEF2B24DBB8003277F9 /* HeaderTableView.swift */,
+			);
+			path = DetailInfo;
 			sourceTree = "<group>";
 		};
 		43A2AD8A2B20DE40008D57B0 /* Channel */ = {
@@ -467,7 +481,9 @@
 				43B67F2C2ADEFF3800F66E93 /* LocalMessage.swift in Sources */,
 				43679CF02A9BB39900B5CE5C /* User.swift in Sources */,
 				438EC7622AD4698400BF6413 /* ChatDetailViewController.swift in Sources */,
+				43A21DF02B24DBB8003277F9 /* HeaderTableView.swift in Sources */,
 				43679CF72A9BBB1D00B5CE5C /* FirebaseUserListeners.swift in Sources */,
+				43A21DED2B24DAC8003277F9 /* DetailInfoTableViewController.swift in Sources */,
 				43EC1A792B1F442B005F3E2E /* BasicAudioController.swift in Sources */,
 				43C68D5B2A9513AC00F24944 /* AuthViewController.swift in Sources */,
 				436C0E6D2AD94BBD00208549 /* InputBarAccessoryViewDelegate.swift in Sources */,

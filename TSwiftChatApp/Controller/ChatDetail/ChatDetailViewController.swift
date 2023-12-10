@@ -14,40 +14,53 @@ import CoreLocation
 
 class ChatDetailViewController: MessagesViewController {
     
+    //MARK: - Vars
     var viewHasAppeared = false
     let realm = try! Realm()
     var timer = Timer()
     let micButton = InputBarButtonItem()
     let typingLabel = UILabel()
-    let imagePicker = UIImagePickerController()
     
     var mkMessages : [MKMessage] = []
     var allLocalMessages : Results<LocalMessage>!
     var notificationToken : NotificationToken?
     
+    var avatarTapGesture : UIGestureRecognizer!
     var longPressGesture : UILongPressGestureRecognizer!
     var audioFileName = ""
     var audioDuration: Date!
     
-    let refreshController = UIRefreshControl()
     var displayingMessageCount = 0
     var maxMessageNumber = 0
     var minMessageNumber = 0
     
     private var chatRoomId: String
     private var memberChatIds : [String]
-    private var chatName : String
-    var chatAvatar : String
+    private var guestChatId : String
+    
+    //tại sao lại sử dụng storeProperty thay vì computedProperty vì computedProperty sẽ đc tính lại mỗi lần truy cập còn cái này thì chỉ gọi 1 lần
+    lazy private var guestChatData: guestUser? = {
+        guard let userInfo = FirebaseChatListeners.shared.listUser[guestChatId] else {return nil}
+        return guestUser(username: userInfo.username, email: userInfo.email, avatar: userInfo.avatar, description: userInfo.description)
+    }()
+    
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
     
+    //MARK: - UI Component
+    lazy var refreshController = UIRefreshControl()
+    lazy var imagePicker: UIImagePickerController = {
+        let controller = UIImagePickerController()
+        controller.allowsEditing = false
+        controller.mediaTypes = [UTType.image.identifier,UTType.movie.identifier]
+        return controller
+    }()
     lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
     //MARK: - Init
-    init(chatRoomId: String,memberChatIds : [String],chatName : String,chatAvatar : String){
+    init(chatRoomId: String,memberChatIds : [String],guestChatId : String){
         self.chatRoomId = chatRoomId
         self.memberChatIds = memberChatIds
-        self.chatName = chatName
-        self.chatAvatar = chatAvatar
+        self.guestChatId = guestChatId
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -64,8 +77,6 @@ class ChatDetailViewController: MessagesViewController {
         listenerTypingStatus()
         
         imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-        imagePicker.mediaTypes = [UTType.image.identifier,UTType.movie.identifier]
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -92,7 +103,7 @@ class ChatDetailViewController: MessagesViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backBtnPress))
         
         let chatTitle = UILabel()
-        chatTitle.text = chatName
+        chatTitle.text = guestChatData?.username
         chatTitle.font = UIFont.preferredFont(forTextStyle: .headline)
         typingLabel.font = UIFont.systemFont(ofSize: 12)
         typingLabel.textColor = UIColor(named: "mainColor")
@@ -104,7 +115,9 @@ class ChatDetailViewController: MessagesViewController {
         navigationItem.titleView = vStack
         
         let imageView = UIImageView()
-        imageView.roundedImage(fromURL: URL(string : chatAvatar), placeholderImage: UIImage(named: "avatar"))
+        imageView.roundedImage(fromURL: URL(string : guestChatData?.avatar ?? ""), placeholderImage: UIImage(named: "avatar"))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(avatarTapGesture)
         let imageContain = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
         imageView.frame = imageContain.bounds
         imageContain.addSubview(imageView)
@@ -153,12 +166,14 @@ class ChatDetailViewController: MessagesViewController {
         messageInputBar.rightStackView.alignment = .center
         messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false, animations: nil)
     }
-
+    
     func updateMicButtonStatus(isShow : Bool){
         messageInputBar.setStackViewItems([ isShow ? micButton : messageInputBar.sendButton], forStack: .right, animated: false)
     }
     
     func configureGestureRecognizer(){
+        avatarTapGesture = UITapGestureRecognizer(target: self, action: #selector(navigateToViewDetail))
+        
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(recordAudio))
         longPressGesture.minimumPressDuration = 0.5
         longPressGesture.delaysTouchesBegan = true
@@ -287,6 +302,14 @@ class ChatDetailViewController: MessagesViewController {
             FirebaseChatListeners.shared.newMessageListenter?.remove()
         }
     }
+    
+    //navigate To View Detail
+    @objc func navigateToViewDetail(){
+        let detailView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailInfoView") as! DetailInfoTableViewController
+        detailView.detailInfo = .chat(guestChatData)
+        navigationController?.pushViewController(detailView, animated: true)
+    }
+    
     
     //action attach message
     private func actionAttachMessage(){

@@ -15,7 +15,7 @@ class ChatTableViewController: UITableViewController {
     var isSearchBarActive = false
     
     let activityIndicator = UIActivityIndicatorView.create()
-   lazy var searchController = UISearchController(searchResultsController: nil)
+    lazy var searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,15 +52,15 @@ class ChatTableViewController: UITableViewController {
         var chatDetailController : ChatDetailViewController!
         if !isSearchBarActive {
             let chatData = listChatData[indexPath.row]
-            guard let guestId = chatData.memberIds.first(where: { $0 != User.currentId}), let guestData = FirebaseChatListeners.shared.listUser[guestId] else{
+            guard let guestId = chatData.memberIds.first(where: { $0 != User.currentId}) else{
                 return
             }
-             chatDetailController = ChatDetailViewController(chatRoomId: chatData.chatRoomId, memberChatIds: chatData.memberIds, chatName: guestData.username, chatAvatar: guestData.avatar)
+            chatDetailController = ChatDetailViewController(chatRoomId: chatData.chatRoomId, memberChatIds: chatData.memberIds,guestChatId: guestId)
         }
         else{
             let userInfo = listSearchUser[indexPath.row]
             let memberIds = [userInfo.id,User.currentId]
-             chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds, chatName: userInfo.username, chatAvatar: userInfo.avatar)
+            chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds,guestChatId: userInfo.id)
         }
         
         chatDetailController.hidesBottomBarWhenPushed = true
