@@ -34,7 +34,7 @@ class FirebaseChannelListeners{
             .order(by: "lastMessageDate", descending: true)
             .addSnapshotListener({ (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
-                    print("no documents for user channels")
+                    print("no fetchMyChannels for user channels")
                     return
                 }
                 let allChannels = documents.compactMap { (queryDocumentSnapshot)  in
@@ -52,7 +52,8 @@ class FirebaseChannelListeners{
             .order(by: "lastMessageDate", descending: true)
             .addSnapshotListener({ (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
-                    print("no documents for subcribed channels")
+                    print("no fetchSubcribedChannels for subcribed channels")
+                    
                     return
                 }
                 let allChannels = documents.compactMap { (queryDocumentSnapshot)  in
@@ -62,6 +63,25 @@ class FirebaseChannelListeners{
                     completion(allChannels)
                 }
             })
+    }
+    
+    func FindChannelFromFirebaseWith(name : String, completion : @escaping (_ allChannels : [Channel])-> Void){
+        FirebaseRefFor(collection: .Channel)
+            .order(by: "groupName")
+            .start(at: [name])
+            .end(at: ["\(name)\u{f8ff}"])
+            .getDocuments() { (querySnapshot, err) in
+                guard let documents = querySnapshot?.documents else {
+                    print("cant find any channel")
+                    return
+                }
+                let allChannels = documents.compactMap { (queryDocumentSnapshot)  in
+                    try? queryDocumentSnapshot.data(as: Channel.self)
+                }
+                DispatchQueue.main.async {
+                    completion(allChannels)
+                }
+            }
     }
     
     //MARK: - Delete channel

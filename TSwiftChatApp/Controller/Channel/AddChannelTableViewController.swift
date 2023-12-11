@@ -93,7 +93,7 @@ class AddChannelTableViewController: UITableViewController {
         navigationController?.popViewController(animated: true)
 
         let userCurrentId = User.currentId
-        let channel = Channel(id: channelId, groupName: nameTextFieldOutlet.text!, adminId: userCurrentId, memberIds: [userCurrentId], avatarLink: avatarUrl!, descriptionChannel: descriptionTextViewOutlet.text,createDate: paramToEdit?.createDate,lastMessageDate: paramToEdit?.lastMessageDate)
+        let channel = Channel(id: channelId, groupName: nameTextFieldOutlet.text!, adminId: userCurrentId, memberIds: [], avatarLink: avatarUrl!, descriptionChannel: descriptionTextViewOutlet.text,createDate: paramToEdit?.createDate,lastMessageDate: paramToEdit?.lastMessageDate)
         FirebaseChannelListeners.shared.saveChannel(channel: channel)
     }
     

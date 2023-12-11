@@ -15,7 +15,7 @@ class ChatTableViewController: UITableViewController {
     var isSearchBarActive = false
     
     let activityIndicator = UIActivityIndicatorView.create()
-    lazy var searchController = UISearchController(searchResultsController: nil)
+    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,20 +99,16 @@ class ChatTableViewController: UITableViewController {
 }
 
 //MARK: - Search Controller delegate
-extension ChatTableViewController : UISearchBarDelegate {
+extension ChatTableViewController : UISearchControllerDelegate,UISearchBarDelegate {
     
     func setUpSearchController(){
         navigationItem.searchController = searchController
+        searchController.delegate = self
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = true
         
         searchController.searchBar.placeholder = "Search User"
         definesPresentationContext = true
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearchBarActive=true
-        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -132,7 +128,12 @@ extension ChatTableViewController : UISearchBarDelegate {
         }
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func willPresentSearchController(_ searchController: UISearchController) {
+        isSearchBarActive=true
+        tableView.reloadData()
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
         timer.invalidate()
         isSearchBarActive=false
         self.listSearchUser = []

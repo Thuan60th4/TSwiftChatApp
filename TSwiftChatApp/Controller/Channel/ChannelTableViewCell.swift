@@ -33,7 +33,7 @@ class ChannelTableViewCell: UITableViewCell {
         channelImageOutlet.roundedImage(fromURL: URL(string: channel.avatarLink), placeholderImage: UIImage(named: "avatar"))
         channelNameOutlet.text = channel.groupName
         descriptionOutlet.text = channel.descriptionChannel
-        numberMembersOutlet.text = "\(channel.memberIds.count) member"
+        numberMembersOutlet.text = "\(channel.memberIds.count) members"
         timeSentOutlet.text = "\(convertDate(channel.lastMessageDate ?? Date()))"
     }
 
