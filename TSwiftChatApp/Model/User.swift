@@ -45,13 +45,6 @@ struct User : Codable,Equatable{
     }
 }
 
-struct guestUser {
-    var username : String = ""
-    var email : String = ""
-    var avatar : String = ""
-    var description : String = ""
-}
-
 func saveUserToLocalStorage (_ user : User){
     let encoder = JSONEncoder()
     do{

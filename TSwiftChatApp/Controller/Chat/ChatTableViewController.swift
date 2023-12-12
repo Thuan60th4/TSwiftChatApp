@@ -49,23 +49,26 @@ class ChatTableViewController: UITableViewController {
     //MARK: - Table view delegate
     //Go to chat detail
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         var chatDetailController : ChatDetailViewController!
         if !isSearchBarActive {
             let chatData = listChatData[indexPath.row]
-            guard let guestId = chatData.memberIds.first(where: { $0 != User.currentId}) else{
+            guard let guestId = chatData.memberIds.first(where: { $0 != User.currentId}),let guestData = FirebaseChatListeners.shared.listUser[guestId] else{
                 return
             }
-            chatDetailController = ChatDetailViewController(chatRoomId: chatData.chatRoomId, memberChatIds: chatData.memberIds,guestChatId: guestId)
+            chatDetailController = ChatDetailViewController(chatRoomId: chatData.chatRoomId, memberChatIds: chatData.memberIds)
+            chatDetailController.guestData = guestData
+
         }
         else{
             let userInfo = listSearchUser[indexPath.row]
             let memberIds = [userInfo.id,User.currentId]
-            chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds,guestChatId: userInfo.id)
+            chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds)
+            chatDetailController.guestData = userInfo
         }
         
         chatDetailController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(chatDetailController, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //can remove chat or nor

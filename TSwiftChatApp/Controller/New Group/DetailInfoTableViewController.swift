@@ -8,7 +8,7 @@
 import UIKit
 
 enum DetailInfo {
-    case chat(guestUser?)
+    case chat(User?)
     case channel(Channel?)
 }
 
@@ -17,6 +17,7 @@ class DetailInfoTableViewController: UITableViewController {
     //MARK: - Vars
     var imageAvatar: String = ""
     var name: String = "N/A"
+    var moreInfo: String = "N/A"
     var aboutInfo : String = "No bio yet"
     var detailInfo: DetailInfo?{
         didSet{
@@ -25,7 +26,19 @@ class DetailInfoTableViewController: UITableViewController {
                     if let guestUserData = guestUser{
                         imageAvatar = guestUserData.avatar
                         name = guestUserData.username
-                        aboutInfo = guestUserData.description
+                        moreInfo = guestUserData.email
+                        if guestUserData.description != "" {
+                            aboutInfo = guestUserData.description
+                        }
+                    }
+                case .channel(let channelData):
+                    if let channelData = channelData{
+                        imageAvatar = channelData.avatarLink
+                        name = channelData.groupName
+                        moreInfo = "\(channelData.memberIds.count) members"
+                        if channelData.descriptionChannel != "" {
+                            aboutInfo = channelData.descriptionChannel
+                        }
                     }
                 default:
                     print("No detail info")
@@ -67,6 +80,7 @@ class DetailInfoTableViewController: UITableViewController {
         let headerTableView = HeaderTableView(frame: CGRect(x: 0, y: tableView.contentOffset.y, width: view.bounds.width, height: 300))
         headerTableView.imageLink = imageAvatar
         headerTableView.name = name
+        headerTableView.moreInfo = moreInfo
         tableView.tableHeaderView = headerTableView
     }
     

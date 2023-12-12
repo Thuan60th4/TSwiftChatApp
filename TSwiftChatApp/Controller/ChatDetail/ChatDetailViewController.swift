@@ -35,14 +35,31 @@ class ChatDetailViewController: MessagesViewController {
     var minMessageNumber = 0
     
     private var chatRoomId: String
-    private var memberChatIds : [String]
-    private var guestChatId : String
+    private var memberChatIds : [String]?
+    var chatName : String?
+    var chatAvatar : String?
+
+    var guestData: User?{
+        didSet{
+            chatName = guestData?.username
+            chatAvatar = guestData?.avatar
+        }
+    }
+    var channelData : Channel?{
+        didSet{
+            chatName = channelData?.groupName
+            chatAvatar = channelData?.avatarLink
+        }
+    }
+    var isChannel : Bool{
+        return channelData != nil
+    }
     
     //tại sao lại sử dụng storeProperty thay vì computedProperty vì computedProperty sẽ đc tính lại mỗi lần truy cập còn cái này thì chỉ gọi 1 lần
-    lazy private var guestChatData: guestUser? = {
-        guard let userInfo = FirebaseChatListeners.shared.listUser[guestChatId] else {return nil}
-        return guestUser(username: userInfo.username, email: userInfo.email, avatar: userInfo.avatar, description: userInfo.description)
-    }()
+//    lazy private var guestChatData: guestUser? = {
+//        guard let userInfo = FirebaseChatListeners.shared.listUser[guestChatId] else {return nil}
+//        return guestUser(username: userInfo.username, email: userInfo.email, avatar: userInfo.avatar, description: userInfo.description)
+//    }()
     
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
     
@@ -57,10 +74,9 @@ class ChatDetailViewController: MessagesViewController {
     lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
     //MARK: - Init
-    init(chatRoomId: String,memberChatIds : [String],guestChatId : String){
+    init(chatRoomId: String,memberChatIds : [String]?){
         self.chatRoomId = chatRoomId
         self.memberChatIds = memberChatIds
-        self.guestChatId = guestChatId
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -103,7 +119,7 @@ class ChatDetailViewController: MessagesViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backBtnPress))
         
         let chatTitle = UILabel()
-        chatTitle.text = guestChatData?.username
+        chatTitle.text = chatName
         chatTitle.font = UIFont.preferredFont(forTextStyle: .headline)
         typingLabel.font = UIFont.systemFont(ofSize: 12)
         typingLabel.textColor = UIColor(named: "mainColor")
@@ -115,7 +131,7 @@ class ChatDetailViewController: MessagesViewController {
         navigationItem.titleView = vStack
         
         let imageView = UIImageView()
-        imageView.roundedImage(fromURL: URL(string : guestChatData?.avatar ?? ""), placeholderImage: UIImage(named: "avatar"))
+        imageView.roundedImage(fromURL: URL(string : chatAvatar ?? ""), placeholderImage: UIImage(named: "avatar"))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(avatarTapGesture)
         let imageContain = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
@@ -146,6 +162,10 @@ class ChatDetailViewController: MessagesViewController {
     }
     
     private func configurationInputBar(){
+        if isChannel && channelData!.adminId != User.currentId {
+            messageInputBar.isHidden = true
+            return
+        }
         messageInputBar.delegate = self
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.padding = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 0)
@@ -297,7 +317,9 @@ class ChatDetailViewController: MessagesViewController {
     @objc func backBtnPress(){
         navigationController?.popViewController(animated: true)
         DispatchQueue.global().async {
-            FirebaseRefFor(collection: .Chat).document(self.chatRoomId).setData(["isRead" : [User.currentId : true]], merge: true)
+            if !self.isChannel{
+                FirebaseRefFor(collection: .Chat).document(self.chatRoomId).setData(["isRead" : [User.currentId : true]], merge: true)
+            }
             FirebaseTypingListeners.shared.removeTypingObserver()
             FirebaseChatListeners.shared.newMessageListenter?.remove()
         }
@@ -306,7 +328,7 @@ class ChatDetailViewController: MessagesViewController {
     //navigate To View Detail
     @objc func navigateToViewDetail(){
         let detailView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailInfoView") as! DetailInfoTableViewController
-        detailView.detailInfo = .chat(guestChatData)
+        detailView.detailInfo = !isChannel ? .chat(guestData) : .channel(channelData)
         navigationController?.pushViewController(detailView, animated: true)
     }
     

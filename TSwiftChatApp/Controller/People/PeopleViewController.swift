@@ -72,7 +72,8 @@ extension PeopleViewController : UITableViewDelegate{
         let userInfo = listUser[indexPath.row]
         let memberIds = [userInfo.id,User.currentId]
         //Go to chat
-        let chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds, guestChatId: userInfo.id)
+        let chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds)
+        chatDetailController.guestData = userInfo
         chatDetailController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(chatDetailController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)

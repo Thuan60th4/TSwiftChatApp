@@ -42,11 +42,11 @@ class ChannelTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return isSearchBarActive
-                        ? listSeearchChannelData.count
-                        : channelSegmentOutlet.selectedSegmentIndex == 1
-                        ? listMyChannelData.count
-                        : listSubcribedChannelData.count
+        return isSearchBarActive
+        ? listSeearchChannelData.count
+        : channelSegmentOutlet.selectedSegmentIndex == 1
+        ? listMyChannelData.count
+        : listSubcribedChannelData.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,6 +62,42 @@ class ChannelTableViewController: UITableViewController {
         cell.configure(channel: channelCellData)
         return cell
     }
+    
+    //MARK: - Table view delegate
+    
+    //remove channel
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return channelSegmentOutlet.selectedSegmentIndex == 0
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            var removeItem = listSubcribedChannelData[indexPath.row]
+            self.listSubcribedChannelData.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            DispatchQueue.global().async {
+                removeItem.memberIds = removeItem.memberIds.filter {$0 != User.currentId}
+                FirebaseChannelListeners.shared.saveChannel(channel: removeItem)
+            }
+        }
+    }
+    
+    //Navigate to channel chat
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let channelData =
+        isSearchBarActive
+        ? listSeearchChannelData[indexPath.row]
+        : channelSegmentOutlet.selectedSegmentIndex == 1
+        ? listMyChannelData[indexPath.row]
+        : listSubcribedChannelData[indexPath.row]
+        
+        let chatDetailController = ChatDetailViewController(chatRoomId: channelData.id, memberChatIds: nil)
+        chatDetailController.channelData = channelData
+        chatDetailController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(chatDetailController, animated: true)
+    }
+    
     //MARK: - load list channel
     func loadListSubcribedChannel(){
         DispatchQueue.global().async {

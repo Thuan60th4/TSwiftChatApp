@@ -8,7 +8,7 @@
 import UIKit
 
 class HeaderTableView: UIView {
-
+    
     //MARK: - Var
     var imageLink: String?{
         didSet{
@@ -20,9 +20,14 @@ class HeaderTableView: UIView {
             nameLabel.text = name
         }
     }
-
+    var moreInfo: String?{
+        didSet{
+            moreLabel.text = moreInfo
+        }
+    }
+    
     //MARK: - UI Component
-   private let avatarImageView : UIImageView = {
+    private let avatarImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -30,12 +35,28 @@ class HeaderTableView: UIView {
         
     }()
     
-   private let nameLabel: UILabel={
+    private let nameLabel: UILabel={
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-       label.textColor = .white
-       label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
+    }()
+    
+    private let moreLabel: UILabel={
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        return label
+    }()
+    
+    lazy private var labelStackContain: UIStackView = {
+        let labelStackContain = UIStackView()
+        labelStackContain.axis = .vertical
+        labelStackContain.translatesAutoresizingMaskIntoConstraints = false
+        labelStackContain.spacing = 5
+        labelStackContain.addArrangedSubview(nameLabel)
+        labelStackContain.addArrangedSubview(moreLabel)
+        return labelStackContain
     }()
     
     //MARK: - Init
@@ -43,7 +64,7 @@ class HeaderTableView: UIView {
         super.init(frame: frame)
         addSubview(avatarImageView)
         addGradient()
-        addSubview(nameLabel)
+        addSubview(labelStackContain)
     }
     
     required init?(coder: NSCoder) {
@@ -54,8 +75,8 @@ class HeaderTableView: UIView {
         super.layoutSubviews()
         avatarImageView.frame = bounds
         NSLayoutConstraint.activate([
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -45),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20),
+            labelStackContain.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -45),
+            labelStackContain.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20),
         ])
     }
     
@@ -65,5 +86,5 @@ class HeaderTableView: UIView {
         gradientLayer.frame = bounds
         layer.addSublayer(gradientLayer)
     }
-
+    
 }

@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 import CoreLocation
 
 class OutComingMessage {
-    class func sendMessageTo(chatRoomId: String,text: String?, photo: UIImage?, video: URL? , location: CLLocationCoordinate2D?, audio: String?, audioDuration: Double = 0.0,memberIds : [String]){
+    class func sendMessageTo(chatRoomId: String,text: String?, photo: UIImage?, video: URL? , location: CLLocationCoordinate2D?, audio: String?, audioDuration: Double = 0.0,memberIds : [String]?){
         var lastMessage = ""
         let currentUser = User.currentUser!
         let message = LocalMessage()
@@ -43,7 +43,9 @@ class OutComingMessage {
         }
         
         //Update recent chat
-        startChat(message: lastMessage, memberIds: memberIds)
+        if memberIds != nil{
+            startChat(message: lastMessage, memberIds: memberIds!)
+        }
         
         //Send push notification
     }

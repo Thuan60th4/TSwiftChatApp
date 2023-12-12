@@ -20,7 +20,7 @@ class FirebaseChannelListeners{
     //MARK: - Add channel
     func saveChannel(channel : Channel){
         do {
-            try FirebaseRefFor(collection: .Channel).document(channel.id).setData(from: channel)
+            try FirebaseRefFor(collection: .Channel).document(channel.id).setData(from: channel,merge: true)
         } catch {
             print("Add channel failure \(error.localizedDescription)")
         }
@@ -52,8 +52,7 @@ class FirebaseChannelListeners{
             .order(by: "lastMessageDate", descending: true)
             .addSnapshotListener({ (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else {
-                    print("no fetchSubcribedChannels for subcribed channels")
-                    
+                    print("no fetchSubcribedChannels for subcribed channels") 
                     return
                 }
                 let allChannels = documents.compactMap { (queryDocumentSnapshot)  in
