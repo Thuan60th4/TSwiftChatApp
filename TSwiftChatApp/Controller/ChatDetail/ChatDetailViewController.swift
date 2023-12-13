@@ -18,8 +18,6 @@ class ChatDetailViewController: MessagesViewController {
     var viewHasAppeared = false
     let realm = try! Realm()
     var timer = Timer()
-    let micButton = InputBarButtonItem()
-    let typingLabel = UILabel()
     
     var mkMessages : [MKMessage] = []
     var allLocalMessages : Results<LocalMessage>!
@@ -64,6 +62,10 @@ class ChatDetailViewController: MessagesViewController {
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
     
     //MARK: - UI Component
+    let micButton = InputBarButtonItem()
+    let subcribedBtn = InputBarButtonItem()
+    let typingLabel = UILabel()
+
     lazy var refreshController = UIRefreshControl()
     lazy var imagePicker: UIImagePickerController = {
         let controller = UIImagePickerController()
@@ -162,11 +164,19 @@ class ChatDetailViewController: MessagesViewController {
     }
     
     private func configurationInputBar(){
+        messageInputBar.delegate = self
         if isChannel && channelData!.adminId != User.currentId {
-            messageInputBar.isHidden = true
+            messageInputBar.inputTextView.isHidden = true
+            subcribedBtn.title = channelData!.memberIds.contains(User.currentId) ? "Unsubcribe" : "Subcribe"
+            subcribedBtn.setSize(CGSize(width: 100,height: 10), animated: false)
+            subcribedBtn.onTouchUpInside { item in
+                self.followAction()
+            }
+            messageInputBar.setLeftStackViewWidthConstant(to: view.bounds.width, animated: false, animations: nil)
+            messageInputBar.setRightStackViewWidthConstant(to: 0, animated: false)
+            messageInputBar.setStackViewItems([subcribedBtn], forStack: .left, animated: false)
             return
         }
-        messageInputBar.delegate = self
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.padding = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 0)
         
@@ -230,7 +240,7 @@ class ChatDetailViewController: MessagesViewController {
         
         if allLocalMessages.isEmpty{
             Task{
-                await FirebaseChatListeners.shared.loadOldChat(chatRoomId: self.chatRoomId)
+                await FirebaseChatListeners.shared.loadOldChat(chatRoomId: self.chatRoomId,isChannel)
             }
         }
         notificationToken = allLocalMessages.observe({ (changes : RealmCollectionChange) in
@@ -274,6 +284,20 @@ class ChatDetailViewController: MessagesViewController {
         DispatchQueue.global().async {
             OutComingMessage.sendMessageTo(chatRoomId: self.chatRoomId, text: text, photo: photo, video: video, location: location, audio: audio, audioDuration: audioDuration, memberIds: self.memberChatIds)
         }
+    }
+    
+    //Follow & unfollow
+    func followAction(){
+        if channelData == nil {return}
+        if channelData!.memberIds.contains(User.currentId){
+            channelData!.memberIds = channelData!.memberIds.filter {$0 != User.currentId}
+            subcribedBtn.title = "Subcribe"
+        }
+        else {
+            subcribedBtn.title = "UnSubcribe"
+            channelData!.memberIds.append(User.currentId)
+        }
+        FirebaseChannelListeners.shared.saveChannel(channel: channelData!)
     }
     
     //insert message to array

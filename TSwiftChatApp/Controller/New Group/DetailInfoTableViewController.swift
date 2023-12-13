@@ -15,6 +15,7 @@ enum DetailInfo {
 class DetailInfoTableViewController: UITableViewController {
     
     //MARK: - Vars
+    var adminlId : String?
     var imageAvatar: String = ""
     var name: String = "N/A"
     var moreInfo: String = "N/A"
@@ -33,6 +34,7 @@ class DetailInfoTableViewController: UITableViewController {
                     }
                 case .channel(let channelData):
                     if let channelData = channelData{
+                        adminlId = channelData.adminId
                         imageAvatar = channelData.avatarLink
                         name = channelData.groupName
                         moreInfo = "\(channelData.memberIds.count) members"
@@ -52,23 +54,14 @@ class DetailInfoTableViewController: UITableViewController {
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = UIColor.white
-
-        configureRightButtonNavigation()
         configureTableHeaderView()
-        
+        if adminlId == User.currentId{
+            configureRightButtonNavigation()
+        }
         aboutInfoOutlet.text = aboutInfo
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.tintColor = nil
-        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
-    }
-    
-    //MARK: - Configure
-    func configureTableHeaderView(){
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         //transparent header
         tableView.contentInsetAdjustmentBehavior = .never
         let appearance = UINavigationBarAppearance()
@@ -76,7 +69,14 @@ class DetailInfoTableViewController: UITableViewController {
         appearance.backgroundColor = UIColor.clear
         navigationController?.navigationBar.standardAppearance = appearance
 
-        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
+    }
+    
+    //MARK: - Configure
+    func configureTableHeaderView(){
         let headerTableView = HeaderTableView(frame: CGRect(x: 0, y: tableView.contentOffset.y, width: view.bounds.width, height: 300))
         headerTableView.imageLink = imageAvatar
         headerTableView.name = name
@@ -91,7 +91,14 @@ class DetailInfoTableViewController: UITableViewController {
     
     //MARK: - Action
     @objc func editButtonTapped() {
-        print("Edit button tapped!")
+       let editChannelView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addChannelView") as! AddChannelTableViewController
+        switch detailInfo {
+            case .channel(let channelData):
+                editChannelView.paramToEdit = channelData
+            default:
+                return
+        }
+        navigationController?.pushViewController(editChannelView, animated: true)
     }
 
 }

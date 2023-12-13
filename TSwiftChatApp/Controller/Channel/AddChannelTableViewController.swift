@@ -44,7 +44,7 @@ class AddChannelTableViewController: UITableViewController {
         if paramToEdit != nil {
             FirebaseChannelListeners.shared.deleteChannel(paramToEdit!)
         }
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func addImageBtn(_ sender: Any) {

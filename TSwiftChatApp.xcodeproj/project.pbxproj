@@ -51,7 +51,6 @@
 		43AA1D562ABCB13B00195F22 /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */; };
 		43B0203B2B21E09100C7BB89 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B0203A2B21E09100C7BB89 /* ChannelTableViewCell.swift */; };
 		43B0203D2B21E2B600C7BB89 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B0203C2B21E2B600C7BB89 /* Channel.swift */; };
-		43B0203F2B21F31500C7BB89 /* MyChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B0203E2B21F31500C7BB89 /* MyChannelTableViewController.swift */; };
 		43B020412B21F32E00C7BB89 /* AddChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B020402B21F32E00C7BB89 /* AddChannelTableViewController.swift */; };
 		43B67F2C2ADEFF3800F66E93 /* LocalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B67F2B2ADEFF3800F66E93 /* LocalMessage.swift */; };
 		43C68D572A9513AC00F24944 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C68D562A9513AC00F24944 /* AppDelegate.swift */; };
@@ -111,7 +110,6 @@
 		43AA1D552ABCB13B00195F22 /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
 		43B0203A2B21E09100C7BB89 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		43B0203C2B21E2B600C7BB89 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
-		43B0203E2B21F31500C7BB89 /* MyChannelTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChannelTableViewController.swift; sourceTree = "<group>"; };
 		43B020402B21F32E00C7BB89 /* AddChannelTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelTableViewController.swift; sourceTree = "<group>"; };
 		43B67F2B2ADEFF3800F66E93 /* LocalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMessage.swift; sourceTree = "<group>"; };
 		43C68D532A9513AC00F24944 /* TSwiftChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TSwiftChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,7 +308,6 @@
 			children = (
 				43A2AD882B20DE32008D57B0 /* ChannelTableViewController.swift */,
 				43B0203A2B21E09100C7BB89 /* ChannelTableViewCell.swift */,
-				43B0203E2B21F31500C7BB89 /* MyChannelTableViewController.swift */,
 				43B020402B21F32E00C7BB89 /* AddChannelTableViewController.swift */,
 			);
 			path = Channel;
@@ -528,7 +525,6 @@
 				43CB0B8C2AB70ED100C78420 /* FireStorage.swift in Sources */,
 				4338BAE92AF964CE009C94A0 /* LocationManager.swift in Sources */,
 				4384419C2ADE6FCE00A30A4E /* MKMessage.swift in Sources */,
-				43B0203F2B21F31500C7BB89 /* MyChannelTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

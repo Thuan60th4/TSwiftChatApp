@@ -66,7 +66,7 @@ class FirebaseChatListeners {
     
     //MARK: - Load when chat is empty
     //there is no guarantee that async functions will run on the same thread so must add @MainActor
-    @MainActor func loadOldChat(chatRoomId: String) async{
+    @MainActor func loadOldChat(chatRoomId: String,_ isChannel : Bool) async{
 //        var timeQuery : TimeInterval?
 //
 //        FirebaseRefFor(collection: .Chat).document(chatRoomId).getDocument { document, error in
@@ -93,11 +93,13 @@ class FirebaseChatListeners {
 //
 //        }
         do {
-            let chatInfo = try await FirebaseRefFor(collection: .Chat).document(chatRoomId).getDocument(as: Chat.self)
             var query: Query = FirebaseRefFor(collection: .Message).document(chatRoomId).collection(chatRoomId)
-            let timeQuery = chatInfo.timeLeave?[User.currentId]
-            if (timeQuery != nil)  {
-                query = query.whereField("sentDate", isGreaterThan: timeQuery!)
+            if !isChannel {
+                let chatInfo = try await FirebaseRefFor(collection: .Chat).document(chatRoomId).getDocument(as: Chat.self)
+                let timeQuery = chatInfo.timeLeave?[User.currentId]
+                if (timeQuery != nil)  {
+                    query = query.whereField("sentDate", isGreaterThan: timeQuery!)
+                }
             }
             let listMmessage = try await query.order(by: "sentDate", descending: false).getDocuments()
             for document in listMmessage.documents {
