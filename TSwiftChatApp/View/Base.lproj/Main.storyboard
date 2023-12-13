@@ -517,6 +517,9 @@
                                             <directionalEdgeInsets key="contentInsets" top="8" leading="10" bottom="8" trailing="10"/>
                                             <color key="baseBackgroundColor" red="0.35708022119999999" green="0.69693273310000003" blue="0.96473830940000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="turnOnlineStatusBtn:" destination="Hhv-1T-bwK" eventType="touchUpInside" id="iLs-So-1c2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

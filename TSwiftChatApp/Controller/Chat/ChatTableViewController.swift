@@ -81,6 +81,7 @@ class ChatTableViewController: UITableViewController {
             let removeItem = listChatData[indexPath.row]
             self.listChatData.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            RealmManager.shared.removeToRealm(LocalMessage.self, chatRoomId: removeItem.chatRoomId)
             DispatchQueue.global().async {
                 FirebaseChatListeners.shared.removeUserFromchat(userId: User.currentId, chatRoomId: removeItem.chatRoomId, newMemberIds: removeItem.memberIdsLeft.filter{$0 != User.currentId})
             }
@@ -122,10 +123,12 @@ extension ChatTableViewController : UISearchControllerDelegate,UISearchBarDelega
                 self.tableView.reloadData()
                 return
             }
+            self.activityIndicator.start()
             FirebaseUserListeners.shared.FindUserFromFirebaseWith(name: searchBar.text!) { listUser in
                 self.listSearchUser = listUser
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.activityIndicator.stop()
                 }
             }
         }

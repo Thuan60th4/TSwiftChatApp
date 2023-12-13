@@ -27,4 +27,16 @@ class RealmManager {
             print("save to realm failure \(error.localizedDescription)")
         }
     }
+    
+    func removeToRealm<T: Object>(_ object : T.Type,chatRoomId: String){
+        do {
+            try realm.write {
+                let objectsToDelete = realm.objects(object).filter("chatRoomId == %@", chatRoomId)
+                realm.delete(objectsToDelete)
+            }
+        } catch {
+            print("delete to realm failure \(error.localizedDescription)")
+
+        }
+    }
 }

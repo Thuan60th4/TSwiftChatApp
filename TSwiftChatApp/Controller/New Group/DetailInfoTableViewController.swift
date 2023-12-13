@@ -60,23 +60,16 @@ class DetailInfoTableViewController: UITableViewController {
         }
         aboutInfoOutlet.text = aboutInfo
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    //MARK: - Configure
+    func configureTableHeaderView(){
         //transparent header
         tableView.contentInsetAdjustmentBehavior = .never
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = UIColor.clear
-        navigationController?.navigationBar.standardAppearance = appearance
+        navigationItem.standardAppearance = appearance
 
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
-    }
-    
-    //MARK: - Configure
-    func configureTableHeaderView(){
         let headerTableView = HeaderTableView(frame: CGRect(x: 0, y: tableView.contentOffset.y, width: view.bounds.width, height: 300))
         headerTableView.imageLink = imageAvatar
         headerTableView.name = name

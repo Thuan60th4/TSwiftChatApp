@@ -53,11 +53,11 @@ class MapViewController: UIViewController {
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
-//        appearance.backgroundColor = UIColor.clear
+        //        appearance.backgroundColor = UIColor.clear
         appearance.backgroundEffect = UIBlurEffect(style: .systemMaterial)
         
         //        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
         //        navigationController?.navigationBar.compactAppearance = appearance
         
     }

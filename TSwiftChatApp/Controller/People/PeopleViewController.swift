@@ -9,23 +9,34 @@ import UIKit
 
 class PeopleViewController: UIViewController {
     
-    var listUser : [User] = []{
-        didSet{
-            tableView.isHidden = listUser.isEmpty
-            offlineView.isHidden = !listUser.isEmpty
-        }
-    }
+    var listUser : [User] = []
     
     //MARK: - IBOutelets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var offlineView: UIStackView!
     
+    @IBAction func turnOnlineStatusBtn(_ sender: Any) {
+        tableView.isHidden = false
+        offlineView.isHidden = true
+        DispatchQueue.global().async {
+            var currentUser = User.currentUser!
+            currentUser.status = Status.Online.rawValue
+            FirebaseUserListeners.shared.SaveUserToFirestore(currentUser)
+            saveUserToLocalStorage(currentUser)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupResfreshControl()
         tableView.dataSource = self
         tableView.delegate = self
         loadListUser()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let isOnline = User.currentUser?.status == Status.Online.rawValue
+        tableView.isHidden = !isOnline
+        offlineView.isHidden = isOnline
     }
     
     //MARK: - SetUp RefreshControl

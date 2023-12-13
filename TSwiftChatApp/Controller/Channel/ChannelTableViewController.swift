@@ -145,10 +145,12 @@ extension ChannelTableViewController : UISearchControllerDelegate,UISearchBarDel
                 self.tableView.reloadData()
                 return
             }
+            self.activityIndicator.start()
             FirebaseChannelListeners.shared.FindChannelFromFirebaseWith(name: searchBar.text!) { searchList in
                 self.listSeearchChannelData = searchList
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.activityIndicator.stop()
                 }
             }
         }

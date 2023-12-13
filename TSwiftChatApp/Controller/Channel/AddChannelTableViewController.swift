@@ -30,7 +30,7 @@ class AddChannelTableViewController: UITableViewController {
     
     //MARK: - IBAction
     @IBAction func backBtn(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func saveChannelBtn(_ sender: Any) {
         if nameTextFieldOutlet.text != ""{
