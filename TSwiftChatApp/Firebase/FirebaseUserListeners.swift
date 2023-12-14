@@ -108,18 +108,14 @@ class FirebaseUserListeners {
     
     //MARK: - Fetch list specific user from firebase
     func FetchListUserIDFromFirebase(userIds : [String], completion : @escaping (_ listUser : [User])-> Void){
-        var userArray : [User] = []
-        for (index,userId) in userIds.enumerated() {
-            FirebaseRefFor(collection: .User).document(userId).getDocument(as: User.self) {  result in
-                switch result {
-                    case .success(let user):
-                        userArray.append(user)
-                    case .failure(let error):
-                        print("Get user failure: \(error)")
-                }
-                if index == userIds.count{
-                    completion(userArray)
-                }
+        FirebaseRefFor(collection: .User).whereField("id", in: userIds).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting list users: \(err)")
+                completion([])
+            } else {
+                completion( querySnapshot!.documents.compactMap({ document in
+                    try? document.data(as: User.self)
+                }))
             }
         }
     }
@@ -133,6 +129,7 @@ class FirebaseUserListeners {
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
+                    completion([])
                 } else {
                     completion( querySnapshot!.documents.compactMap({ document in
                         try? document.data(as: User.self)

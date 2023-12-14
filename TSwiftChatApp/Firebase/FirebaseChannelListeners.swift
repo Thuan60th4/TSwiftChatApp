@@ -26,6 +26,9 @@ class FirebaseChannelListeners{
         }
     }
     
+    func updateLastMessageDate(ChannelId: String){
+        FirebaseRefFor(collection: .Channel).document(ChannelId).setData(["lastMessageDate": FieldValue.serverTimestamp()],merge: true)
+    }
     
     //MARK: - Fetch channel
     func fetchMyChannels(completion: @escaping (_ allChannels: [Channel]) ->Void) {

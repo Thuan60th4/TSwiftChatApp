@@ -78,6 +78,7 @@ class ChannelTableViewController: UITableViewController {
                 removeItem.memberIds = removeItem.memberIds.filter {$0 != User.currentId}
                 FirebaseChannelListeners.shared.saveChannel(channel: removeItem)
             }
+            RealmManager.shared.removeToRealm(LocalMessage.self, chatRoomId: removeItem.id)
         }
     }
     

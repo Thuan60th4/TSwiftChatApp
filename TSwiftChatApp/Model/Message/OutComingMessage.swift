@@ -44,7 +44,12 @@ class OutComingMessage {
         
         //Update recent chat
         if memberIds != nil{
+            //update chat
             startChat(message: lastMessage, memberIds: memberIds!)
+        }
+        else{
+            //update channel
+            FirebaseChannelListeners.shared.updateLastMessageDate(ChannelId: chatRoomId)
         }
         
         //Send push notification

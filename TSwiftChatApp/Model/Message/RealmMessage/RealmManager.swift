@@ -31,7 +31,7 @@ class RealmManager {
     func removeToRealm<T: Object>(_ object : T.Type,chatRoomId: String){
         do {
             try realm.write {
-                let objectsToDelete = realm.objects(object).filter("chatRoomId == %@", chatRoomId)
+                let objectsToDelete = realm.objects(object).filter("chatRoomId == %@ && memberLocalId == %@",chatRoomId ,User.currentId)
                 realm.delete(objectsToDelete)
             }
         } catch {

@@ -41,10 +41,11 @@ class AddChannelTableViewController: UITableViewController {
         }
     }
     @IBAction func deleteChannelBtn(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
         if paramToEdit != nil {
             FirebaseChannelListeners.shared.deleteChannel(paramToEdit!)
+            RealmManager.shared.removeToRealm(LocalMessage.self, chatRoomId: paramToEdit!.id)
         }
-        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func addImageBtn(_ sender: Any) {
