@@ -91,7 +91,7 @@ class AddChannelTableViewController: UITableViewController {
     
     //MARK: -  Save channel
     func saveChannel(){
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
 
         let channel = Channel(id: channelId, groupName: nameTextFieldOutlet.text!, adminId: User.currentId, memberIds: [], avatarLink: avatarUrl!, descriptionChannel: descriptionTextViewOutlet.text,createDate: paramToEdit?.createDate,lastMessageDate: paramToEdit?.lastMessageDate)
         FirebaseChannelListeners.shared.saveChannel(channel: channel)

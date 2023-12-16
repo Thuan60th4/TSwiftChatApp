@@ -15,11 +15,14 @@ enum DetailInfo {
 class DetailInfoTableViewController: UITableViewController {
     
     //MARK: - Vars
-    var adminlId : String?
+    var adminlId: String?
+    var memberIds: [String] = []
+    
     var imageAvatar: String = ""
     var name: String = "N/A"
     var moreInfo: String = "N/A"
     var aboutInfo : String = "No bio yet"
+    var listMembers: [User] = []
     var detailInfo: DetailInfo?{
         didSet{
             switch detailInfo {
@@ -38,6 +41,7 @@ class DetailInfoTableViewController: UITableViewController {
                         imageAvatar = channelData.avatarLink
                         name = channelData.groupName
                         moreInfo = "\(channelData.memberIds.count) members"
+                        memberIds = channelData.memberIds
                         if channelData.descriptionChannel != "" {
                             aboutInfo = channelData.descriptionChannel
                         }
@@ -59,6 +63,9 @@ class DetailInfoTableViewController: UITableViewController {
             configureRightButtonNavigation()
         }
         aboutInfoOutlet.text = aboutInfo
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.identifier)
+        loadMembers()
+
     }
     
     //MARK: - Configure
@@ -93,5 +100,49 @@ class DetailInfoTableViewController: UITableViewController {
         }
         navigationController?.pushViewController(editChannelView, animated: true)
     }
-
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return listMembers.isEmpty ? 1 : 2
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 1 : listMembers.count
+    }
+            
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            return super.tableView(tableView, cellForRowAt: indexPath)
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.identifier, for: indexPath) as! UserTableViewCell
+        let user = listMembers[indexPath.row]
+        cell.configure(avatarLink: user.avatar, name: user.username)
+        return cell
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? UITableView.automaticDimension : 55
+    }
+    //Phải có cái này ms insert row đc
+    override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
+        return 0
+    }
+    
+    func loadMembers(){
+        if !memberIds.isEmpty{
+            FirebaseUserListeners.shared.FetchListUserIDFromFirebase(userIds: memberIds) { listUser in
+                self.listMembers = listUser
+                if listUser.isEmpty {return}
+                
+                self.tableView.beginUpdates()
+                var listIndexpath:[IndexPath] = []
+                for i in 0 ..< listUser.count{
+                    listIndexpath.append(IndexPath(row: i, section: 1))
+                }
+                self.tableView.insertRows(at: listIndexpath, with: .automatic)
+                self.tableView.insertSections(IndexSet(integer: 1), with: .automatic)
+                self.tableView.endUpdates()
+            }
+        }
+    }
 }
