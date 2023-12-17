@@ -15,14 +15,13 @@ enum DetailInfo {
 class DetailInfoTableViewController: UITableViewController {
     
     //MARK: - Vars
-    var adminlId: String?
-    var memberIds: [String] = []
+    var channelInfo: Channel?
+    var listMembers: [User] = []
     
     var imageAvatar: String = ""
     var name: String = "N/A"
     var moreInfo: String = "N/A"
     var aboutInfo : String = "No bio yet"
-    var listMembers: [User] = []
     var detailInfo: DetailInfo?{
         didSet{
             switch detailInfo {
@@ -37,11 +36,10 @@ class DetailInfoTableViewController: UITableViewController {
                     }
                 case .channel(let channelData):
                     if let channelData = channelData{
-                        adminlId = channelData.adminId
                         imageAvatar = channelData.avatarLink
                         name = channelData.groupName
                         moreInfo = "\(channelData.memberIds.count) members"
-                        memberIds = channelData.memberIds
+                        channelInfo = channelData
                         if channelData.descriptionChannel != "" {
                             aboutInfo = channelData.descriptionChannel
                         }
@@ -51,21 +49,21 @@ class DetailInfoTableViewController: UITableViewController {
             }
         }
     }
-
+    
     //MARK: - IBOutlet
     @IBOutlet weak var aboutInfoOutlet: UILabel!
+    var headerTableView: HeaderTableView!
     
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableHeaderView()
-        if adminlId == User.currentId{
+        if channelInfo?.adminId == User.currentId{
             configureRightButtonNavigation()
         }
         aboutInfoOutlet.text = aboutInfo
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.identifier)
-        loadMembers()
-
+        loadMembers()        
     }
     
     //MARK: - Configure
@@ -76,8 +74,8 @@ class DetailInfoTableViewController: UITableViewController {
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = UIColor.clear
         navigationItem.standardAppearance = appearance
-
-        let headerTableView = HeaderTableView(frame: CGRect(x: 0, y: tableView.contentOffset.y, width: view.bounds.width, height: 300))
+        
+        headerTableView = HeaderTableView(frame: CGRect(x: 0, y: tableView.contentOffset.y, width: view.bounds.width, height: 300))
         headerTableView.imageLink = imageAvatar
         headerTableView.name = name
         headerTableView.moreInfo = moreInfo
@@ -89,9 +87,67 @@ class DetailInfoTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = editButton
     }
     
+    //MARK: - Tableview dataSource
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return listMembers.isEmpty ? 1 : 2
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 1 : listMembers.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = super.tableView(tableView, cellForRowAt: indexPath)
+            cell.isUserInteractionEnabled = false
+            return cell
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.identifier, for: indexPath) as! UserTableViewCell
+        let user = listMembers[indexPath.row]
+        var name = user.username
+        if user.id == User.currentId{
+            name = "You"
+            cell.isUserInteractionEnabled = false
+        }
+        cell.configure(avatarLink: user.avatar, name: name)
+        return cell
+        
+    }
+    
+    //Phải có cái này ms insertRow đc
+    override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? UITableView.automaticDimension : 55
+    }
+    //MARK: - Tableview delegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        //Action Sheet
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let option1Action = UIAlertAction(title: "Message", style: .default) { (action) in
+            self.navigateToChat(indexPath)
+        }
+        alertController.addAction(option1Action)
+        if channelInfo?.adminId == User.currentId{
+            let option2Action = UIAlertAction(title: "Remove", style: .default) { (action) in
+                self.removeUser(at: indexPath)
+            }
+            option2Action.setValue(UIColor.red, forKey: "titleTextColor")
+            alertController.addAction(option2Action)
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel,handler: nil)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
     //MARK: - Action
     @objc func editButtonTapped() {
-       let editChannelView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addChannelView") as! AddChannelTableViewController
+        let editChannelView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addChannelView") as! AddChannelTableViewController
         switch detailInfo {
             case .channel(let channelData):
                 editChannelView.paramToEdit = channelData
@@ -101,36 +157,33 @@ class DetailInfoTableViewController: UITableViewController {
         navigationController?.pushViewController(editChannelView, animated: true)
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return listMembers.isEmpty ? 1 : 2
+    func navigateToChat(_ indexPath: IndexPath){
+        let userInfo = listMembers[indexPath.row]
+        let memberIds = [userInfo.id,User.currentId]
+        let chatDetailController = ChatDetailViewController(chatRoomId: getChatRoomIdFrom(memberIds:memberIds), memberChatIds: memberIds)
+        chatDetailController.guestData = userInfo
+        navigationController?.pushViewController(chatDetailController, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : listMembers.count
-    }
-            
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            return super.tableView(tableView, cellForRowAt: indexPath)
+    func removeUser(at indexPath: IndexPath){
+        if channelInfo == nil {return}
+        let userRemove = listMembers[indexPath.row]
+        channelInfo!.memberIds = channelInfo!.memberIds.filter {$0 != userRemove.id}
+        listMembers.remove(at: indexPath.row)
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        if listMembers.isEmpty{
+            tableView.deleteSections(IndexSet(integer: 1), with: .automatic)
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.identifier, for: indexPath) as! UserTableViewCell
-        let user = listMembers[indexPath.row]
-        cell.configure(avatarLink: user.avatar, name: user.username)
-        return cell
-        
+        headerTableView.moreInfo = "\(channelInfo!.memberIds.count) members"
+        tableView.endUpdates()
+        DispatchQueue.global().async {
+            FirebaseChannelListeners.shared.saveChannel(channel: self.channelInfo!)
+        }
     }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? UITableView.automaticDimension : 55
-    }
-    //Phải có cái này ms insert row đc
-    override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
-        return 0
-    }
-    
     func loadMembers(){
-        if !memberIds.isEmpty{
-            FirebaseUserListeners.shared.FetchListUserIDFromFirebase(userIds: memberIds) { listUser in
+        if !(channelInfo?.memberIds.isEmpty ?? true){
+            FirebaseUserListeners.shared.FetchListUserIDFromFirebase(userIds: channelInfo!.memberIds) { listUser in
                 self.listMembers = listUser
                 if listUser.isEmpty {return}
                 
@@ -139,8 +192,8 @@ class DetailInfoTableViewController: UITableViewController {
                 for i in 0 ..< listUser.count{
                     listIndexpath.append(IndexPath(row: i, section: 1))
                 }
-                self.tableView.insertRows(at: listIndexpath, with: .automatic)
                 self.tableView.insertSections(IndexSet(integer: 1), with: .automatic)
+                self.tableView.insertRows(at: listIndexpath, with: .automatic)
                 self.tableView.endUpdates()
             }
         }

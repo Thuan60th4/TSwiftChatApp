@@ -16,7 +16,6 @@ class AddChannelTableViewController: UITableViewController {
     var paramToEdit : Channel?
     
     //MARK: - UI component
-    lazy var alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     lazy var imagePicker: UIImagePickerController = {
         let controller = UIImagePickerController()
         controller.allowsEditing = false
@@ -50,6 +49,7 @@ class AddChannelTableViewController: UITableViewController {
     
     @IBAction func addImageBtn(_ sender: Any) {
         //Action Sheet
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let option1Action = UIAlertAction(title: "Take a picture", style: .default) { (action) in
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true, completion: nil)

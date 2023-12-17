@@ -25,6 +25,7 @@ class ChatTableViewController: UITableViewController {
         loadListRecentChat()
         
         setUpSearchController()
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.identifier)
         
     }
     
@@ -33,16 +34,15 @@ class ChatTableViewController: UITableViewController {
         return !isSearchBarActive ? listChatData.count : listSearchUser.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if isSearchBarActive {
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.identifier, for: indexPath) as! UserTableViewCell
+            let user = listSearchUser[indexPath.row]
+            cell.configure(avatarLink: user.avatar, name: user.username)
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: chatCell, for: indexPath) as! ChatTableViewCell
-        if !isSearchBarActive {
-            cell.messageContainOutlet.isHidden = false
-            cell.isReadViewOutlet.isHidden = listChatData[indexPath.row].isRead[User.currentId] ?? true
-            cell.loadChatInfoFor(chat: listChatData[indexPath.row])
-        }
-        else{
-            cell.messageContainOutlet.isHidden = true
-            cell.loadSearchUserFor(user: listSearchUser[indexPath.row])
-        }
+        cell.isReadViewOutlet.isHidden = listChatData[indexPath.row].isRead[User.currentId] ?? true
+        cell.loadChatInfoFor(chat: listChatData[indexPath.row])
         return cell
     }
     
@@ -58,7 +58,6 @@ class ChatTableViewController: UITableViewController {
             }
             chatDetailController = ChatDetailViewController(chatRoomId: chatData.chatRoomId, memberChatIds: chatData.memberIds)
             chatDetailController.guestData = guestData
-
         }
         else{
             let userInfo = listSearchUser[indexPath.row]
