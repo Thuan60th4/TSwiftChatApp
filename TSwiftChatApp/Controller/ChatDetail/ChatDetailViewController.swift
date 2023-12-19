@@ -18,6 +18,8 @@ class ChatDetailViewController: MessagesViewController {
     var viewHasAppeared = false
     let realm = try! Realm()
     var timer = Timer()
+    var recordTimer = Timer()
+    var seconds = 0
     
     var mkMessages : [MKMessage] = []
     var allLocalMessages : Results<LocalMessage>!
@@ -74,7 +76,30 @@ class ChatDetailViewController: MessagesViewController {
         return controller
     }()
     lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
-    
+    lazy var audioTimerStackView:UIStackView = {
+        let audioTimerView = UIStackView()
+        audioTimerView.spacing = 10
+        audioTimerView.alignment = .center
+        audioTimerView.axis = .horizontal
+        audioTimerView.heightAnchor.constraint(equalToConstant: 40.6).isActive = true
+        audioTimerView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        audioTimerView.isLayoutMarginsRelativeArrangement = true
+        return audioTimerView
+    }()
+    lazy var squareView:UIView={
+        let squareView = UIView()
+        squareView.backgroundColor = UIColor.red
+        squareView.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        squareView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        return squareView
+
+    }()
+    lazy var timerRecordLabel:UILabel = {
+        let timerRecordLabel = UILabel()
+        timerRecordLabel.text = "00:00"
+        return timerRecordLabel
+    }()
+
     //MARK: - Init
     init(chatRoomId: String,memberChatIds : [String]?){
         self.chatRoomId = chatRoomId
@@ -205,28 +230,47 @@ class ChatDetailViewController: MessagesViewController {
         avatarTapGesture = UITapGestureRecognizer(target: self, action: #selector(navigateToViewDetail))
         
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(recordAudio))
-        longPressGesture.minimumPressDuration = 0.5
+        longPressGesture.minimumPressDuration = 0.3
         longPressGesture.delaysTouchesBegan = true
     }
-    
+
     @objc func recordAudio(){
         switch longPressGesture.state {
             case .began:
-                audioDuration = Date()
                 audioFileName = Date().stringDate()
                 AudioRecordManager.share.startRecording(fileName: audioFileName)
+                audioDuration = Date()
+                setAudioTimerLabel()
                 break
             case .ended :
+                recordTimer.invalidate()
                 AudioRecordManager.share.finishRecording()
                 if fileExistAt(Path: audioFileName + ".m4a"){
                     //cần audioFileName để lấy nó từ local ra khi ghi âm nó tự lưu vào local r
-                    sendMessage(text: nil, photo: nil, video: nil, location: nil, audio: audioFileName, audioDuration: Date().timeIntervalSince(audioDuration))
+                    sendMessage(text: nil, photo: nil, video: nil, location: nil, audio: audioFileName, audioDuration: Date().timeIntervalSince(audioDuration)-1)
                 }
+                messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: true)
                 audioFileName = ""
+                timerRecordLabel.text = "00:00"
+                seconds = 0
                 break
             default:
                 print("Unknow longPressGesture state")
         }
+    }
+    
+    func setAudioTimerLabel(){
+        audioTimerStackView.addArrangedSubview(squareView)
+        audioTimerStackView.addArrangedSubview(timerRecordLabel)
+        messageInputBar.setMiddleContentView(audioTimerStackView, animated: true)
+        recordTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateRecordLabel), userInfo: nil, repeats: true)
+    }
+
+    @objc func updateRecordLabel() {
+        seconds += 1
+        let minutes = seconds / 60
+        let seconds = seconds % 60
+        timerRecordLabel.text = String(format: "%02d:%02d", minutes, seconds)
     }
     
     //MARK: - Load chat messages
