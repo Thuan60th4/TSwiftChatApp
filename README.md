@@ -8,7 +8,7 @@
 <img src="https://i.imgur.com/h7Uvn8k.png" alt="Detail list view" style=" width: 50%; aspect-ratio: 0.5;">
 
 <h4>Detail chat view</h4>
-<img src="https://i.imgur.com/vsguFKH.png" alt="Detail song view" style=" width: 50%; aspect-ratio: 0.5;">
+<img src="https://i.imgur.com/0FPWwcX.png" alt="Detail song view" style=" width: 50%; aspect-ratio: 0.5;">
 
 <img src="https://i.imgur.com/eTdOwXp.png" alt="Home view" style=" width: 50%; aspect-ratio: 0.5;">
 
